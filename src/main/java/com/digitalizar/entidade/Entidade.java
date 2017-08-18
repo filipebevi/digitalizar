@@ -8,7 +8,6 @@ package com.digitalizar.entidade;
 import com.digitalizar.empresa.Empresa;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +24,9 @@ public class Entidade implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;
+    
     private String nome;
+    
     @ManyToOne
     private Empresa empresa;
     

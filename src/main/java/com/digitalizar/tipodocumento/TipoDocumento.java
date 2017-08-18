@@ -10,6 +10,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -21,6 +22,8 @@ public class TipoDocumento implements Serializable{
     @GeneratedValue
     private Integer id;
     private String descricao;
+    
+    @ManyToOne
     private Empresa empresa;
     
 }

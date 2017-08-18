@@ -9,7 +9,6 @@ import com.digitalizar.usuarioDocumento.UsuarioDocumento;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
