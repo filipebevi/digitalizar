@@ -48,5 +48,12 @@ Contributor(s):
     <property name="hibernate.connection.password">filipe</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping class="com.digitalizar.documento.Documento"/>
+    <mapping class="com.digitalizar.empresa.Empresa"/>
+    <mapping class="com.digitalizar.entidade.Entidade"/>
+    <mapping class="com.digitalizar.tipodocumento.TipoDocumento"/>
+    <mapping class="com.digitalizar.usuario.Usuario"/>
+    <mapping class="com.digitalizar.usuarioDocumento.UsuarioDocumento"/>
+    <mapping class="com.digitalizar.usuarioEmpresa.UsuarioEmpresa"/>
   </session-factory>
 </hibernate-configuration>
