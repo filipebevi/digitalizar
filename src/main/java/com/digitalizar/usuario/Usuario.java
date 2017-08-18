@@ -10,6 +10,7 @@ import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -51,6 +52,193 @@ public class Usuario implements Serializable{
     
     @OneToMany
     private List<UsuarioEmpresa> listaEmpresas;
+
+    public Usuario() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Boolean getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Boolean funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public Boolean getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Boolean administrador) {
+        this.administrador = administrador;
+    }
+
+    public Calendar getData_inclusao() {
+        return data_inclusao;
+    }
+
+    public void setData_inclusao(Calendar data_inclusao) {
+        this.data_inclusao = data_inclusao;
+    }
+
+    public Calendar getData_ult_alteracao() {
+        return data_ult_alteracao;
+    }
+
+    public void setData_ult_alteracao(Calendar data_ult_alteracao) {
+        this.data_ult_alteracao = data_ult_alteracao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<UsuarioDocumento> getListaTipoDocumentos() {
+        return listaTipoDocumentos;
+    }
+
+    public void setListaTipoDocumentos(List<UsuarioDocumento> listaTipoDocumentos) {
+        this.listaTipoDocumentos = listaTipoDocumentos;
+    }
+
+    public List<UsuarioEmpresa> getListaEmpresas() {
+        return listaEmpresas;
+    }
+
+    public void setListaEmpresas(List<UsuarioEmpresa> listaEmpresas) {
+        this.listaEmpresas = listaEmpresas;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.nome);
+        hash = 79 * hash + Objects.hashCode(this.email);
+        hash = 79 * hash + Objects.hashCode(this.telefone);
+        hash = 79 * hash + Objects.hashCode(this.senha);
+        hash = 79 * hash + Objects.hashCode(this.ativo);
+        hash = 79 * hash + Objects.hashCode(this.funcionario);
+        hash = 79 * hash + Objects.hashCode(this.administrador);
+        hash = 79 * hash + Objects.hashCode(this.data_inclusao);
+        hash = 79 * hash + Objects.hashCode(this.data_ult_alteracao);
+        hash = 79 * hash + Objects.hashCode(this.usuario);
+        hash = 79 * hash + Objects.hashCode(this.listaTipoDocumentos);
+        hash = 79 * hash + Objects.hashCode(this.listaEmpresas);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefone, other.telefone)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.ativo, other.ativo)) {
+            return false;
+        }
+        if (!Objects.equals(this.funcionario, other.funcionario)) {
+            return false;
+        }
+        if (!Objects.equals(this.administrador, other.administrador)) {
+            return false;
+        }
+        if (!Objects.equals(this.data_inclusao, other.data_inclusao)) {
+            return false;
+        }
+        if (!Objects.equals(this.data_ult_alteracao, other.data_ult_alteracao)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.listaTipoDocumentos, other.listaTipoDocumentos)) {
+            return false;
+        }
+        if (!Objects.equals(this.listaEmpresas, other.listaEmpresas)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     
     
