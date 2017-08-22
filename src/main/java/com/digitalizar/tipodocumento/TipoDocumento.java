@@ -12,12 +12,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author filip
  */
+
 @Entity
+
 public class TipoDocumento implements Serializable{
     @Id
     @GeneratedValue

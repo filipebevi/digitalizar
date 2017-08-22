@@ -3,28 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.digitalizar.usuarioEmpresa;
+package com.digitalizar.usuarioTipoDocumento;
 
-import com.digitalizar.empresa.Empresa;
+import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
  *
  * @author filip
  */
-@Entity
-public class UsuarioEmpresa implements Serializable {
 
+@Entity
+public class UsuarioTipoDocumento implements Serializable{
+    
     @EmbeddedId
     private Id id;
     
@@ -32,12 +29,12 @@ public class UsuarioEmpresa implements Serializable {
     private Usuario usuario;
     
     @ManyToOne
-    private Empresa empresa;
-
-    private Boolean padrao;
-
-    public UsuarioEmpresa() {
-    }
+    private TipoDocumento tipoDocumento;
+    
+    private Boolean visualizar;
+    private Boolean excluir;
+    private Boolean inserir;
+    private Boolean alterar;
 
     public Id getId() {
         return id;
@@ -55,21 +52,51 @@ public class UsuarioEmpresa implements Serializable {
         this.usuario = usuario;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
-    public Boolean getPadrao() {
-        return padrao;
+    public Boolean getVisualizar() {
+        return visualizar;
     }
 
-    public void setPadrao(Boolean padrao) {
-        this.padrao = padrao;
+    public void setVisualizar(Boolean visualizar) {
+        this.visualizar = visualizar;
     }
+
+    public Boolean getExcluir() {
+        return excluir;
+    }
+
+    public void setExcluir(Boolean excluir) {
+        this.excluir = excluir;
+    }
+
+    public Boolean getInserir() {
+        return inserir;
+    }
+
+    public void setInserir(Boolean inserir) {
+        this.inserir = inserir;
+    }
+
+    public Boolean getAlterar() {
+        return alterar;
+    }
+
+    public void setAlterar(Boolean alterar) {
+        this.alterar = alterar;
+    }
+    
+    
+    
+    
+    
+    
     
     @Override
     public String toString() {
@@ -79,10 +106,9 @@ public class UsuarioEmpresa implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.usuario);
-        hash = 89 * hash + Objects.hashCode(this.empresa);
-        hash = 89 * hash + Objects.hashCode(this.padrao);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.usuario);
+        hash = 97 * hash + Objects.hashCode(this.tipoDocumento);
         return hash;
     }
 
@@ -97,30 +123,26 @@ public class UsuarioEmpresa implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UsuarioEmpresa other = (UsuarioEmpresa) obj;
+        final UsuarioTipoDocumento other = (UsuarioTipoDocumento) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
-        if (!Objects.equals(this.empresa, other.empresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.padrao, other.padrao)) {
+        if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
             return false;
         }
         return true;
     }
-
     
-
+    
     @Embeddable
     public static class Id implements Serializable {
-
+        
         private Integer usuario;
-
-        private Integer empresa;
+        
+        private Integer tipoDocumento;
 
         public Integer getUsuario() {
             return usuario;
@@ -130,19 +152,19 @@ public class UsuarioEmpresa implements Serializable {
             this.usuario = usuario;
         }
 
-        public Integer getEmpresa() {
-            return empresa;
+        public Integer getTipoDocumento() {
+            return tipoDocumento;
         }
 
-        public void setEmpresa(Integer empresa) {
-            this.empresa = empresa;
+        public void setTipoDocumento(Integer tipoDocumento) {
+            this.tipoDocumento = tipoDocumento;
         }
 
         @Override
         public int hashCode() {
-            int hash = 5;
-            hash = 37 * hash + Objects.hashCode(this.usuario);
-            hash = 37 * hash + Objects.hashCode(this.empresa);
+            int hash = 7;
+            hash = 67 * hash + Objects.hashCode(this.usuario);
+            hash = 67 * hash + Objects.hashCode(this.tipoDocumento);
             return hash;
         }
 
@@ -161,14 +183,17 @@ public class UsuarioEmpresa implements Serializable {
             if (!Objects.equals(this.usuario, other.usuario)) {
                 return false;
             }
-            if (!Objects.equals(this.empresa, other.empresa)) {
+            if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
                 return false;
             }
             return true;
         }
-
         
-
-    }    
-
+        
+    }
+    
+    
+   
+    
+    
 }

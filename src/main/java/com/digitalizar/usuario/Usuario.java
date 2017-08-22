@@ -5,17 +5,25 @@
  */
 package com.digitalizar.usuario;
 
-import com.digitalizar.usuarioDocumento.UsuarioDocumento;
+
+
+import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
+import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+
 import java.util.Objects;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -41,17 +49,22 @@ public class Usuario implements Serializable{
     @Temporal(TemporalType.DATE)
     private Calendar data_inclusao;
     
+    @ManyToOne
+    private Usuario usuarioInclusao;
+    
+    
     @Temporal(TemporalType.DATE)
     private Calendar data_ult_alteracao;
     
     @ManyToOne
-    private Usuario usuario;
+    private Usuario usuarioAlteracao;
     
-    @OneToMany
-    private List <UsuarioDocumento> listaTipoDocumentos;
+    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioEmpresa.class)
+    private List<UsuarioEmpresa> usuarioEmpresa;
     
-    @OneToMany
-    private List<UsuarioEmpresa> listaEmpresas;
+    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioTipoDocumento.class)
+    private List<UsuarioTipoDocumento> usuarioTipoDocumento;
+   
 
     public Usuario() {
     }
@@ -128,6 +141,14 @@ public class Usuario implements Serializable{
         this.data_inclusao = data_inclusao;
     }
 
+    public Usuario getUsuarioInclusao() {
+        return usuarioInclusao;
+    }
+
+    public void setUsuarioInclusao(Usuario usuarioInclusao) {
+        this.usuarioInclusao = usuarioInclusao;
+    }
+
     public Calendar getData_ult_alteracao() {
         return data_ult_alteracao;
     }
@@ -136,30 +157,36 @@ public class Usuario implements Serializable{
         this.data_ult_alteracao = data_ult_alteracao;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioAlteracao() {
+        return usuarioAlteracao;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
+        this.usuarioAlteracao = usuarioAlteracao;
     }
 
-    public List<UsuarioDocumento> getListaTipoDocumentos() {
-        return listaTipoDocumentos;
+    public List<UsuarioEmpresa> getUsuarioEmpresa() {
+        return usuarioEmpresa;
     }
 
-    public void setListaTipoDocumentos(List<UsuarioDocumento> listaTipoDocumentos) {
-        this.listaTipoDocumentos = listaTipoDocumentos;
+    public void setUsuarioEmpresa(List<UsuarioEmpresa> usuarioEmpresa) {
+        this.usuarioEmpresa = usuarioEmpresa;
     }
 
-    public List<UsuarioEmpresa> getListaEmpresas() {
-        return listaEmpresas;
+    public List<UsuarioTipoDocumento> getUsuarioTipoDocumento() {
+        return usuarioTipoDocumento;
     }
 
-    public void setListaEmpresas(List<UsuarioEmpresa> listaEmpresas) {
-        this.listaEmpresas = listaEmpresas;
+    public void setUsuarioTipoDocumento(List<UsuarioTipoDocumento> usuarioTipoDocumento) {
+        this.usuarioTipoDocumento = usuarioTipoDocumento;
     }
     
+    
+    
+    
+
+    
+     
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
@@ -167,20 +194,20 @@ public class Usuario implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.nome);
-        hash = 79 * hash + Objects.hashCode(this.email);
-        hash = 79 * hash + Objects.hashCode(this.telefone);
-        hash = 79 * hash + Objects.hashCode(this.senha);
-        hash = 79 * hash + Objects.hashCode(this.ativo);
-        hash = 79 * hash + Objects.hashCode(this.funcionario);
-        hash = 79 * hash + Objects.hashCode(this.administrador);
-        hash = 79 * hash + Objects.hashCode(this.data_inclusao);
-        hash = 79 * hash + Objects.hashCode(this.data_ult_alteracao);
-        hash = 79 * hash + Objects.hashCode(this.usuario);
-        hash = 79 * hash + Objects.hashCode(this.listaTipoDocumentos);
-        hash = 79 * hash + Objects.hashCode(this.listaEmpresas);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + Objects.hashCode(this.email);
+        hash = 53 * hash + Objects.hashCode(this.telefone);
+        hash = 53 * hash + Objects.hashCode(this.senha);
+        hash = 53 * hash + Objects.hashCode(this.ativo);
+        hash = 53 * hash + Objects.hashCode(this.funcionario);
+        hash = 53 * hash + Objects.hashCode(this.administrador);
+        hash = 53 * hash + Objects.hashCode(this.data_inclusao);
+        hash = 53 * hash + Objects.hashCode(this.usuarioInclusao);
+        hash = 53 * hash + Objects.hashCode(this.data_ult_alteracao);
+        hash = 53 * hash + Objects.hashCode(this.usuarioAlteracao);
+        hash = 53 * hash + Objects.hashCode(this.usuarioEmpresa);
         return hash;
     }
 
@@ -223,20 +250,32 @@ public class Usuario implements Serializable{
         if (!Objects.equals(this.data_inclusao, other.data_inclusao)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioInclusao, other.usuarioInclusao)) {
+            return false;
+        }
         if (!Objects.equals(this.data_ult_alteracao, other.data_ult_alteracao)) {
             return false;
         }
-        if (!Objects.equals(this.usuario, other.usuario)) {
+        if (!Objects.equals(this.usuarioAlteracao, other.usuarioAlteracao)) {
             return false;
         }
-        if (!Objects.equals(this.listaTipoDocumentos, other.listaTipoDocumentos)) {
-            return false;
-        }
-        if (!Objects.equals(this.listaEmpresas, other.listaEmpresas)) {
+        if (!Objects.equals(this.usuarioEmpresa, other.usuarioEmpresa)) {
             return false;
         }
         return true;
     }
+
+
+    
+    
+    
+
+    
+     
+    
+     
+
+
     
     
     
