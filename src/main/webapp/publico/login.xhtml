@@ -9,17 +9,24 @@
         <link rel="stylesheet" href="resource/css/padrao.css"/>
     </h:head>
     <h:body>
+        <h:panelGroup rendered="#{!empty param.login_error}">
+            <span> Erro ao efetuar o login.</span><br />
+            <br/>
+            Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+        </h:panelGroup>
+
+
         <div class="container">
-            <form class="form-signin">
+            <form id="login" method="post" action="${request.contextPath}/j_spring_security_check" class="form-signin">
                 <center class="form-signin-heading"><img class="imagem_login" src="resource/imagens/lgmid.png" alt=""/></center>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email"  />
-                <input type="password" id="inputPasswor" class="form-control" placeholder="Senha" />
+                <input type='email' name='j_username' id="inputEmail" class="form-control" placeholder="Email"  />
+                <input type='password' name='j_password' id="inputPasswor" class="form-control" placeholder="Senha" />
                 <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"/>Lembrar
-                    </label>
+
                 </div>
-                <h:commandButton class="btn btn-lg btn-primary btn-block"  value="Acessar" action="welcomePrimefaces.jsf"  />
+                <h:commandButton class="btn btn-lg btn-primary btn-block" type="submit" value="Acessar"   />
+                <input type="submit" value="Entrar"/>
+
             </form>
         </div> <!-- /container -->
     </h:body>

@@ -9,8 +9,10 @@
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
 		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
 		<form-login login-page="/publico/login.jsf"
-			always-use-default-target="true" default-target-url="/restrito/welcomePrimefaces.jsf"
-			 />
+                
+			always-use-default-target="true" 
+                        default-target-url="/restrito/welcomePrimefaces.jsf"
+                        authentication-failure-url="/publico/login.jsf?login_error=1"/>
 		<logout/>
 		<remember-me />
 	</http>
@@ -20,11 +22,11 @@
 			<jdbc-user-service data-source-ref="digitalizarDataSource"
 				authorities-by-username-query="SELECT u.email, p.permissao 
 											 FROM usuario u, usuario_permissao p 
-											WHERE u.codigo = p.usuario 
-											  AND u.login = ?"
-				users-by-username-query="SELECT login, senha, ativo 
+											WHERE u.id = p.usuario 
+											  AND u.email = ?"
+				users-by-username-query="SELECT email, senha, ativo 
 									   FROM usuario 
-									  WHERE login = ?" />
+									  WHERE email = ?" />
 		</authentication-provider>
 	</authentication-manager>
 </b:beans>

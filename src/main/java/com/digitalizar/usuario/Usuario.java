@@ -12,13 +12,19 @@ import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
 import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 
 import javax.persistence.ManyToOne;
@@ -26,6 +32,7 @@ import javax.persistence.OneToMany;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
@@ -64,6 +71,15 @@ public class Usuario implements Serializable{
     
     @OneToMany(mappedBy = "usuario", targetEntity=UsuarioTipoDocumento.class)
     private List<UsuarioTipoDocumento> usuarioTipoDocumento;
+    
+    @ElementCollection(targetClass=String.class)
+    @JoinTable(
+    name="usuario_permissao",
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario","permissao"})},
+            joinColumns = @JoinColumn(name = "usuario")
+    )
+    @Column(name="permissao", length = 50)    
+    private Set<String> permissao=new HashSet<String>();
    
 
     public Usuario() {
@@ -180,13 +196,16 @@ public class Usuario implements Serializable{
     public void setUsuarioTipoDocumento(List<UsuarioTipoDocumento> usuarioTipoDocumento) {
         this.usuarioTipoDocumento = usuarioTipoDocumento;
     }
-    
-    
-    
-    
 
+    public Set<String> getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Set<String> permissao) {
+        this.permissao = permissao;
+    }
     
-     
+    
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
