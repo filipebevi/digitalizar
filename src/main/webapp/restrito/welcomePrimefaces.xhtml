@@ -18,7 +18,10 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
+                    Header #{request.remoteUser}
+                    <a onclick="document.location='#{request.contextPath}/j_spring_security_logout'" title="Sair">
+                        Sair
+                    </a>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">

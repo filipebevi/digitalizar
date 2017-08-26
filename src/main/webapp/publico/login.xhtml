@@ -9,24 +9,19 @@
         <link rel="stylesheet" href="resource/css/padrao.css"/>
     </h:head>
     <h:body>
-        <h:panelGroup rendered="#{!empty param.login_error}">
-            <span> Erro ao efetuar o login.</span><br />
-            <br/>
-            Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
-        </h:panelGroup>
-
-
         <div class="container">
             <form id="login" method="post" action="${request.contextPath}/j_spring_security_check" class="form-signin">
                 <center class="form-signin-heading"><img class="imagem_login" src="resource/imagens/lgmid.png" alt=""/></center>
+                <h:panelGroup rendered="#{!empty param.login_error}">
+                    <span> Usuário, Senha ou Permissão inválida!.</span><br />
+                    <br/>
+                    Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+                </h:panelGroup>
                 <input type='email' name='j_username' id="inputEmail" class="form-control" placeholder="Email"  />
                 <input type='password' name='j_password' id="inputPasswor" class="form-control" placeholder="Senha" />
                 <div class="checkbox">
-
                 </div>
                 <h:commandButton class="btn btn-lg btn-primary btn-block" type="submit" value="Acessar"   />
-                <input type="submit" value="Entrar"/>
-
             </form>
         </div> <!-- /container -->
     </h:body>
