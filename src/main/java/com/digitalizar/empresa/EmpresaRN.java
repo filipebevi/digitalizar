@@ -5,7 +5,9 @@
  */
 package com.digitalizar.empresa;
 
+import com.digitalizar.empresa.Empresa;
 import com.digitalizar.util.DAOFactory;
+import java.util.List;
 
 /**
  *
@@ -22,6 +24,14 @@ public class EmpresaRN {
     
     public void salvar(Empresa empresa){
         this.empresaDAO.salvar(empresa);
+    }
+    
+    public void excluir(Empresa empresa){
+        this.empresaDAO.excluir(empresa);
+    }
+    
+    public List<Empresa> listar(){
+        return this.empresaDAO.listarEmpresa();
     }
     
 }
