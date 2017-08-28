@@ -5,6 +5,8 @@
  */
 package com.digitalizar.usuarioEmpresa;
 
+import com.digitalizar.empresa.Empresa;
+import com.digitalizar.usuario.Usuario;
 import java.util.List;
 
 /**
@@ -15,13 +17,13 @@ public interface UsuarioEmpresaDAO {
 
     void atualizar(UsuarioEmpresa usuarioEmpresa);
 
-    UsuarioEmpresa buscarPorCodigo(Integer id);
+    Empresa buscarFavorita(Usuario usuario);
 
     UsuarioEmpresa carregar(Integer idUsuarioEmpresa);
 
     void excluir(UsuarioEmpresa usuarioEmpresa);
 
-    List<UsuarioEmpresa> listar();
+    List<Empresa> listar(Usuario usuario);
 
     void salvar(UsuarioEmpresa usuarioEmpresa);
     

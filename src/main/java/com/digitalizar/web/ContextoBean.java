@@ -6,39 +6,69 @@
 package com.digitalizar.web;
 
 import com.digitalizar.empresa.Empresa;
+import com.digitalizar.empresa.EmpresaRN;
 import com.digitalizar.usuario.Usuario;
+import com.digitalizar.usuario.UsuarioRN;
+import com.digitalizar.usuarioEmpresa.UsuarioEmpresaRN;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
  * @author Flipe
  */
+@ManagedBean
+@SessionScoped
 public class ContextoBean {
     
     private Empresa empresaAtiva=null;
     private Usuario usuarioLogado=null;
 
     public Empresa getEmpresaAtiva() {
+        
+        if(this.empresaAtiva==null){
+            Usuario usuario=this.getUsuarioLogado();
+            UsuarioEmpresaRN usuarioEmpresaRN = new UsuarioEmpresaRN();
+            this.empresaAtiva=usuarioEmpresaRN.buscarFavorita(usuario);
+            if(this.empresaAtiva==null){
+                List<Empresa> empresas=usuarioEmpresaRN.listar(usuario);
+                if(empresas!=null){
+                    for(Empresa empresa : empresas){
+                        this.empresaAtiva=empresa;
+                        break;
+                    }
+                }
+            }
+        }
+        return empresaAtiva;
+    }
+
+    public void setEmpresaAtiva(ValueChangeEvent event) {
+        Integer empresa = (Integer) event.getNewValue();
+        EmpresaRN empresaRN=new EmpresaRN();
+        this.empresaAtiva=empresaRN.carregar(empresa);
+        
+    }
+
+    public Usuario getUsuarioLogado() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext external = context.getExternalContext();
-        String login=external.getRemoteUser();
+        String email=external.getRemoteUser();
         
-        if(this.usuarioLogado==null || !login.equals(this.usuarioLogado.getEmail())){
-            if(login !=null){
+        if(this.usuarioLogado==null || !email.equals(this.usuarioLogado.getEmail())){
+            if(email !=null){
+                
+                UsuarioRN usuarioRN=new UsuarioRN();
+                this.usuarioLogado=usuarioRN.buscarPorEmail(email);
+                this.empresaAtiva=null;
                 
             }
         }
         
-        
-        return empresaAtiva;
-    }
-
-    public void setEmpresaAtiva(Empresa empresaAtiva) {
-        this.empresaAtiva = empresaAtiva;
-    }
-
-    public Usuario getUsuarioLogado() {
         return usuarioLogado;
     }
 

@@ -6,6 +6,8 @@
 package com.digitalizar.usuarioEmpresa;
 
 
+import com.digitalizar.empresa.Empresa;
+import com.digitalizar.usuario.Usuario;
 import com.digitalizar.util.DAOFactory;
 import java.util.List;
 
@@ -30,8 +32,12 @@ public class UsuarioEmpresaRN {
         this.usuarioEmpresaDAO.excluir(usuarioEmpresa);
     }
     
-    public List<UsuarioEmpresa> listar(){
-        return this.usuarioEmpresaDAO.listar();
+    public List<Empresa> listar(Usuario usuario){
+        return this.usuarioEmpresaDAO.listar(usuario);
+    }
+    
+    public Empresa buscarFavorita(Usuario usuario){
+        return this.usuarioEmpresaDAO.buscarFavorita(usuario);
     }
     
 }

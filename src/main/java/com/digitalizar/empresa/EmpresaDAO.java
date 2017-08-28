@@ -22,4 +22,6 @@ public interface EmpresaDAO {
 
     void salvar(Empresa empresa);
     
+    Empresa carregar(Integer id);
+    
 }

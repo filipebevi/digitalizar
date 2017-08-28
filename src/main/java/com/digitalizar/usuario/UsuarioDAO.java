@@ -15,7 +15,7 @@ public interface UsuarioDAO {
 
     void atualizar(Usuario usuario);
 
-    Usuario buscarPorCodigo(Integer id);
+    Usuario buscarPorEmail(String email);
 
     Usuario carregar(Integer idUsuario);
 

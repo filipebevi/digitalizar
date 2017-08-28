@@ -34,4 +34,8 @@ public class UsuarioRN {
         return this.usuarioDAO.listar();
     }
     
+    public Usuario buscarPorEmail(String email){
+        return this.usuarioDAO.buscarPorEmail(email);
+    }
+    
 }

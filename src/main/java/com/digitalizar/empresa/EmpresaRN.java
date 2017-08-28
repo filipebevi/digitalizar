@@ -34,4 +34,8 @@ public class EmpresaRN {
         return this.empresaDAO.listarEmpresa();
     }
     
+    public Empresa carregar(Integer id){
+        return this.empresaDAO.carregar(id);
+    }
+    
 }

@@ -37,6 +37,10 @@ public class EmpresaDAOHibernate implements EmpresaDAO {
         return session.createCriteria(Empresa.class).list();
     } 
     
+    public Empresa carregar(Integer id){
+        return (Empresa)session.get(Empresa.class, id );
+    }
+    
     
     
     
