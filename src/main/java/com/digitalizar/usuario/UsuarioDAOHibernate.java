@@ -7,8 +7,10 @@ package com.digitalizar.usuario;
 
 
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -60,10 +62,10 @@ public class UsuarioDAOHibernate implements UsuarioDAO {
     
     @Override
     public Usuario buscarPorEmail(String email) {
-        String hql="select u from Usuario u where u.email =:email";
-        Query consulta = (Query) this.session.createCriteria(hql);
-        consulta.setString("email", email);
-        return (Usuario) consulta.uniqueResult();
+        Criteria criteria =this.session.createCriteria(Usuario.class);
+        criteria.add(Restrictions.eq("email", email));
+        return (Usuario) criteria.uniqueResult();
+        
     }
     
   

@@ -17,11 +17,19 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header #{request.remoteUser}
-                    <a onclick="document.location='#{request.contextPath}/j_spring_security_logout'" title="Sair">
-                        Sair
-                    </a>
+                <p:layoutUnit position="north" size="110" resizable="false" closable="true" collapsible="true" >
+                    <h6>
+                        Login: #{request.remoteUser}<br/>                    
+                        Nome: #{contextoBean.usuarioLogado.nome}
+                        Empresa: #{contextoBean.empresaAtiva.nome}
+                        <div align="right">
+                            <a onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" title="Sair">
+                                Sair
+                            </a>
+                        </div>
+
+                    </h6>
+
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">

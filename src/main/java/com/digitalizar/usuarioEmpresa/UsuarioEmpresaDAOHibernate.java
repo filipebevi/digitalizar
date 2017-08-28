@@ -49,12 +49,15 @@ public class UsuarioEmpresaDAOHibernate implements UsuarioEmpresaDAO {
 
     @Override
     public Empresa buscarFavorita(Usuario usuario) {
-        String hql = "select u from UsuarioEmpresa u where u.usuario =:usuario and u.padrao=true";
-        Query consulta = (Query) this.session.createCriteria(hql);
-        consulta.setInteger("usuario", usuario.getId());
-        UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) consulta.uniqueResult();
-
-        return usuarioEmpresa.getEmpresa();
+        
+        Criteria criteria =this.session.createCriteria(UsuarioEmpresa.class);
+        criteria.add(Restrictions.eq("usuario", usuario));
+        criteria.add(Restrictions.eq("padrao", true));
+        UsuarioEmpresa usuarioEmpresa =  (UsuarioEmpresa) criteria.uniqueResult();
+        Empresa padrao=usuarioEmpresa.getEmpresa();
+        return  padrao;
+        
+      
     }
 
     @Override
