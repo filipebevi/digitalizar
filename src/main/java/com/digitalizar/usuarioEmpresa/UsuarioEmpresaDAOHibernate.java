@@ -7,6 +7,7 @@ package com.digitalizar.usuarioEmpresa;
 
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.usuario.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -65,9 +66,13 @@ public class UsuarioEmpresaDAOHibernate implements UsuarioEmpresaDAO {
         Criteria criteria = this.session.createCriteria(UsuarioEmpresa.class);
         criteria.add(Restrictions.eq("usuario", usuario));
         List<UsuarioEmpresa> usuarioEmpresas = criteria.list();
-        List<Empresa> empresas =null;
+        List<Empresa> empresas =new ArrayList<Empresa>();
         for (int i = 0; i < usuarioEmpresas.size(); i++) {
-            empresas.add(usuarioEmpresas.get(i).getEmpresa());
+            UsuarioEmpresa usuarioEmpresa = usuarioEmpresas.get(i);
+            Empresa empresa=usuarioEmpresa.getEmpresa();
+            empresas.add(empresa);
+            empresa=null;
+            usuarioEmpresa=null;
             
         }
         return empresas;

@@ -8,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <meta  name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <title>PrimeFaces</title>
             </f:facet>
         </h:head>
@@ -18,17 +18,27 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="110" resizable="false" closable="true" collapsible="true" >
-                    <h6>
-                        Login: #{request.remoteUser}<br/>                    
-                        Nome: #{contextoBean.usuarioLogado.nome}
-                        Empresa: #{contextoBean.empresaAtiva.nome}
-                        <div align="right">
-                            <a onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" title="Sair">
-                                Sair
-                            </a>
-                        </div>
+                    <h:form>
+                        <h6>
+                                                
+                            Usuário: #{contextoBean.usuarioLogado.nome}
 
-                    </h6>
+                            <h:selectOneMenu id="empresa" value="#{contextoBean.empresaAtiva.id}" 
+                                             valueChangeListener="#{contextoBean.setEmpresaAtiva}"
+                                             rendered="#{!empty contextoBean}"
+                                             onchange="submit()"
+                                             immediate="true">
+                                <f:selectItems value="#{usuarioEmpresaBean.lista}"
+                                               var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
+                            </h:selectOneMenu>
+                            <div align="right">
+                                <a onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" title="Sair">
+                                    Sair
+                                </a>
+                            </div>
+
+                        </h6>
+                    </h:form>
 
                 </p:layoutUnit>
 
