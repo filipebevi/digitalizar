@@ -1,50 +1,45 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trasitional/EN" "http://www.w3.org/TR/xhtml1/
     DTD/xhtml1-transational.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-
     <ui:composition>
-
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="background: #23527c" role="navigation">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Must Consultoria</a>
-                    
+                    <a class="navbar-brand" href="#"><img style="height: 30px" src="../publico/resource/imagens/must-logo-deitada-branca.png" alt="" class="img-responsive"/></a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+                    <div class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a style="color: white" class="dropdown-toggle" data-toggle="dropdown" href="#"><strong>Menu</strong>
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Enviar Arquivos</a></li>
+                                <li><a href="#">Consultar Arquivos</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <h:form class="form-group-sm">
+                        <p class="navbar-text navbar-right" style="color: white">OlÃ¡ <strong>#{contextoBean.usuarioLogado.nome}</strong></p>
+                        <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" value="#{contextoBean.empresaAtiva.id}" 
+                                         valueChangeListener="#{contextoBean.setEmpresaAtiva}"
+                                         rendered="#{!empty contextoBean}"
+                                         onchange="submit()"
+                                         immediate="true">
+                            <f:selectItems value="#{usuarioEmpresaBean.lista}"
+                                           var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </div>
             </div>
         </nav>
-
-
-        <h:form>       
-            <img id="logotopo" src="../publico/resource/imagens/lgmid.png" alt=""/><br/>
-            Usuário: #{contextoBean.usuarioLogado.nome}<br/>
-            Empresa em uso:
-            <h:selectOneMenu  id="seletor_empresa" value="#{contextoBean.empresaAtiva.id}" 
-                              valueChangeListener="#{contextoBean.setEmpresaAtiva}"
-                              rendered="#{!empty contextoBean}"
-                              onchange="submit()"
-                              immediate="true">
-                <f:selectItems value="#{usuarioEmpresaBean.lista}"
-                               var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
-            </h:selectOneMenu>
-        </h:form>
-
     </ui:composition>
 </html>
