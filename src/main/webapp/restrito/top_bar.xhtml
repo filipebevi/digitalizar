@@ -9,7 +9,9 @@
 
     <ui:composition>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+
+
+        <nav class="navbar navbar-light bg-color-padding" style="background-color: black;">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -19,7 +21,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Must Consultoria</a>
-                    
+
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -27,24 +29,26 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    <h:form class="form-inline my-2 my-lg-0 pull-right">
+                        <div style="color: white">
+                            Usuario: #{contextoBean.usuarioLogado.nome}<br/>
+                        </div>
+                        <h:selectOneMenu class="form-group" id="seletor_empresa" value="#{contextoBean.empresaAtiva.id}" 
+                                         valueChangeListener="#{contextoBean.setEmpresaAtiva}"
+                                         rendered="#{!empty contextoBean}"
+                                         onchange="submit()"
+                                         immediate="true">
+                            <f:selectItems value="#{usuarioEmpresaBean.lista}"
+                                           var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
+                        </h:selectOneMenu>
+
+                    </h:form>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
 
 
-        <h:form>       
-            <img id="logotopo" src="../publico/resource/imagens/lgmid.png" alt=""/><br/>
-            Usuário: #{contextoBean.usuarioLogado.nome}<br/>
-            Empresa em uso:
-            <h:selectOneMenu  id="seletor_empresa" value="#{contextoBean.empresaAtiva.id}" 
-                              valueChangeListener="#{contextoBean.setEmpresaAtiva}"
-                              rendered="#{!empty contextoBean}"
-                              onchange="submit()"
-                              immediate="true">
-                <f:selectItems value="#{usuarioEmpresaBean.lista}"
-                               var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
-            </h:selectOneMenu>
-        </h:form>
+       
 
     </ui:composition>
 </html>
