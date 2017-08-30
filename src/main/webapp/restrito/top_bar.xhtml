@@ -28,7 +28,11 @@
                         </li>
                     </div>
                     <h:form class="form-group-sm">
-                        <p class="navbar-text navbar-right" style="color: white">Olá <strong>#{contextoBean.usuarioLogado.nome}</strong></p>
+
+                        <a style="margin-left: 15px" class="btn btn-danger navbar-right navbar-btn btn-sm" onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" title="Sair">
+                            Logout                  
+                        </a>
+                        <p class="navbar-text navbar-right" style="color: white">Olá <strong>#{contextoBean.usuarioLogado.nome} </strong></p>
                         <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" value="#{contextoBean.empresaAtiva.id}" 
                                          valueChangeListener="#{contextoBean.setEmpresaAtiva}"
                                          rendered="#{!empty contextoBean}"
