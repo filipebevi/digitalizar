@@ -31,7 +31,7 @@
                     </ul>
                     <h:form class="form-inline my-2 my-lg-0 pull-right">
                         <div style="color: white">
-                            Usuario: #{contextoBean.usuarioLogado.nome}<br/>
+                            <p>#{contextoBean.usuarioLogado.nome}</p>
                         </div>
                         <h:selectOneMenu class="form-group" id="seletor_empresa" value="#{contextoBean.empresaAtiva.id}" 
                                          valueChangeListener="#{contextoBean.setEmpresaAtiva}"
