@@ -9,7 +9,9 @@ and open the template in the editor.
 */
 
 
-
+body{
+    padding-top: 70px
+}
 
 
 #logotopo{
@@ -21,4 +23,6 @@ and open the template in the editor.
     padding: 25px;
    
 }
+
+
 
