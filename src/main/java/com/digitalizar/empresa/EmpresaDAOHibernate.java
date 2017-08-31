@@ -24,21 +24,21 @@ public class EmpresaDAOHibernate implements EmpresaDAO {
     
     @Override
     public void salvar(Empresa empresa){
-        session.saveOrUpdate(empresa);
+        this.session.saveOrUpdate(empresa);
     }
     
     @Override
     public void excluir(Empresa empresa){
-        session.delete(empresa);
+        this.session.delete(empresa);
     }
     
     @Override
     public List<Empresa> listarEmpresa(){
-        return session.createCriteria(Empresa.class).list();
+        return this.session.createCriteria(Empresa.class).list();
     } 
     
     public Empresa carregar(Integer id){
-        return (Empresa)session.get(Empresa.class, id );
+        return (Empresa)this.session.get(Empresa.class, id );
     }
     
     

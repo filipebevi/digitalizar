@@ -8,6 +8,7 @@ package com.digitalizar.empresa;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,8 @@ public class Empresa implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;
+    
+    @Column(nullable=false, unique = true) 
     private String nome;
     private String logotipo;
 
@@ -60,9 +63,9 @@ public class Empresa implements Serializable{
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + Objects.hashCode(this.logotipo);
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.nome);
+        hash = 23 * hash + Objects.hashCode(this.logotipo);
         return hash;
     }
 
@@ -89,16 +92,4 @@ public class Empresa implements Serializable{
         }
         return true;
     }
-
-    
-
-
-    
-    
-
-    
-    
-    
-    
-    
 }

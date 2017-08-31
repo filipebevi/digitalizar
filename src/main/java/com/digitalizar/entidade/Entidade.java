@@ -9,6 +9,7 @@ import com.digitalizar.empresa.Empresa;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Entidade implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;
-    
+    @Column(nullable=false) 
     private String nome;
     
     @ManyToOne

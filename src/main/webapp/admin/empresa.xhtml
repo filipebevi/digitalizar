@@ -4,31 +4,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templates/interna.xhtml">
 
         <ui:define name="conteudo">           
             <div class="container">
+                
                 <h3>Cadastro de Empresa</h3>
                 <hr/>
                 <div class="row">
                     <div class="col-sm-5">
-                        <h:form>
+                        <h:form id="edicao">
                             <div class="form-group">
                                 <label for="codigo">Codigo</label>
-                                <h:inputText value="#{empresaBean.empresa.id}" disabled="true" class="form-control" id="codigo"/>                               
+                                <h:inputText value="#{empresaBean.empresa.id}" class="form-control" id="codigo"/>                               
                             </div>
                             <div class="form-group">
                                 <label for="nome">Nome</label>
-                                <h:inputText value="#{empresaBean.empresa.nome}" class="form-control" id="nome"/>                                
+                                <h:inputText value="#{empresaBean.empresa.nome}" class="form-control" id="nome" required="true" requiredMessage="Nome da Empresa é um campo obrigatório"/>                                
                             </div>
                             <div class="form-group">
                                 <label for="logo">Logo Marca</label>
-                                <input type="file"  id="logo"/>
+                                <h:inputHidden value="#{empresaBean.empresa.logotipo}"  id="logo"/>
                             </div>
-                            <div class="form-group">
-                                <h:commandButton action="#{empresaBean.salvar()}" value="Salvar" class="btn btn-primary" />
+                            <div class="form-group-sm">
+                                <p:commandButton action="#{empresaBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn-primary" >
+                                    
+                                </p:commandButton>
 
                             </div>
 
@@ -39,21 +43,40 @@
             <div class="container">
                 <hr/>
                 <h4>Listagem de Empresa</h4>
-                <h:form>
-                    <h:dataTable class="table table-striped" value="#{empresaBean.listaEmpresa}" var="item">
-                        <h:column>
+                
+                <h:form id="listagem">
+                    <h:dataTable class="table table-striped" value="#{empresaBean.listaEmpresa}" var="item" >
+                        <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Código"/>
+                                <h:outputText value="Codigo"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
                             </f:facet>
                             <h:outputText value="#{item.nome}"/>
-                        </h:column>
-
+                        </p:column>
+                        <p:column>
+                            
+                                <f:facet name="header">
+                                <h:outputText value="Editar/Excluir"/>
+                            </f:facet>
+                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" update=":edicao">
+                                <f:setPropertyActionListener target="#{empresaBean.empresa}" value="#{item}"/>
+                                
+                                
+                            </p:commandButton>  
+                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{empresaBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
+                                        return false;"  >
+                                <f:setPropertyActionListener target="#{empresaBean.empresa}" value="#{item}"/>
+                                
+                            </p:commandButton> 
+                                
+                           
+                            
+                        </p:column>
                     </h:dataTable>
                 </h:form>
 

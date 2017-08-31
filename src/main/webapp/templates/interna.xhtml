@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="shortcut icon" href="../publico/resource/imagens/favicon.ico"/>
         <meta  name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,14 +16,23 @@ and open the template in the editor.
         <link href="../publico/resource/css/estilo.css" rel="stylesheet" type="text/css"/>
         <link href="../publico/resource/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
         <link href="../publico/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+        <style type="text/css">
+            .ui-growl {
+                top: 30%;
+            }
+        </style>
+
     </h:head>
     <h:body>
+        <p:growl id="mensagem"  autoUpdate="true" />
         <div id="container" >
             <div id="top_bar">
                 <ui:insert name="top_bar">
                     <ui:include src="/restrito/top_bar.xhtml"/>
                 </ui:insert>
             </div>
+
             <div id="conteudo">
                 <ui:insert name="conteudo">
 

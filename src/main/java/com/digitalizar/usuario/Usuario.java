@@ -45,9 +45,12 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;
+    @Column(nullable=false, unique = true) 
     private String nome;
+    @Column(nullable=false, unique = true) 
     private String email;
     private String telefone;
+    @Column(nullable=false, length = 18) 
     private String senha;
     private Boolean ativo;
     private Boolean funcionario;

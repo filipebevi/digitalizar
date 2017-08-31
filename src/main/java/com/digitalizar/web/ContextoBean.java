@@ -10,6 +10,7 @@ import com.digitalizar.empresa.EmpresaRN;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresaRN;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,7 +24,7 @@ import javax.faces.event.ValueChangeEvent;
  */
 @ManagedBean
 @SessionScoped
-public class ContextoBean {
+public class ContextoBean{
     
     private Empresa empresaAtiva=null;
     private Usuario usuarioLogado=null;

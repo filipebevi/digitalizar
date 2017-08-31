@@ -7,45 +7,39 @@ package com.digitalizar.web;
 
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.empresa.EmpresaRN;
+import com.digitalizar.web.util.MensagemUtil;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
+import javax.faces.context.FacesContext;
 /**
  *
  * @author filip
  */
 @ManagedBean
 @RequestScoped
-public class EmpresaBean {
+public class EmpresaBean{
 
     private Empresa empresa = new Empresa();
     private List<Empresa> listaEmpresa;
 
-    public String novo() {
-
-        this.empresa = new Empresa();
-
-        return "empresa";
-    }
-
-    public String salvar() {
+    public void salvar() {
         EmpresaRN empresaRN = new EmpresaRN();
         empresaRN.salvar(this.empresa);
-        this.empresa = null;
-
-        return "empresa";
-
+        new MensagemUtil().sendMensagem("Empresa Cadastrada", "A empresa: "+empresa.getNome()+" foi cadastrada com sucesso!");
+        this.empresa = new Empresa();
+        this.listaEmpresa=null;
     }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
+    
+    public String excluir(){
+       EmpresaRN empresaRN=new EmpresaRN();
+       empresaRN.excluir(this.empresa);
+       this.listaEmpresa=null;
+       return null;
+   }
+    
     public List<Empresa> getListaEmpresa() {
         if(this.listaEmpresa==null){
             EmpresaRN empresaRN= new EmpresaRN();
@@ -55,6 +49,12 @@ public class EmpresaBean {
         return listaEmpresa;
     }
 
-   
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 
 }
