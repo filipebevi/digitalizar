@@ -19,7 +19,8 @@
                         <h:form id="edicao">
                             <div class="form-group">
                                 <label for="codigo">Codigo</label>
-                                <h:inputText value="#{empresaBean.empresa.id}" class="form-control" id="codigo" />                               
+                                <h:inputText value="#{empresaBean.empresa.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                <h:inputHidden value="#{empresaBean.empresa.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
                             </div>
                             <div class="form-group">
                                 <label for="nome">Nome</label>
