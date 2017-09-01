@@ -5,10 +5,13 @@
  */
 package com.digitalizar.entidade;
 
+import com.digitalizar.empresa.Empresa;
 import com.digitalizar.entidade.Entidade;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -70,8 +73,10 @@ public class EntidadeDAOHibernate implements EntidadeDAO {
     
     
     @Override
-    public List<Entidade> listar() {
-        return this.session.createCriteria(Entidade.class).list();
+    public List<Entidade> listar(Empresa empresa) {
+        Criteria criteria = this.session.createCriteria(Entidade.class);
+        criteria.add(Restrictions.eq("empresa", empresa));
+        return criteria.list();
     }
     
 }

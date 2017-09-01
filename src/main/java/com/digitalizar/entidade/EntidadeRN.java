@@ -5,6 +5,7 @@
  */
 package com.digitalizar.entidade;
 
+import com.digitalizar.empresa.Empresa;
 import com.digitalizar.entidade.Entidade;
 import com.digitalizar.entidade.EntidadeDAO;
 import com.digitalizar.util.DAOFactory;
@@ -31,8 +32,8 @@ public class EntidadeRN {
         this.entidadeDAO.excluir(entidade);
     }
     
-    public List<Entidade> listar(){
-        return this.entidadeDAO.listar();
+    public List<Entidade> listar(Empresa empresa){
+        return this.entidadeDAO.listar(empresa);
     }
     
 }

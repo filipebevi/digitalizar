@@ -6,6 +6,7 @@
 package com.digitalizar.tipodocumento;
 
 
+import com.digitalizar.empresa.Empresa;
 import com.digitalizar.util.DAOFactory;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class TipoDocumentoRN {
         this.tipoDocumentoDAO.excluir(tipoDocumento);
     }
     
-    public List<TipoDocumento> listar(){
-        return this.tipoDocumentoDAO.listar();
+    public List<TipoDocumento> listar(Empresa empresa){
+        return this.tipoDocumentoDAO.listar(empresa);
     }
     
 }

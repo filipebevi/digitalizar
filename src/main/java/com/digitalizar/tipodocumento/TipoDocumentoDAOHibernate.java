@@ -6,9 +6,12 @@
 package com.digitalizar.tipodocumento;
 
 
+import com.digitalizar.empresa.Empresa;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -70,8 +73,10 @@ public class TipoDocumentoDAOHibernate implements TipoDocumentoDAO {
     
     
     @Override
-    public List<TipoDocumento> listar() {
-        return this.session.createCriteria(TipoDocumento.class).list();
+    public List<TipoDocumento> listar(Empresa empresa) {
+        Criteria criteria = this.session.createCriteria(TipoDocumento.class);
+        criteria.add(Restrictions.eq("empresa", empresa));
+        return criteria.list();
     }
     
 }

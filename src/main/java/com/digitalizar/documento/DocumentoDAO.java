@@ -5,6 +5,7 @@
  */
 package com.digitalizar.documento;
 
+import com.digitalizar.empresa.Empresa;
 import java.util.List;
 
 /**

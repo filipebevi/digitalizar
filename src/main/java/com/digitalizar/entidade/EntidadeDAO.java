@@ -5,6 +5,7 @@
  */
 package com.digitalizar.entidade;
 
+import com.digitalizar.empresa.Empresa;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public interface EntidadeDAO {
 
     void excluir(Entidade entidade);
 
-    List<Entidade> listar();
+    List<Entidade> listar(Empresa empresa);
 
     void salvar(Entidade entidade);
     

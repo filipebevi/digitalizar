@@ -12,43 +12,34 @@
         <ui:define name="conteudo">           
             <div class="container">
 
-                <h3>Cadastro de Empresa</h3>
+                <h3>Cadastro de Tipo de Documento</h3>
                 <hr/>
                 <div class="row">
                     <div class="col-sm-5">
                         <h:form id="edicao">
                             <div class="form-group">
                                 <label for="codigo">Codigo</label>
-                                <h:inputText value="#{empresaBean.empresa.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
-                                <h:inputHidden value="#{empresaBean.empresa.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
+                                <h:inputText value="#{tipoDocumentoBean.tipoDocumento.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                <h:inputHidden value="#{tipoDocumentoBean.tipoDocumento.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
                             </div>
                             <div class="form-group">
                                 <label for="nome">Nome</label>
-                                <h:inputText value="#{empresaBean.empresa.nome}" class="form-control" id="nome" required="true" requiredMessage="Nome da Empresa � um campo obrigat�rio"/>
-                                <p:message for="nome" /> 
-                                                               
-                            </div>
-                            <div class="form-group">
-                                <label for="logo">Logo Marca</label>
-                                <h:inputHidden value="#{empresaBean.empresa.logotipo}"  id="logo"/>
+                                <h:inputText value="#{tipoDocumentoBean.tipoDocumento.descricao}" class="form-control" id="nome" required="true" requiredMessage="Nome da Empresa � um campo obrigat�rio"/>
+                                <p:message for="nome" />      
                             </div>
                             <div class="form-group-sm">
-                                <p:commandButton action="#{empresaBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn-primary" >
-
-                                </p:commandButton>
-
+                                <p:commandButton action="#{tipoDocumentoBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn-primary" />
                             </div>
-
                         </h:form>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="container">
                 <hr/>
-                <h4>Listagem de Empresa</h4>
+                <h4>Listagem de Tipo de Documento</h4>
 
                 <h:form id="listagem">
-                    <h:dataTable class="table table-striped" value="#{empresaBean.listaEmpresa}" var="item" >
+                    <h:dataTable class="table table-striped" value="#{tipoDocumentoBean.listarTipo}" var="item" >
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Codigo"/>
@@ -59,7 +50,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
                             </f:facet>
-                            <h:outputText value="#{item.nome}"/>
+                            <h:outputText value="#{item.descricao}"/>
                         </p:column>
                         <p:column>
 
@@ -67,13 +58,13 @@
                                 <h:outputText value="Editar/Excluir"/>
                             </f:facet>
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" update=":edicao">
-                                <f:setPropertyActionListener target="#{empresaBean.empresa}" value="#{item}"/>
+                                <f:setPropertyActionListener target="#{tipoDocumentoBean.tipoDocumento}" value="#{item}"/>
 
 
                             </p:commandButton>  
-                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{empresaBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
+                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{tipoDocumentoBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao do Tipo de Documento #{item.descricao}?'))
                                         return false;"  >
-                                <f:setPropertyActionListener target="#{empresaBean.empresa}" value="#{item}"/>
+                                <f:setPropertyActionListener target="#{tipoDocumentoBean.tipoDocumento}" value="#{item}"/>
 
                             </p:commandButton> 
 
@@ -84,7 +75,7 @@
                 </h:form>
 
             </div>
-
-        </ui:define>    
+        </ui:define>
     </ui:composition>
+
 </html>

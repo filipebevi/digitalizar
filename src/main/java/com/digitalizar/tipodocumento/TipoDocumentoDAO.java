@@ -5,6 +5,7 @@
  */
 package com.digitalizar.tipodocumento;
 
+import com.digitalizar.empresa.Empresa;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public interface TipoDocumentoDAO {
 
     void excluir(TipoDocumento tipoDocumento);
 
-    List<TipoDocumento> listar();
+    List<TipoDocumento> listar(Empresa empresa);
 
     void salvar(TipoDocumento tipoDocumento);
     

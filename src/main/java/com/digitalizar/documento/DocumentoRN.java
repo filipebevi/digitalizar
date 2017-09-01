@@ -5,6 +5,7 @@
  */
 package com.digitalizar.documento;
 
+import com.digitalizar.empresa.Empresa;
 import com.digitalizar.util.DAOFactory;
 import java.util.List;
 
