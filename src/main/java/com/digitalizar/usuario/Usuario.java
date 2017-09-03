@@ -17,6 +17,7 @@ import java.util.List;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -69,7 +70,7 @@ public class Usuario implements Serializable{
     @ManyToOne
     private Usuario usuarioAlteracao;
     
-    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioEmpresa.class)
+    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioEmpresa.class, cascade = CascadeType.ALL)
     private List<UsuarioEmpresa> usuarioEmpresa;
     
     @OneToMany(mappedBy = "usuario", targetEntity=UsuarioTipoDocumento.class)

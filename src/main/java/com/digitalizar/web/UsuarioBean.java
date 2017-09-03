@@ -22,11 +22,15 @@ import javax.faces.bean.ViewScoped;
  * @author filip
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class UsuarioBean implements Serializable{
 
     Usuario usuario = new Usuario();
     List<Usuario> listaUsuario;
+    
+    public void novo(){
+        this.usuario=new Usuario();
+    }
 
     public void salvar() {
         ContextoBean contextoBean = ContextoUtil.getContextoBean();
