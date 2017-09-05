@@ -24,7 +24,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class UsuarioCadastroBean {
     
-    Usuario usuario = new Usuario();
+    Usuario usuario;
     Empresa empresa = new Empresa();
     UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
     List<Empresa> listaEmpresa;

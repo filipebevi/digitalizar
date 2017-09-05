@@ -39,8 +39,6 @@ public class UsuarioBean implements Serializable {
 
     public String editar() {
         
-        UsuarioCadastroBean usuarioCadastroBean = new UsuarioCadastroBean();
-        usuarioCadastroBean.setUsuario(usuario);
 
         return "usuario-cadastro";
     }
