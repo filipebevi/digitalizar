@@ -28,6 +28,7 @@ public class ContextoBean{
     
     private Empresa empresaAtiva=null;
     private Usuario usuarioLogado=null;
+    private Usuario usuarioTemporario=null;
 
     public Empresa getEmpresaAtiva() {
         
@@ -76,6 +77,16 @@ public class ContextoBean{
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
     }
+
+    public Usuario getUsuarioTemporario() {
+        return usuarioTemporario;
+    }
+
+    public void setUsuarioTemporario(Usuario usuarioTemporario) {
+        this.usuarioTemporario = usuarioTemporario;
+    }
+    
+    
     
     
     

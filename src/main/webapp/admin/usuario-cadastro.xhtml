@@ -6,15 +6,148 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    
-    <h:head>
-        
-    </h:head>
-    
-    <h:body>
-        
-    </h:body>
+
+    <ui:composition template="/templates/interna.xhtml">
 
 
-    
+        <ui:define name="conteudo">
+
+            <div class="container">
+
+                <h3>Cadastro de Usuario</h3>
+                <hr/>
+
+            </div>
+            <!-- Modal para adicionar uma empresa-->
+
+            <div class="modal fade" id="modalEmpresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <h:form id="edicaoEmpresa">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">Adicionar Empresa</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+
+                                            <div class="form-group">
+                                                <label for="empresa">empresa</label>
+                                                <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" 
+                                                                 value="#{usuarioCadastroBean.empresa}" converter="omnifaces.SelectItemsConverter">
+                                                    <f:selectItems value="#{usuarioCadastroBean.listaEmpresa}"
+                                                                   var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome}"/>
+                                                </h:selectOneMenu>
+
+                                            </div>
+
+                                            <div class="form-check">
+                                                <label for="padrao" class="form-check-label">
+                                                    <h:selectBooleanCheckbox value="#{usuarioCadastroBean.usuarioEmpresa.padrao}" class="form-check-input" id="padrao"/>
+                                                    Ativo?
+                                                </label>
+                                            </div>                                              
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarEmpresa()}" update=":edicaoUsuario"   
+                                                 value="Adicionar" class="btn btn-primary btn-sm" />
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do Modal para adicionar uma empresa-->
+            <div class="container">
+                <h:form id="edicaoUsuario">
+                    <div class="row">
+                        <div class="col-sm-5">
+
+                            <div class="form-group">
+                                <label for="codigo">Codigo</label>
+                                <h:inputText value="#{usuarioCadastroBean.usuario.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                <h:inputHidden value="#{usuarioCadastroBean.usuario.id}"/> <!--Utilizado para que o hibernate 
+                                                                                   consiga fazer o update no registro, 
+                                                                                   pois se deixar o campo disbable, 
+                                                                                   o mesmo envia o id null-->  
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <h:inputText value="#{usuarioCadastroBean.usuario.nome}" class="form-control" id="nome" required="true" 
+                                             requiredMessage="Nome da Empresa é um campo obrigatório" onkeyup="maiuscula(this)"/>
+                                <p:message for="nome" />       
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <h:inputText value="#{usuarioCadastroBean.usuario.email}" class="form-control" id="email" required="true" requiredMessage="Campo obrigatório"/>
+                                <p:message for="email" />       
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha</label>
+                                <h:inputText value="#{usuarioCadastroBean.usuario.senha}" class="form-control" id="senha" required="true" requiredMessage="Campo obrigatório"/>
+                                <p:message for="senha" />       
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <h:inputText value="#{usuarioCadastroBean.usuario.telefone}" class="form-control" id="telefone" />      
+                            </div>
+                            <div class="form-check">
+                                <label for="ativo" class="form-check-label">
+                                    <h:selectBooleanCheckbox value="#{usuarioCadastroBean.usuario.ativo}" class="form-check-input" id="ativo"/>
+                                    Ativo?
+                                </label>
+                            </div>
+                            <h:dataTable class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" var="itemPermissao">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Permissao"/>
+                                    </f:facet>
+                                    <h:outputText value="#{itemPermissao}"/>
+                                </p:column>
+
+                            </h:dataTable>
+                            <hr/>
+
+                            <p:commandLink action="#{usuarioCadastroBean.novaEmpresa()}" value="+" class="btn btn-primary" update=":edicaoEmpresa">
+                                <f:passThroughAttribute name="data-toggle" value="modal" />
+                                <f:passThroughAttribute name="data-target" value="#modalEmpresa" />
+ 
+                            </p:commandLink>>
+                            
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Acesso a Empresas</div>
+
+                                <h:dataTable  class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" var="item2" >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Empresa"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item2.empresa.nome}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Padrão"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item2.padrao}"/>
+                                    </p:column>
+                                </h:dataTable>
+                            </div>
+                            <div class="form-group-sm">
+                                <p:commandButton action="#{usuarioCadastroBean.salvar()}"  update=":mensagem" value="Salvar" class="btn-primary" />
+                                
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>    
+    </ui:composition>
 </html>
