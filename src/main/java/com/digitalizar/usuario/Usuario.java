@@ -70,10 +70,10 @@ public class Usuario implements Serializable{
     @ManyToOne
     private Usuario usuarioAlteracao;
     
-    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioEmpresa.class, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioEmpresa.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuarioEmpresa> usuarioEmpresa;
     
-    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioTipoDocumento.class)
+    @OneToMany(mappedBy = "usuario", targetEntity=UsuarioTipoDocumento.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UsuarioTipoDocumento> usuarioTipoDocumento;
     
     @ElementCollection(targetClass=String.class)

@@ -18,6 +18,12 @@
                 <hr/>
 
             </div>
+
+            
+
+            <div id="abrirModal" class="modal">
+               dsjfhsdjhfah
+            </div>
             <!-- Modal para adicionar uma empresa-->
 
             <div class="modal fade" id="modalEmpresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -105,7 +111,10 @@
                                     Ativo?
                                 </label>
                             </div>
-                            <h:dataTable class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" var="itemPermissao">
+                            
+                            <hr/>
+                            <h4>Permissões do Usuário</h4>
+                            <h:dataTable class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" rendered="#{!empty usuarioCadastroBean.usuario.permissao }" var="itemPermissao">
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Permissao"/>
@@ -115,34 +124,41 @@
 
                             </h:dataTable>
                             <hr/>
-
-                            <p:commandLink action="#{usuarioCadastroBean.novaEmpresa()}" value="+" class="btn btn-primary" update=":edicaoEmpresa">
+                            <h4>Acesso Empresas</h4>
+                            <p:commandLink action="#{usuarioCadastroBean.novaEmpresa()}" rendered="#{!empty usuarioCadastroBean.usuario.id}" value="Vincular Empresa" class="btn btn-default" update=":edicaoEmpresa">
                                 <f:passThroughAttribute name="data-toggle" value="modal" />
                                 <f:passThroughAttribute name="data-target" value="#modalEmpresa" />
- 
-                            </p:commandLink>>
-                            
-                            <div class="panel panel-default">
-                                <div class="panel-heading">Acesso a Empresas</div>
+                            </p:commandLink>
 
-                                <h:dataTable  class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" var="item2" >
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Empresa"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item2.empresa.nome}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Padrão"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item2.padrao}"/>
-                                    </p:column>
-                                </h:dataTable>
-                            </div>
+                            <h:dataTable  class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioEmpresa}" var="item2" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Empresa"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item2.empresa.nome}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Padrão"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item2.padrao}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Excluir"/>
+                                    </f:facet>
+
+                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioCadastroBean.removerEmpresa()}" update=":edicaoUsuario" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
+                                                return false;"  >
+                                        <f:setPropertyActionListener target="#{usuarioCadastroBean.usuarioEmpresa}" value="#{item2}"/>
+                                    </p:commandButton> 
+                                </p:column>
+                            </h:dataTable>
+
                             <div class="form-group-sm">
-                                <p:commandButton action="#{usuarioCadastroBean.salvar()}"  update=":mensagem" value="Salvar" class="btn-primary" />
-                                
+                                <p:commandButton action="#{usuarioCadastroBean.salvar()}"  update=":mensagem" value="Salvar" class="btn btn-primary btn-group-xs" />
+                                <p:commandLink action="usuario"  value="Cancelar"  class="btn btn-default btn-group-xs" />
+
                             </div>
                         </div>
                     </div>

@@ -11,6 +11,7 @@ import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
 import com.digitalizar.web.util.ContextoUtil;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -22,21 +23,28 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioCadastroBean {
-    
-    Usuario usuario;
+public class UsuarioCadastroBean implements Serializable{
+
+    Usuario usuario = new Usuario();
     Empresa empresa = new Empresa();
     UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
     List<Empresa> listaEmpresa;
-    
-    
-    
+    String permissao;
+
+    public UsuarioCadastroBean() {
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        if (contexto.getUsuarioTemporario() != null) {
+            this.usuario = contexto.getUsuarioTemporario();
+        }
+        
+    }
+
     public void novaEmpresa() {
 
         this.empresa = new Empresa();
         this.usuarioEmpresa = new UsuarioEmpresa();
     }
-    
+
     public String salvar() {
         ContextoBean contextoBean = ContextoUtil.getContextoBean();
         if (this.usuario.getUsuarioInclusao() == null) {
@@ -47,13 +55,13 @@ public class UsuarioCadastroBean {
         this.usuario.setData_ult_alteracao(Calendar.getInstance());
         UsuarioRN usuarioRN = new UsuarioRN();
         usuarioRN.salvar(this.usuario);
-        usuario = new Usuario();
-        
+        this.usuario = new Usuario();
+        contextoBean.setUsuarioTemporario(null);
 
         return "usuario";
 
     }
-    
+
     public void adicionarEmpresa() {
         UsuarioEmpresa.Id id = new UsuarioEmpresa.Id();
         id.setEmpresa(this.empresa.getId());
@@ -62,16 +70,28 @@ public class UsuarioCadastroBean {
         this.usuarioEmpresa.setUsuario(this.usuario);
         this.usuarioEmpresa.setEmpresa(this.empresa);
 
-        this.usuario.getUsuarioEmpresa().add(usuarioEmpresa);
-        
+        this.usuario.getUsuarioEmpresa().add(this.usuarioEmpresa);
 
         this.empresa = new Empresa();
         this.usuarioEmpresa = new UsuarioEmpresa();
 
-
     }
     
+    public void removerEmpresa(){
+        usuario.getUsuarioEmpresa().remove(this.usuarioEmpresa);
+    }
     
+    public void adicionarPermissao(){
+        this.usuario.getPermissao().add(this.permissao);
+        this.permissao=new String();
+    }
+    
+    public void removerPermissao(){
+        this.usuario.getPermissao().remove(this.permissao);
+        this.permissao=new String();
+    }
+    
+
     public List<Empresa> getListaEmpresa() {
         if (this.listaEmpresa == null) {
             EmpresaRN empresaRN = new EmpresaRN();
@@ -80,11 +100,6 @@ public class UsuarioCadastroBean {
 
         return this.listaEmpresa;
     }
-    
-    
-    
-    
-    
 
     public Usuario getUsuario() {
         return usuario;
@@ -109,9 +124,5 @@ public class UsuarioCadastroBean {
     public void setUsuarioEmpresa(UsuarioEmpresa usuarioEmpresa) {
         this.usuarioEmpresa = usuarioEmpresa;
     }
-    
-    
-    
-    
-    
+
 }

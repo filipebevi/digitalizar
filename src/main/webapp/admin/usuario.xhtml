@@ -43,7 +43,7 @@
                                 <h:outputText value="Editar/Excluir"/>
                             </f:facet>
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" action="#{usuarioBean.editar()}"  >
-                                <f:setPropertyActionListener target="#{usuarioCadastroBean.usuario}" value="#{item}" />
+                                <f:setPropertyActionListener target="#{contextoBean.usuarioTemporario}" value="#{item}" />
 
                             </p:commandButton>  
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
