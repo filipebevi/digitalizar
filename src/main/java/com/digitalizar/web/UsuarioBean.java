@@ -5,16 +5,15 @@
  */
 package com.digitalizar.web;
 
-
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.web.util.ContextoUtil;
+import com.digitalizar.web.util.MensagemUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-
 
 /**
  *
@@ -27,18 +26,14 @@ public class UsuarioBean implements Serializable {
     Usuario usuario = new Usuario();
     List<Usuario> listaUsuario;
     String texto;
-    
-    
-    
 
     public String novo() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         contexto.setUsuarioTemporario(null);
         return "usuario-cadastro";
-        
+
     }
 
-    
     public void excluir() {
         UsuarioRN usuarioRN = new UsuarioRN();
         usuarioRN.excluir(this.usuario);
@@ -46,16 +41,14 @@ public class UsuarioBean implements Serializable {
     }
 
     public String editar() {
-        
 
         return "usuario-cadastro";
     }
 
     public List<Usuario> getListaUsuario() {
-        
-            UsuarioRN usuarioRN = new UsuarioRN();
-            this.listaUsuario = usuarioRN.listar(this.texto);
-        
+
+        UsuarioRN usuarioRN = new UsuarioRN();
+        this.listaUsuario = usuarioRN.listar(this.texto);
 
         return this.listaUsuario;
     }
@@ -75,11 +68,5 @@ public class UsuarioBean implements Serializable {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
-    
-
-   
-
-    
 
 }
