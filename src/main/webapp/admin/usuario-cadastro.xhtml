@@ -112,24 +112,27 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <h:inputText value="#{usuarioCadastroBean.usuario.email}" class="form-control" id="email" required="true" requiredMessage="Campo obrigatório"/>
-                                        <p:message for="email" />       
+                                        <label for="emailcadastro">Email</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.email}" class="form-control" id="emailcadastro" required="true" requiredMessage="Campo obrigatório">
+                                            <f:validateRegex
+                                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                                        </h:inputText>
+                                        <p:message for="emailcadastro" />       
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="senha">Senha</label>
-                                        <h:inputText value="#{usuarioCadastroBean.usuario.senha}" class="form-control" id="senha" required="true" requiredMessage="Campo obrigatório"/>
-                                        <p:message for="senha" />       
+                                        <label for="senhacadastro">Senha</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.senha}" class="form-control" id="senhacadastro" required="true" requiredMessage="Campo obrigatório"/>
+                                        <p:message for="senhacadastro" />       
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="telefone">Telefone</label>
-                                        <h:inputText value="#{usuarioCadastroBean.usuario.telefone}" class="form-control" id="telefone" />      
+                                        <p:inputMask value="#{usuarioCadastroBean.usuario.telefone}" class="form-control" id="telefone" mask="(99) 99999.9999"/>      
                                     </div>
                                 </div>
                             </div>
