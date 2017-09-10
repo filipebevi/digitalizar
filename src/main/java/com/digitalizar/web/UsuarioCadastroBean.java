@@ -29,7 +29,7 @@ public class UsuarioCadastroBean implements Serializable{
     Empresa empresa = new Empresa();
     UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
     List<Empresa> listaEmpresa;
-    String permissao;
+    String permissao=null;
 
     public UsuarioCadastroBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
@@ -47,7 +47,7 @@ public class UsuarioCadastroBean implements Serializable{
 
     public String salvar() {
         ContextoBean contextoBean = ContextoUtil.getContextoBean();
-        if (this.usuario.getUsuarioInclusao() == null) {
+        if (this.usuario.getId() == null) {
             this.usuario.setUsuarioInclusao(contextoBean.getUsuarioLogado());
             this.usuario.setData_inclusao(Calendar.getInstance());
         }
@@ -124,5 +124,14 @@ public class UsuarioCadastroBean implements Serializable{
     public void setUsuarioEmpresa(UsuarioEmpresa usuarioEmpresa) {
         this.usuarioEmpresa = usuarioEmpresa;
     }
+
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+    
 
 }

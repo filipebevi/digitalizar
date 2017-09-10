@@ -57,14 +57,14 @@ public class Usuario implements Serializable{
     private Boolean funcionario;
     private Boolean administrador;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_inclusao;
     
     @ManyToOne
     private Usuario usuarioInclusao;
     
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_ult_alteracao;
     
     @ManyToOne

@@ -16,21 +16,20 @@
                     <div class="col-sm-5">
                         <h:form id="edicao">
                             <div class="form-group">
-                                <label for="codigo">Codigo</label>
-                                <h:inputText value="#{entidadeBean.entidade.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
-                                <h:inputHidden value="#{entidadeBean.entidade.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
-                                
+                                    <label for="codigo">Codigo:</label>
+                                    <h:inputText value="#{entidadeBean.entidade.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                    <h:inputHidden value="#{entidadeBean.entidade.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
                             </div>
+
                             <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <h:inputText value="#{entidadeBean.entidade.nome}" class="form-control" id="nome" 
-                                             required="true" requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
-                                <p:message for="nome" />       
+                                    <label for="nome">Nome:</label>
+                                    <h:inputText value="#{entidadeBean.entidade.nome}" class="form-control" id="nome" 
+                                                 required="true" requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
+                                    <p:message for="nome" />  
                             </div>
-                            <div class="form-group-sm">
-                                <p:commandButton action="#{entidadeBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn-primary" />
-                            </div>
-                        </h:form>
+                                <p:commandButton action="#{entidadeBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn btn-primary" />
+                         </h:form>
+                        
                     </div>
                 </div>                
             </div>

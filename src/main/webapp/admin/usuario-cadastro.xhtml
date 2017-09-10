@@ -8,40 +8,20 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templates/interna.xhtml">
-
-
         <ui:define name="conteudo">
-
-            <div class="container">
-
-                <h3>Cadastro de Usuario</h3>
-                <hr/>
-
-            </div>
-
-            
-
-            <div id="abrirModal" class="modal">
-               dsjfhsdjhfah
-            </div>
             <!-- Modal para adicionar uma empresa-->
-
-            <div class="modal fade" id="modalEmpresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade" id="modalEmpresa" role="dialog">
+                <div class="modal-dialog" >
                     <div class="modal-content">
-                        <h:form id="edicaoEmpresa">
+                        <h:form id="formModalEmpresa">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="exampleModalLabel">Adicionar Empresa</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h4 class="modal-title">Adicionar Empresa</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-5">
-
                                             <div class="form-group">
                                                 <label for="empresa">empresa</label>
                                                 <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" 
@@ -49,22 +29,14 @@
                                                     <f:selectItems value="#{usuarioCadastroBean.listaEmpresa}"
                                                                    var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome}"/>
                                                 </h:selectOneMenu>
-
-                                            </div>
-
-                                            <div class="form-check">
-                                                <label for="padrao" class="form-check-label">
-                                                    <h:selectBooleanCheckbox value="#{usuarioCadastroBean.usuarioEmpresa.padrao}" class="form-check-input" id="padrao"/>
-                                                    Ativo?
-                                                </label>
-                                            </div>                                              
+                                            </div>       
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <p:commandButton action="#{usuarioCadastroBean.adicionarEmpresa()}" update=":edicaoUsuario"   
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarEmpresa()}" update=":edicaoUsuario :formModalEmpresa"   
                                                  value="Adicionar" class="btn btn-primary btn-sm" />
                             </div>
                         </h:form>
@@ -72,93 +44,210 @@
                 </div>
             </div>
             <!-- Fim do Modal para adicionar uma empresa-->
+
+            <!-- Modal para adicionar uma permissao-->
+            <div class="modal fade" id="modalAcesso" role="dialog" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <h:form id="formModalAcesso">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Adicionar Acesso</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="empresa">Acesso</label>
+                                                <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" converter="omnifaces.SelectItemsConverter"
+                                                                 value="#{usuarioCadastroBean.permissao}">
+                                                    <f:selectItem itemLabel="ROLE_ADMINISTRADOR" itemValue="ROLE_ADMINISTRADOR" />
+                                                    <f:selectItem itemLabel="ROLE_USUARIO" itemValue="ROLE_USUARIO" />
+                                                    <f:selectItem itemLabel="ROLE_CLIENTE" itemValue="ROLE_CLIENTE" />
+                                                </h:selectOneMenu>
+
+                                            </div>       
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarPermissao()}" update=":edicaoUsuario :formModalAcesso"   
+                                                 value="Adicionar" class="btn btn-primary btn-sm" />
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do Modal para adicionar uma Permissão-->
+
             <div class="container">
+                <h3>Cadastro de Usuário</h3>
+                <hr/>
                 <h:form id="edicaoUsuario">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="codigo">Codigo</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                        <h:inputHidden value="#{usuarioCadastroBean.usuario.id}"/> <!--Utilizado para que o hibernate 
+                                                                                           consiga fazer o update no registro, 
+                                                                                           pois se deixar o campo disbable, 
+                                                                                           o mesmo envia o id null-->  
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="nome">Nome</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.nome}" class="form-control" id="nome" required="true" 
+                                                     requiredMessage="Nome da Empresa é um campo obrigatório" onkeyup="maiuscula(this)"/>
+                                        <p:message for="nome" />       
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.email}" class="form-control" id="email" required="true" requiredMessage="Campo obrigatório"/>
+                                        <p:message for="email" />       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="senha">Senha</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.senha}" class="form-control" id="senha" required="true" requiredMessage="Campo obrigatório"/>
+                                        <p:message for="senha" />       
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="telefone">Telefone</label>
+                                        <h:inputText value="#{usuarioCadastroBean.usuario.telefone}" class="form-control" id="telefone" />      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="userInclusao">Usuário Inclusão</label>
+                                        <h:outputText value="#{usuarioCadastroBean.usuario.usuarioInclusao.nome}" class="form-control"  id="userInclusao"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="dataInclusao">Data Inclusão</label>
+                                        <h:outputText value="#{usuarioCadastroBean.usuario.data_inclusao.time}" class="form-control" id="dataInclusao">
+                                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" timeZone="America/Sao_Paulo"/>
+                                        </h:outputText>
 
-                            <div class="form-group">
-                                <label for="codigo">Codigo</label>
-                                <h:inputText value="#{usuarioCadastroBean.usuario.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
-                                <h:inputHidden value="#{usuarioCadastroBean.usuario.id}"/> <!--Utilizado para que o hibernate 
-                                                                                   consiga fazer o update no registro, 
-                                                                                   pois se deixar o campo disbable, 
-                                                                                   o mesmo envia o id null-->  
-                            </div>
-                            <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <h:inputText value="#{usuarioCadastroBean.usuario.nome}" class="form-control" id="nome" required="true" 
-                                             requiredMessage="Nome da Empresa é um campo obrigatório" onkeyup="maiuscula(this)"/>
-                                <p:message for="nome" />       
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <h:inputText value="#{usuarioCadastroBean.usuario.email}" class="form-control" id="email" required="true" requiredMessage="Campo obrigatório"/>
-                                <p:message for="email" />       
-                            </div>
-                            <div class="form-group">
-                                <label for="senha">Senha</label>
-                                <h:inputText value="#{usuarioCadastroBean.usuario.senha}" class="form-control" id="senha" required="true" requiredMessage="Campo obrigatório"/>
-                                <p:message for="senha" />       
-                            </div>
-                            <div class="form-group">
-                                <label for="telefone">Telefone</label>
-                                <h:inputText value="#{usuarioCadastroBean.usuario.telefone}" class="form-control" id="telefone" />      
+
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="usuerAlteracao">Usuario Alteração</label>
+                                        <h:outputText value="#{usuarioCadastroBean.usuario.usuarioAlteracao.nome}" class="form-control"  id="userAlteracao" />
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="dataAlteracao">Data Alteração</label>
+                                        <h:outputText value="#{usuarioCadastroBean.usuario.data_ult_alteracao.time}" class="form-control"  id="dataAlteracao" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" timeZone="America/Sao_Paulo"/>
+                                        </h:outputText>
+
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-check">
                                 <label for="ativo" class="form-check-label">
                                     <h:selectBooleanCheckbox value="#{usuarioCadastroBean.usuario.ativo}" class="form-check-input" id="ativo"/>
-                                    Ativo?
+                                    Ativo
                                 </label>
                             </div>
-                            
-                            <hr/>
-                            <h4>Permissões do Usuário</h4>
-                            <h:dataTable class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" rendered="#{!empty usuarioCadastroBean.usuario.permissao }" var="itemPermissao">
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Permissao"/>
-                                    </f:facet>
-                                    <h:outputText value="#{itemPermissao}"/>
-                                </p:column>
+                            <div class="form-check">
+                                <label for="funcionario" class="form-check-label">
+                                    <h:selectBooleanCheckbox value="#{usuarioCadastroBean.usuario.funcionario}" class="form-check-input" id="funcionario"/>
+                                    Funcionário
+                                </label>
+                            </div>
+                            <br/>
+                            <p:commandButton action="#{usuarioCadastroBean.salvar()}"  update=":mensagem" value="Salvar" class="btn btn-primary " />
+                            <p:commandButton action="usuario"  value="Cancelar"  class="btn btn-default" />
+                            <br/>
+                            <br/>
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active" ><a aria-controls="empresas" role="tab" data-toggle="tab" href="#empresas" >Empresas</a></li>
+                                <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#acesso">Acesso</a></li>
+                                <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#">Liberação</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="empresas" class="tab-pane fade in active">
+                                    <br/>
+                                    <p:commandLink action="#{usuarioCadastroBean.novaEmpresa()}" rendered="#{!empty usuarioCadastroBean.usuario.id}" value="Adicionar" class="btn btn-default" update=":formModalEmpresa">
+                                        <f:passThroughAttribute name="data-toggle" value="modal" />
+                                        <f:passThroughAttribute name="data-target" value="#modalEmpresa" />
+                                    </p:commandLink>
+                                    <hr/>
+                                    <h:dataTable id="tabelaEmpresa" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioEmpresa}" var="itemEmpresas" >
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Empresa"/>
+                                            </f:facet>
+                                            <h:outputText value="#{itemEmpresas.empresa.nome}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Padrão"/>
+                                            </f:facet>
+                                            <h:selectBooleanCheckbox value="#{itemEmpresas.padrao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Remover"/>
+                                            </f:facet>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioCadastroBean.removerEmpresa()}" update=":edicaoUsuario" onclick="if (!confirm('Confirma a exclusao da empresa #{itemEmpresa.nome}?'))
+                                                        return false;"  >
+                                                <f:setPropertyActionListener target="#{usuarioCadastroBean.usuarioEmpresa}" value="#{itemEmpresas}"/>
+                                            </p:commandButton> 
+                                        </p:column>
+                                    </h:dataTable>
+                                </div>
+                                <div id="acesso" class="tab-pane fade">
+                                    <br/>
+                                    <p:commandLink  rendered="#{!empty usuarioCadastroBean.usuario.id}" value="Adicionar" class="btn btn-default" update=":formModalAcesso">
+                                        <f:passThroughAttribute name="data-toggle" value="modal" />
+                                        <f:passThroughAttribute name="data-target" value="#modalAcesso" />
+                                    </p:commandLink>
+                                    <hr/>
+                                    <h:dataTable id="tabelaAcesso" class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" rendered="#{!empty usuarioCadastroBean.usuario.permissao }" var="itemPermissao">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Permissao"/>
+                                            </f:facet>
+                                            <h:outputText value="#{itemPermissao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Remover"/>
+                                            </f:facet>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioCadastroBean.removerPermissao()}" update=":edicaoUsuario" onclick="if (!confirm('Confirma a exclusao da permissão #{itemPermissao}?'))
+                                                        return false;"  >
+                                                <f:setPropertyActionListener target="#{usuarioCadastroBean.permissao}" value="#{itemPermissao}"/>
+                                            </p:commandButton> 
+                                        </p:column>
+                                    </h:dataTable>
 
-                            </h:dataTable>
-                            <hr/>
-                            <h4>Acesso Empresas</h4>
-                            <p:commandLink action="#{usuarioCadastroBean.novaEmpresa()}" rendered="#{!empty usuarioCadastroBean.usuario.id}" value="Vincular Empresa" class="btn btn-default" update=":edicaoEmpresa">
-                                <f:passThroughAttribute name="data-toggle" value="modal" />
-                                <f:passThroughAttribute name="data-target" value="#modalEmpresa" />
-                            </p:commandLink>
-
-                            <h:dataTable  class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioEmpresa}" var="item2" >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Empresa"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item2.empresa.nome}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Padrão"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item2.padrao}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Excluir"/>
-                                    </f:facet>
-
-                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioCadastroBean.removerEmpresa()}" update=":edicaoUsuario" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
-                                                return false;"  >
-                                        <f:setPropertyActionListener target="#{usuarioCadastroBean.usuarioEmpresa}" value="#{item2}"/>
-                                    </p:commandButton> 
-                                </p:column>
-                            </h:dataTable>
-
-                            <div class="form-group-sm">
-                                <p:commandButton action="#{usuarioCadastroBean.salvar()}"  update=":mensagem" value="Salvar" class="btn btn-primary btn-group-xs" />
-                                <p:commandLink action="usuario"  value="Cancelar"  class="btn btn-default btn-group-xs" />
-
+                                </div>
                             </div>
                         </div>
                     </div>

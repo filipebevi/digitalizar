@@ -30,8 +30,8 @@ public class UsuarioRN {
         this.usuarioDAO.excluir(usuario);
     }
     
-    public List<Usuario> listar(){
-        return this.usuarioDAO.listar();
+    public List<Usuario> listar(String texto){
+        return this.usuarioDAO.listar(texto);
     }
     
     public Usuario buscarPorEmail(String email){

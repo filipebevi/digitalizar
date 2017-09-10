@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 
 /**
@@ -20,11 +21,14 @@ import javax.faces.bean.RequestScoped;
  * @author filip
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UsuarioBean implements Serializable {
 
     Usuario usuario = new Usuario();
     List<Usuario> listaUsuario;
+    String texto;
+    
+    
     
 
     public String novo() {
@@ -48,10 +52,10 @@ public class UsuarioBean implements Serializable {
     }
 
     public List<Usuario> getListaUsuario() {
-        if (this.listaUsuario == null) {
+        
             UsuarioRN usuarioRN = new UsuarioRN();
-            this.listaUsuario = usuarioRN.listar();
-        }
+            this.listaUsuario = usuarioRN.listar(this.texto);
+        
 
         return this.listaUsuario;
     }
@@ -63,6 +67,16 @@ public class UsuarioBean implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+    
+    
 
    
 

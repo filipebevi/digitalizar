@@ -8,30 +8,41 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templates/interna.xhtml">
-
-
         <ui:define name="conteudo">
-
             <div class="container">
-
                 <h3>Cadastro de Usuario</h3>
                 <hr/>
-                <h:form>
-                    <p:commandButton action="#{usuarioBean.novo()}" value="Novo" class="btn btn-primary" />
-                </h:form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h:form>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <h:commandButton action="#{usuarioBean.novo()}" value="Novo" class="btn btn-primary" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <p:inputText class="form-control" placeholder="Buscar por..." value="#{usuarioBean.texto}"/>
+                                        <span class="input-group-btn">
+                                            <h:commandButton class="btn  btn-default" value="Pesquisar!" >
+                                                <f:ajax execute="@form" render=":listagem"/>
+                                            </h:commandButton>
+                                            
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
             </div>
-            
-
             <div class="container">
+                <br/>
                 <h4>Listagem de Usuários</h4>
+                <hr/>
                 <h:form id="listagem">
                     <h:dataTable class="table table-striped" value="#{usuarioBean.listaUsuario}" var="item" >
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Código"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
@@ -40,11 +51,16 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="E-mail"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="Editar/Excluir"/>
                             </f:facet>
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" action="#{usuarioBean.editar()}"  >
                                 <f:setPropertyActionListener target="#{contextoBean.usuarioTemporario}" value="#{item}" />
-
                             </p:commandButton>  
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao da empresa #{item.nome}?'))
                                         return false;"  >

@@ -21,7 +21,7 @@ public interface UsuarioDAO {
 
     void excluir(Usuario usuario);
 
-    List<Usuario> listar();
+    List<Usuario> listar(String texto);
 
     void salvar(Usuario usuario);
     
