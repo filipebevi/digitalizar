@@ -7,6 +7,7 @@ package com.digitalizar.documento;
 
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.util.DAOFactory;
+import java.io.File;
 import java.util.List;
 
 
@@ -32,6 +33,7 @@ public class DocumentoRN {
     }
     
     public void salvar(Documento documento){
+        
         this.documentoDAO.salvar(documento);
     
     }

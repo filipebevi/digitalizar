@@ -19,43 +19,27 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     public void setSession(Session session){
         this.session=session;
     }
-    
-    
-    
-    
     @Override
     public void salvar(Documento documento) {
         this.session.saveOrUpdate(documento);
         
     }
     
-
-    
-    
     @Override
     public void atualizar(Documento documento) {
         this.session.update(documento);
     }
-    
-
-    
     
     @Override
     public void excluir(Documento documento) {
         this.session.delete(documento);
     }
     
-
-    
-    
     @Override
     public Documento carregar(Integer idDocumento) {
         return (Documento) this.session.get(Documento.class, idDocumento);
        
     }
-    
-
-    
     
     @Override
     public Documento buscarPorCodigo(Integer id) {
@@ -64,9 +48,6 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
         consulta.setInteger("Codigo", id);
         return (Documento) consulta.uniqueResult();
     }
-    
-  
-    
     
     @Override
     public List<Documento> listar() {
