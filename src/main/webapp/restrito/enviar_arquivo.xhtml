@@ -14,7 +14,59 @@
                 <hr/>
                 <div class="row">
                     <div class="col-sm-12">
-                        
+
+
+                        <!--<div class="form-group">
+                            <label for="descricaoDocumento">Descrição</label>
+                            <h:inputText value="#{documentoCadastroBean.documento.descricao}"  class="form-control" id="descricaoDocumento" />
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroDocumento">Código</label>
+                            <h:inputText value="#{documentoCadastroBean.documento.numero}"  class="form-control" id="numeroDocumento" />
+                        </div>
+                        <div class="form-group">
+                            <label for="valorDocumento">Valor</label>
+                            <h:inputText value="#{documentoCadastroBean.documento.valor}"  class="form-control" id="valorDocumento" />
+                        </div>
+                        <div class="form-group">
+                            <label for="vencimentoDocumento">Vencimento</label>
+                            <p:calendar value="#{documentoCadastroBean.documento.vencimento}"  class="form-control" id="vencimentoDocumento" />
+                        </div>
+                        <div class="form-group">
+                            <label for="dtInicialDocumento">Data Inicial</label>
+                            <p:calendar value="#{documentoCadastroBean.documento.periodo_inicial}"  class="form-control" id="dtInicialDocumento" />
+                        </div>
+                        <div class="form-group">
+                            <label for="dtFinalDocumento">Data Final</label>
+                            <p:calendar value="#{documentoCadastroBean.documento.periodo_final}"  class="form-control" id="dtFinalDocumento" />
+                        </div>-->
+                        <h:form id="form1" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="tipoDocumentoDocumento">Tipo de Documento</label>
+                                <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" 
+                                                 value="#{documentoCadastroBean.documento.tipo_documento}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItems value="#{documentoCadastroBean.listarTipoDocumento}"
+                                                   var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group">
+                                <label for="entidadeDocumento">Entidade</label>
+                                <h:selectOneMenu class="form-control" id="entidadeDocumento" 
+                                                 value="#{documentoCadastroBean.documento.entidade}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItems value="#{documentoCadastroBean.listarEntidade}"
+                                                   var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+
+
+                            <h:inputFile value="#{documentoCadastroBean.file}"  class="form-control" id="documentoDocumento" />
+                            <h:commandButton value="Salvar" class="btn btn-primary" actionListener="#{documentoCadastroBean.salvar()}"/>
+                        </h:form>
+
+
+
+
                     </div>
                 </div>
 
