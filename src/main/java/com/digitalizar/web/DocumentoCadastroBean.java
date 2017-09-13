@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -35,19 +36,29 @@ public class DocumentoCadastroBean implements Serializable {
     private Part file;
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
+    private Calendar vencimento;
+    private Calendar dtInicial=Calendar.getInstance();
+    private Calendar dtFinal=Calendar.getInstance();
+
+  
+           
 
     public void salvar() {
+        
 
         ContextoBean contexto = ContextoUtil.getContextoBean();
         if (this.documento.getId() == null) {
             this.documento.setData_inclusao(Calendar.getInstance());
             this.documento.setUsuario_inclusao(contexto.getUsuarioLogado());
         }
+        
+        this.documento.setVencimento(this.vencimento);
+        this.documento.setPeriodo_inicial(this.dtInicial);
+        this.documento.setPeriodo_final(this.dtFinal);
         this.documento.setTamanho(file.getSize());
         this.documento.setEmpresa(contexto.getEmpresaAtiva());
         this.documento.setUlt_alteracao(Calendar.getInstance());
         this.documento.setUsuarioAlteracao(contexto.getUsuarioLogado());
-        this.documento.setPeriodo_final(Calendar.getInstance());
         int ano=this.documento.getPeriodo_final().getTime().getYear()+1900;
         int mes=this.documento.getPeriodo_final().getTime().getMonth()+1;
         String path = "C:" + File.separator
@@ -108,5 +119,31 @@ public class DocumentoCadastroBean implements Serializable {
     public void setFile(Part file) {
         this.file = file;
     }
+
+    public Calendar getVencimento() {
+        return vencimento;
+    }
+
+    public void setVencimento(Calendar vencimento) {
+        this.vencimento = vencimento;
+    }
+
+    public Calendar getDtInicial() {
+        return dtInicial;
+    }
+
+    public void setDtInicial(Calendar dtInicial) {
+        this.dtInicial = dtInicial;
+    }
+
+    public Calendar getDtFinal() {
+        return dtFinal;
+    }
+
+    public void setDtFinal(Calendar dtFinal) {
+        this.dtFinal = dtFinal;
+    }
+    
+    
 
 }

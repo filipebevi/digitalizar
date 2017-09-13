@@ -14,33 +14,37 @@
                 <hr/>
                 <div class="row">
                     <div class="col-sm-12">
+                        
+                       
 
 
-                        <!--<div class="form-group">
-                            <label for="descricaoDocumento">Descrição</label>
-                            <h:inputText value="#{documentoCadastroBean.documento.descricao}"  class="form-control" id="descricaoDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroDocumento">Código</label>
-                            <h:inputText value="#{documentoCadastroBean.documento.numero}"  class="form-control" id="numeroDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label for="valorDocumento">Valor</label>
-                            <h:inputText value="#{documentoCadastroBean.documento.valor}"  class="form-control" id="valorDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label for="vencimentoDocumento">Vencimento</label>
-                            <p:calendar value="#{documentoCadastroBean.documento.vencimento}"  class="form-control" id="vencimentoDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label for="dtInicialDocumento">Data Inicial</label>
-                            <p:calendar value="#{documentoCadastroBean.documento.periodo_inicial}"  class="form-control" id="dtInicialDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label for="dtFinalDocumento">Data Final</label>
-                            <p:calendar value="#{documentoCadastroBean.documento.periodo_final}"  class="form-control" id="dtFinalDocumento" />
-                        </div>-->
+
                         <h:form id="form1" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="numeroDocumento">Número</label>
+                                <h:inputText value="#{documentoCadastroBean.documento.numero}"  class="form-control" id="numeroDocumento" />
+                            </div>
+                            <div class="form-group">
+                                <label for="descricaoDocumento">Descrição</label>
+                                <h:inputText value="#{documentoCadastroBean.documento.descricao}"  class="form-control" id="descricaoDocumento" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="valorDocumento">Valor</label>
+                                <h:inputText value="#{documentoCadastroBean.documento.valor}"  class="form-control" id="valorDocumento" />
+                            </div>
+                            <div class="form-group">
+                                <label for="vencimentoDocumento">Vencimento</label>
+                                <p:calendar value="#{documentoCadastroBean.vencimento.time}"  mode="inline" pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"  class="form-control" id="vencimentoDocumento" />
+                            </div>
+                            <div class="form-group">
+                                <label for="dtInicialDocumento">Data Inicial</label>
+                                <p:calendar value="#{documentoCadastroBean.dtInicial.time}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtInicialDocumento" />
+                            </div>
+                            <div class="form-group">
+                                <label for="dtFinalDocumento">Data Final</label>
+                                <p:calendar value="#{documentoCadastroBean.dtFinal.time}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtFinalDocumento" />
+                            </div>
                             <div class="form-group">
                                 <label for="tipoDocumentoDocumento">Tipo de Documento</label>
                                 <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" 
