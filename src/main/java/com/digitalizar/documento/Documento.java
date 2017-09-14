@@ -11,6 +11,7 @@ import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -55,15 +56,15 @@ public class Documento implements Serializable{
     private String descricao;
     
     @Temporal(TemporalType.DATE)
-    private Calendar periodo_inicial;
+    private Date periodo_inicial;
     
     @Temporal(TemporalType.DATE)
-    private Calendar periodo_final;
+    private Date periodo_final;
     
     private Double valor;
     
     @Temporal(TemporalType.DATE)
-    private Calendar vencimento;
+    private Date vencimento;
     
     @ManyToOne
     private Entidade entidade;
@@ -160,19 +161,19 @@ public class Documento implements Serializable{
         this.descricao = descricao;
     }
 
-    public Calendar getPeriodo_inicial() {
+    public Date getPeriodo_inicial() {
         return periodo_inicial;
     }
 
-    public void setPeriodo_inicial(Calendar periodo_inicial) {
+    public void setPeriodo_inicial(Date periodo_inicial) {
         this.periodo_inicial = periodo_inicial;
     }
 
-    public Calendar getPeriodo_final() {
+    public Date getPeriodo_final() {
         return periodo_final;
     }
 
-    public void setPeriodo_final(Calendar periodo_final) {
+    public void setPeriodo_final(Date periodo_final) {
         this.periodo_final = periodo_final;
     }
 
@@ -184,11 +185,11 @@ public class Documento implements Serializable{
         this.valor = valor;
     }
 
-    public Calendar getVencimento() {
+    public Date getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(Calendar vencimento) {
+    public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
     }
 

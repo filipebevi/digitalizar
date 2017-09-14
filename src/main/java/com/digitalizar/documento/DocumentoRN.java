@@ -46,4 +46,8 @@ public class DocumentoRN {
         return this.documentoDAO.listar();
     }
     
+    public Integer ultimoCodigoBR(){
+        return this.documentoDAO.ultimoCodigoBD();
+    }
+    
 }

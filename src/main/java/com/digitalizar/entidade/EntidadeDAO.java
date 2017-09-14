@@ -26,4 +26,6 @@ public interface EntidadeDAO {
 
     void salvar(Entidade entidade);
     
+ 
+    
 }

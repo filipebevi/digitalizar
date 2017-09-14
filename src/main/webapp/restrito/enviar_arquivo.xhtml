@@ -35,15 +35,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="vencimentoDocumento">Vencimento</label>
-                                <p:calendar value="#{documentoCadastroBean.vencimento.time}"  mode="inline" pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"  class="form-control" id="vencimentoDocumento" />
+                                <p:calendar value="#{documentoCadastroBean.documento.vencimento}"   pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"  class="form-control" id="vencimentoDocumento" />
                             </div>
                             <div class="form-group">
                                 <label for="dtInicialDocumento">Data Inicial</label>
-                                <p:calendar value="#{documentoCadastroBean.dtInicial.time}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtInicialDocumento" />
+                                <p:calendar value="#{documentoCadastroBean.documento.periodo_inicial}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtInicialDocumento" />
                             </div>
                             <div class="form-group">
                                 <label for="dtFinalDocumento">Data Final</label>
-                                <p:calendar value="#{documentoCadastroBean.dtFinal.time}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtFinalDocumento" />
+                                <p:calendar value="#{documentoCadastroBean.documento.periodo_final}"  pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" class="form-control" id="dtFinalDocumento" />
                             </div>
                             <div class="form-group">
                                 <label for="tipoDocumentoDocumento">Tipo de Documento</label>

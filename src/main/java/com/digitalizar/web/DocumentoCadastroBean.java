@@ -13,11 +13,11 @@ import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.web.util.ContextoUtil;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -36,31 +36,22 @@ public class DocumentoCadastroBean implements Serializable {
     private Part file;
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
-    private Calendar vencimento;
-    private Calendar dtInicial=Calendar.getInstance();
-    private Calendar dtFinal=Calendar.getInstance();
-
-  
-           
 
     public void salvar() {
-        
 
         ContextoBean contexto = ContextoUtil.getContextoBean();
         if (this.documento.getId() == null) {
             this.documento.setData_inclusao(Calendar.getInstance());
             this.documento.setUsuario_inclusao(contexto.getUsuarioLogado());
         }
-        
-        this.documento.setVencimento(this.vencimento);
-        this.documento.setPeriodo_inicial(this.dtInicial);
-        this.documento.setPeriodo_final(this.dtFinal);
         this.documento.setTamanho(file.getSize());
         this.documento.setEmpresa(contexto.getEmpresaAtiva());
         this.documento.setUlt_alteracao(Calendar.getInstance());
         this.documento.setUsuarioAlteracao(contexto.getUsuarioLogado());
-        int ano=this.documento.getPeriodo_final().getTime().getYear()+1900;
-        int mes=this.documento.getPeriodo_final().getTime().getMonth()+1;
+        int ano=this.documento.getPeriodo_final().getYear()+1900;
+        int mes=this.documento.getPeriodo_final().getMonth()+1;
+        DocumentoRN documentoRN = new DocumentoRN();
+        Integer ultimoCodigo=documentoRN.ultimoCodigoBR();
         String path = "C:" + File.separator
                 + "UPLOAD" + File.separator
                 + contexto.getEmpresaAtiva().getNome() + File.separator
@@ -69,10 +60,12 @@ public class DocumentoCadastroBean implements Serializable {
                 + mes;
         String nomeArquivo = contexto.getEmpresaAtiva().getNome() + " - "
                 + this.documento.getTipo_documento().getDescricao() + " - "
-                + this.documento.getEntidade().getNome()+file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
-        System.out.println("nome do arquivo"+this.file.getName());
-        System.out.println("submited "+this.file.getSubmittedFileName());
-        System.out.println("tipo "+this.file.getContentType());
+                + ultimoCodigo + " - "
+                + this.documento.getEntidade().getNome()
+                +file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
+        //System.out.println("nome do arquivo"+this.file.getName());
+        //System.out.println("submited "+this.file.getSubmittedFileName());
+        //System.out.println("tipo "+this.file.getContentType());
          this.documento.setPath(path);
         this.documento.setNome(nomeArquivo);
         File diretorio = new File(path);
@@ -80,12 +73,11 @@ public class DocumentoCadastroBean implements Serializable {
             boolean success=diretorio.mkdirs();
         }
         try (InputStream input = file.getInputStream()){
-            Files.copy(input, new File(path, nomeArquivo).toPath());
-            DocumentoRN documentoRN = new DocumentoRN();
+            Files.copy(input, new File(path, nomeArquivo).toPath());            
             documentoRN.salvar(this.documento);
 
-        } catch (Exception e) {
-            System.out.println("o erro é:"+e.getMessage());
+        } catch (IOException e) {
+            System.out.println("o erro é:"+e.getMessage()+" O getLocalize é: "+e.getLocalizedMessage());
             
         }
     }
@@ -119,31 +111,4 @@ public class DocumentoCadastroBean implements Serializable {
     public void setFile(Part file) {
         this.file = file;
     }
-
-    public Calendar getVencimento() {
-        return vencimento;
-    }
-
-    public void setVencimento(Calendar vencimento) {
-        this.vencimento = vencimento;
-    }
-
-    public Calendar getDtInicial() {
-        return dtInicial;
-    }
-
-    public void setDtInicial(Calendar dtInicial) {
-        this.dtInicial = dtInicial;
-    }
-
-    public Calendar getDtFinal() {
-        return dtFinal;
-    }
-
-    public void setDtFinal(Calendar dtFinal) {
-        this.dtFinal = dtFinal;
-    }
-    
-    
-
 }

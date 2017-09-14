@@ -26,4 +26,6 @@ public interface DocumentoDAO {
 
     void salvar(Documento documento);
     
+    Integer ultimoCodigoBD();
+    
 }
