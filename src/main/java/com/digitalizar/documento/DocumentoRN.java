@@ -6,48 +6,87 @@
 package com.digitalizar.documento;
 
 import com.digitalizar.empresa.Empresa;
+import com.digitalizar.usuario.Usuario;
 import com.digitalizar.util.DAOFactory;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Calendar;
 import java.util.List;
-
-
+import javax.servlet.http.Part;
 
 /**
  *
  * @author filip
  */
 public class DocumentoRN {
-    
-     private DocumentoDAO documentoDAO;
-    
-    public DocumentoRN(){
+
+    private DocumentoDAO documentoDAO;
+
+    public DocumentoRN() {
         this.documentoDAO = DAOFactory.criarDocumentoDAO();
     }
-    
-    public Documento carregar(Integer id){
+
+    public Documento carregar(Integer id) {
         return this.documentoDAO.carregar(id);
     }
-    
-    public Documento buscarPorCodigo(Integer id){
+
+    public Documento buscarPorCodigo(Integer id) {
         return this.documentoDAO.buscarPorCodigo(id);
     }
-    
-    public void salvar(Documento documento){
-        
-        this.documentoDAO.salvar(documento);
-    
+
+    public void salvar(Documento documento, Empresa empresa, Usuario usuario, Part file) {
+        if (documento.getId() == null) {
+            documento.setData_inclusao(Calendar.getInstance());
+            documento.setUsuario_inclusao(usuario);
+        }
+        documento.setTamanho(file.getSize());
+        documento.setEmpresa(empresa);
+        documento.setUlt_alteracao(Calendar.getInstance());
+        documento.setUsuarioAlteracao(usuario);
+        int ano = documento.getPeriodo_final().getYear() + 1900;
+        int mes = documento.getPeriodo_final().getMonth() + 1;
+
+        Integer ultimoCodigo = ultimoCodigoBR();
+        String path = "C:" + File.separator
+                + "UPLOAD" + File.separator
+                + empresa.getNome() + File.separator
+                + documento.getTipo_documento().getDescricao() + File.separator
+                + ano + File.separator
+                + mes;
+        String nomeArquivo = empresa.getNome() + " - "
+                + documento.getTipo_documento().getDescricao() + " - "
+                + ultimoCodigo + " - "
+                + documento.getEntidade().getNome()
+                + file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
+        documento.setPath(path);
+        documento.setNome(nomeArquivo);
+        File diretorio = new File(path);
+        if (!diretorio.exists()) {
+            boolean success = diretorio.mkdirs();
+        }
+        try (InputStream input = file.getInputStream()) {
+            Files.copy(input, new File(path, nomeArquivo).toPath());
+            this.documentoDAO.salvar(documento);
+
+        } catch (IOException e) {
+            System.out.println("o erro é:" + e.getMessage() + " O getLocalize é: " + e.getLocalizedMessage());
+
+        }
+
     }
-    
-    public void excluir(Documento documento){
+
+    public void excluir(Documento documento) {
         this.documentoDAO.excluir(documento);
     }
-    
-    public List<Documento> listar(){
+
+    public List<Documento> listar() {
         return this.documentoDAO.listar();
     }
-    
-    public Integer ultimoCodigoBR(){
+
+    public Integer ultimoCodigoBR() {
         return this.documentoDAO.ultimoCodigoBD();
     }
-    
+
 }

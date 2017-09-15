@@ -24,7 +24,7 @@ import javax.faces.event.ValueChangeEvent;
  */
 @ManagedBean
 @SessionScoped
-public class ContextoBean{
+public class ContextoBean implements Serializable{
     
     private Empresa empresaAtiva=null;
     private Usuario usuarioLogado=null;
