@@ -12,14 +12,10 @@ import com.digitalizar.entidade.EntidadeRN;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.web.util.ContextoUtil;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 
@@ -28,8 +24,7 @@ import javax.servlet.http.Part;
  * @author Flipe
  */
 @ManagedBean
-@ViewScoped
-
+@RequestScoped
 public class DocumentoCadastroBean implements Serializable {
 
     private Documento documento = new Documento();
@@ -37,6 +32,7 @@ public class DocumentoCadastroBean implements Serializable {
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
 
+    
     public String salvar() {
 
         ContextoBean contexto = ContextoUtil.getContextoBean();

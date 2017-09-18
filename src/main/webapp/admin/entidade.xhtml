@@ -24,7 +24,7 @@
                             <div class="form-group">
                                     <label for="nome">Nome:</label>
                                     <h:inputText value="#{entidadeBean.entidade.nome}" class="form-control" id="nome" 
-                                                 required="true" requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
+                                                  onkeyup="maiuscula(this)"/>
                                     <p:message for="nome" />  
                             </div>
                                 <p:commandButton action="#{entidadeBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn btn-primary" />

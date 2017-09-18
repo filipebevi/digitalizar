@@ -9,17 +9,21 @@ import com.digitalizar.empresa.Empresa;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.util.DAOFactory;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.Part;
+import javax.transaction.Transaction;
+import javax.transaction.TransactionManager;
+import javax.transaction.Transactional;
 
 /**
  *
  * @author filip
  */
+@Transactional
 public class DocumentoRN {
 
     private DocumentoDAO documentoDAO;
@@ -36,6 +40,7 @@ public class DocumentoRN {
         return this.documentoDAO.buscarPorCodigo(id);
     }
 
+    
     public void salvar(Documento documento, Empresa empresa, Usuario usuario, Part file) {
         if (documento.getId() == null) {
             documento.setData_inclusao(Calendar.getInstance());
@@ -70,8 +75,14 @@ public class DocumentoRN {
             Files.copy(input, new File(path, nomeArquivo).toPath());
             this.documentoDAO.salvar(documento);
 
-        } catch (IOException e) {
+        } catch (UndeclaredThrowableException e) {
             System.out.println("o erro é:" + e.getMessage() + " O getLocalize é: " + e.getLocalizedMessage());
+            e.printStackTrace();
+
+        
+        } catch (Exception e) {
+            System.out.println("o Exception é:" + e.getMessage() + " O getLocalize é: " + e.getLocalizedMessage());
+            e.printStackTrace();
 
         }
 

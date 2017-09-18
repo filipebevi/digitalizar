@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Empresa implements Serializable{
     private Integer id;
     
     @Column(nullable=false, unique = true) 
+    @NotNull
     private String nome;
     private String logotipo;
 

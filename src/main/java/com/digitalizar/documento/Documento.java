@@ -21,6 +21,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+
+
+
 
 /**
  *
@@ -53,6 +58,8 @@ public class Documento implements Serializable{
     @ManyToOne
     private TipoDocumento tipo_documento;
     
+    
+    @
     private String descricao;
     
     @Temporal(TemporalType.DATE)
@@ -60,6 +67,7 @@ public class Documento implements Serializable{
     
     @Temporal(TemporalType.DATE)
     private Date periodo_final;
+    
     
     private Double valor;
     
