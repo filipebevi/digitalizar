@@ -5,11 +5,22 @@
  */
 package com.digitalizar.documento;
 
+import com.digitalizar.empresa.Empresa;
+import com.digitalizar.entidade.Entidade;
+import com.digitalizar.tipodocumento.TipoDocumento;
+import com.digitalizar.usuario.Usuario;
+import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -55,8 +66,21 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     }
 
     @Override
-    public List<Documento> listar() {
-        return this.session.createCriteria(Documento.class).list();
+    public List<Documento> listar(Empresa empresa, Usuario usuario) {
+        Criteria criteria = this.session.createCriteria(Documento.class);
+        List<TipoDocumento> tipoDocumentos = new ArrayList<>();
+        for (UsuarioTipoDocumento userTipoDoc : usuario.getUsuarioTipoDocumento()) {
+            if (userTipoDoc.getVisualizar() && userTipoDoc.getTipoDocumento().getEmpresa().getId().equals(empresa.getId())) {
+                tipoDocumentos.add(userTipoDoc.getTipoDocumento());
+            }
+        }
+        criteria.add(Restrictions.in("tipo_documento",tipoDocumentos));
+        
+        
+
+        
+        return criteria.list();
+
     }
 
     @Override

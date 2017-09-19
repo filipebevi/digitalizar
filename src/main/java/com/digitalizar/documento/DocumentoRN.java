@@ -6,7 +6,10 @@
 package com.digitalizar.documento;
 
 import com.digitalizar.empresa.Empresa;
+import com.digitalizar.entidade.Entidade;
+import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
+import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.util.DAOFactory;
 import java.io.File;
 import java.io.InputStream;
@@ -92,8 +95,11 @@ public class DocumentoRN {
         this.documentoDAO.excluir(documento);
     }
 
-    public List<Documento> listar() {
-        return this.documentoDAO.listar();
+    public List<Documento> listar(Empresa empresa, Usuario usuario) {
+        UsuarioRN usuarioRN = new UsuarioRN();
+        usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
+        return this.documentoDAO.listar(empresa, usuario);
+        
     }
 
     public Integer ultimoCodigoBR() {

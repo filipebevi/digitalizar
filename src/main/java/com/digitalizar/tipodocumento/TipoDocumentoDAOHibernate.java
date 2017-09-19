@@ -79,4 +79,6 @@ public class TipoDocumentoDAOHibernate implements TipoDocumentoDAO {
         return criteria.list();
     }
     
+    
+    
 }

@@ -37,17 +37,17 @@
 
                             <div class="form-group">
                                 <label for="dtInicialDocumento">Período Inicial:</label>
-                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_inicial}"  show-time="false"  id="dtInicialDocumento" />
+                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_inicial}"  required="true" show-time="false"  id="dtInicialDocumento" />
                             </div>
 
                             <div class="form-group">
                                 <label for="dtFinalDocumento">Período Final:</label>
-                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_final}"   show-time="false"  id="dtFinalDocumento" />
+                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_final}" required="true"   show-time="false"  id="dtFinalDocumento" />
                             </div>
                             <div class="form-group">
                                 <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
-                                <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" 
-                                                 value="#{documentoCadastroBean.documento.tipo_documento}" required="true" 
+                                <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
+                                                 value="#{documentoCadastroBean.documento.tipo_documento}" 
                                                  converter="omnifaces.SelectItemsConverter">
                                     <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
                                     <f:selectItems value="#{documentoCadastroBean.listarTipoDocumento}"
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label for="entidadeDocumento">Entidade:</label>
                                 <h:selectOneMenu class="form-control" id="entidadeDocumento" 
-                                                 value="#{documentoCadastroBean.documento.entidade}" required="true" 
+                                                 value="#{documentoCadastroBean.documento.entidade}"  
                                                  converter="omnifaces.SelectItemsConverter">
                                     <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
                                     <f:selectItems value="#{documentoCadastroBean.listarEntidade}"

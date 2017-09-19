@@ -5,6 +5,8 @@
  */
 package com.digitalizar.usuarioTipoDocumento;
 
+import com.digitalizar.tipodocumento.TipoDocumento;
+import com.digitalizar.usuario.Usuario;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public interface UsuarioTipoDocumentoDAO {
 
     void excluir(UsuarioTipoDocumento usuarioTipoDocumento);
 
-    List<UsuarioTipoDocumento> listar();
+    List<TipoDocumento> listar(Usuario usuario);
 
     void salvar(UsuarioTipoDocumento usuarioTipoDocumento);
     

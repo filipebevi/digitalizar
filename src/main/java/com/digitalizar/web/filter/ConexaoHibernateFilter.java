@@ -6,7 +6,6 @@
 package com.digitalizar.web.filter;
 
 import com.digitalizar.util.HibernateUtil;
-import com.digitalizar.web.util.MensagemUtil;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import org.hibernate.SessionFactory;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 /**
  *
@@ -28,6 +28,7 @@ public  class ConexaoHibernateFilter implements Filter{
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
             FilterChain chain) throws ServletException{
         try{
+            
             this.sf.getCurrentSession().beginTransaction();
             chain.doFilter(servletRequest, servletResponse);
             this.sf.getCurrentSession().getTransaction().commit();
@@ -36,7 +37,7 @@ public  class ConexaoHibernateFilter implements Filter{
             
         }catch(Throwable ex){
             try{
-                if(this.sf.getCurrentSession().getTransaction().isActive()){
+                if(this.sf.getCurrentSession().getTransaction().getStatus()==TransactionStatus.ACTIVE){
                     this.sf.getCurrentSession().getTransaction().rollback();
                     
                     

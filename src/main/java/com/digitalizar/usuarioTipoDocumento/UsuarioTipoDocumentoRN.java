@@ -6,6 +6,8 @@
 package com.digitalizar.usuarioTipoDocumento;
 
 
+import com.digitalizar.tipodocumento.TipoDocumento;
+import com.digitalizar.usuario.Usuario;
 import com.digitalizar.util.DAOFactory;
 import java.util.List;
 
@@ -30,8 +32,8 @@ public class UsuarioTipoDocumentoRN {
         this.usuarioTipoDocumentoDAO.excluir(usuarioTipoDocumento);
     }
     
-    public List<UsuarioTipoDocumento> listar(){
-        return this.usuarioTipoDocumentoDAO.listar();
+    public List<TipoDocumento> listar(Usuario usuario){
+        return this.usuarioTipoDocumentoDAO.listar(usuario);
     }
     
 }

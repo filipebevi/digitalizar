@@ -5,10 +5,17 @@
  */
 package com.digitalizar.usuarioTipoDocumento;
 
+import com.digitalizar.empresa.Empresa;
+import com.digitalizar.tipodocumento.TipoDocumento;
+import com.digitalizar.usuario.Usuario;
+import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
 import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -71,8 +78,20 @@ public class UsuarioTipoDocumentoDAOHibernate implements UsuarioTipoDocumentoDAO
     
     
     @Override
-    public List<UsuarioTipoDocumento> listar() {
-        return this.session.createCriteria(UsuarioTipoDocumento.class).list();
+    public List<TipoDocumento> listar(Usuario usuario) {
+        Criteria criteria = this.session.createCriteria(UsuarioTipoDocumento.class);
+        criteria.add(Restrictions.eq("usuario", usuario));
+        List<UsuarioTipoDocumento> usuarioTipoDocumentos = criteria.list();
+        List<TipoDocumento> tipoDocumentos =new ArrayList<TipoDocumento>();
+        for (int i = 0; i < usuarioTipoDocumentos.size(); i++) {
+            UsuarioTipoDocumento usuarioTipoDocumento = usuarioTipoDocumentos.get(i);
+            TipoDocumento tipoDocumento=usuarioTipoDocumento.getTipoDocumento();
+            tipoDocumentos.add(tipoDocumento);
+            tipoDocumento=null;
+            usuarioTipoDocumento=null;
+            
+        }
+        return tipoDocumentos;
     }
     
 }
