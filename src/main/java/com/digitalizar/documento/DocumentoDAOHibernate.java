@@ -75,6 +75,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
             }
         }
         criteria.add(Restrictions.in("tipo_documento",tipoDocumentos));
+        criteria.addOrder(Order.asc("tipo_documento"));
         
         
 
