@@ -15,7 +15,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <form id="tabelaDocumentos">
-                            <h:dataTable class="table table-striped" value="#{documentoBean.lista}" var="item">
+                            <h:dataTable class="table table-striped" value="#{documentoBean.lista}" var="item" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Descricao"/>
@@ -34,11 +40,16 @@
                                     </f:facet>
                                     <h:outputText value="#{item.entidade.nome}"/>
                                 </p:column>
-
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Competência"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.periodo_final}">
+                                        <f:convertDateTime pattern="MM-yyyy" locale="pt" />
+                                    </h:outputText>
+                                </p:column>
                             </h:dataTable>
                         </form>
-
-
                     </div>
                 </div>
             </div>

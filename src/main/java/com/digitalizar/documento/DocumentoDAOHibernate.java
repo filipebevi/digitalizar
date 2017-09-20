@@ -67,6 +67,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
 
     @Override
     public List<Documento> listar(Empresa empresa, Usuario usuario) {
+        List<Documento> resultado=null;
         Criteria criteria = this.session.createCriteria(Documento.class);
         List<TipoDocumento> tipoDocumentos = new ArrayList<>();
         for (UsuarioTipoDocumento userTipoDoc : usuario.getUsuarioTipoDocumento()) {
@@ -74,14 +75,16 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
                 tipoDocumentos.add(userTipoDoc.getTipoDocumento());
             }
         }
-        criteria.add(Restrictions.in("tipo_documento",tipoDocumentos));
-        criteria.addOrder(Order.asc("tipo_documento"));
         
+       
+            criteria.add(Restrictions.in("tipo_documento", tipoDocumentos));
+            criteria.addOrder(Order.asc("tipo_documento"));
+            
+            if(!tipoDocumentos.isEmpty()){
+                resultado=criteria.list();
+            }
         
-
-        
-        return criteria.list();
-
+        return resultado;
     }
 
     @Override

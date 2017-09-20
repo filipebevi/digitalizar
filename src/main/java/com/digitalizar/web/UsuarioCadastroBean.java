@@ -7,11 +7,16 @@ package com.digitalizar.web;
 
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.empresa.EmpresaRN;
+import com.digitalizar.tipodocumento.TipoDocumento;
+import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
+import com.digitalizar.usuarioEmpresa.UsuarioEmpresaRN;
+import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import com.digitalizar.web.util.ContextoUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -23,20 +28,24 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioCadastroBean implements Serializable{
+public class UsuarioCadastroBean implements Serializable {
 
     Usuario usuario = new Usuario();
     Empresa empresa = new Empresa();
+    TipoDocumento tipoDocumento = new TipoDocumento();
     UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
+    UsuarioTipoDocumento usuarioTipo = new UsuarioTipoDocumento();
+    List<TipoDocumento> listaTipo;
     List<Empresa> listaEmpresa;
-    String permissao=null;
+    String permissao = null;
+    List<UsuarioTipoDocumento> listaFilter;
 
     public UsuarioCadastroBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         if (contexto.getUsuarioTemporario() != null) {
             this.usuario = contexto.getUsuarioTemporario();
         }
-        
+
     }
 
     public void novaEmpresa() {
@@ -76,21 +85,40 @@ public class UsuarioCadastroBean implements Serializable{
         this.usuarioEmpresa = new UsuarioEmpresa();
 
     }
-    
-    public void removerEmpresa(){
+
+    public void removerEmpresa() {
         usuario.getUsuarioEmpresa().remove(this.usuarioEmpresa);
     }
-    
-    public void adicionarPermissao(){
+
+    public void adicionarPermissao() {
         this.usuario.getPermissao().add(this.permissao);
-        this.permissao=new String();
+        this.permissao = new String();
     }
-    
-    public void removerPermissao(){
+
+    public void removerPermissao() {
         this.usuario.getPermissao().remove(this.permissao);
-        this.permissao=new String();
+        this.permissao = new String();
     }
-    
+
+    public void adicionarTipo() {
+        UsuarioTipoDocumento.Id id = new UsuarioTipoDocumento.Id();
+        id.setTipoDocumento(this.tipoDocumento.getId());
+        id.setUsuario(this.usuario.getId());
+        this.usuarioTipo.setId(id);
+        this.usuarioTipo.setUsuario(this.usuario);
+        this.usuarioTipo.setTipoDocumento(this.tipoDocumento);
+
+        this.usuario.getUsuarioTipoDocumento().add(this.usuarioTipo);
+
+        this.tipoDocumento = new TipoDocumento();
+        this.usuarioTipo = new UsuarioTipoDocumento();
+        this.listaFilter = null;
+
+    }
+
+    public void removerTipo() {
+        usuario.getUsuarioTipoDocumento().remove(this.usuarioTipo);
+    }
 
     public List<Empresa> getListaEmpresa() {
         if (this.listaEmpresa == null) {
@@ -100,6 +128,20 @@ public class UsuarioCadastroBean implements Serializable{
 
         return this.listaEmpresa;
     }
+
+    public List<TipoDocumento> getListaTipo() {
+
+        TipoDocumentoRN tipoRN = new TipoDocumentoRN();
+        if (this.empresa.getId() == null) {
+            UsuarioEmpresaRN usuarioEmpresaRN = new UsuarioEmpresaRN();
+            this.empresa = usuarioEmpresaRN.buscarFavorita(this.usuario);
+        }
+        this.listaTipo = tipoRN.listar(this.empresa);
+
+        return this.listaTipo;
+    }
+
+    
 
     public Usuario getUsuario() {
         return usuario;
@@ -132,6 +174,21 @@ public class UsuarioCadastroBean implements Serializable{
     public void setPermissao(String permissao) {
         this.permissao = permissao;
     }
-    
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public UsuarioTipoDocumento getUsuarioTipo() {
+        return usuarioTipo;
+    }
+
+    public void setUsuarioTipo(UsuarioTipoDocumento usuarioTipo) {
+        this.usuarioTipo = usuarioTipo;
+    }
 
 }

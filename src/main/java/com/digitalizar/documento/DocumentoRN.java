@@ -66,7 +66,6 @@ public class DocumentoRN {
         String nomeArquivo = empresa.getNome() + " - "
                 + documento.getTipo_documento().getDescricao() + " - "
                 + ultimoCodigo + " - "
-                + documento.getEntidade().getNome()
                 + file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
         documento.setPath(path);
         documento.setNome(nomeArquivo);

@@ -6,7 +6,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
     <ui:composition template="/templates/interna.xhtml">
         <ui:define name="conteudo">
             <!-- Modal para adicionar uma empresa-->
@@ -36,7 +35,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                <p:commandButton action="#{usuarioCadastroBean.adicionarEmpresa()}" update=":edicaoUsuario :formModalEmpresa"   
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarEmpresa()}" update=":edicaoUsuario:tabelaEmpresa :formModalEmpresa"   
                                                  value="Adicionar" class="btn btn-primary btn-sm" />
                             </div>
                         </h:form>
@@ -44,8 +43,7 @@
                 </div>
             </div>
             <!-- Fim do Modal para adicionar uma empresa-->
-
-            <!-- Modal para adicionar uma permissao-->
+            <!-- Modal para adicionar um acesso-->
             <div class="modal fade" id="modalAcesso" role="dialog" >
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -67,16 +65,49 @@
                                                     <f:selectItem itemLabel="ROLE_USUARIO" itemValue="ROLE_USUARIO" />
                                                     <f:selectItem itemLabel="ROLE_CLIENTE" itemValue="ROLE_CLIENTE" />
                                                 </h:selectOneMenu>
-
                                             </div>       
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                <p:commandButton action="#{usuarioCadastroBean.adicionarPermissao()}" update=":edicaoUsuario :formModalAcesso"   
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarPermissao()}" update=":edicaoUsuario:tabelaAcesso :formModalAcesso"   
+                                                 value="Adicionar" class="btn btn-primary btn-sm" />
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do Modal para adicionar um acesso-->
+            <!-- Modal para adicionar uma permissao-->
+            <div class="modal fade" id="modalPermissao" role="dialog" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <h:form id="formModalPermissao">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Adicionar Permissao</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="permissao">Permissao</label>
+                                                <h:selectOneMenu class="navbar-form form-control navbar-right" id="permissao" converter="omnifaces.SelectItemsConverter"
+                                                                 value="#{usuarioCadastroBean.tipoDocumento}">
+                                                    <f:selectItems value="#{usuarioCadastroBean.listaTipo}"
+                                                                   var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"/>
+                                                </h:selectOneMenu>
+                                            </div>       
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <p:commandButton action="#{usuarioCadastroBean.adicionarTipo()}" update=":edicaoUsuario:tabelaPermissao :formModalPermissao"   
                                                  value="Adicionar" class="btn btn-primary btn-sm" />
                             </div>
                         </h:form>
@@ -84,7 +115,6 @@
                 </div>
             </div>
             <!-- Fim do Modal para adicionar uma Permissão-->
-
             <div class="container">
                 <h3>Cadastro de Usuário</h3>
                 <hr/>
@@ -149,16 +179,12 @@
                                         <h:outputText value="#{usuarioCadastroBean.usuario.data_inclusao.time}" class="form-control" id="dataInclusao">
                                             <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" timeZone="America/Sao_Paulo"/>
                                         </h:outputText>
-
-
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="usuerAlteracao">Usuario Alteração</label>
                                         <h:outputText value="#{usuarioCadastroBean.usuario.usuarioAlteracao.nome}" class="form-control"  id="userAlteracao" />
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -167,7 +193,6 @@
                                         <h:outputText value="#{usuarioCadastroBean.usuario.data_ult_alteracao.time}" class="form-control"  id="dataAlteracao" >
                                             <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" timeZone="America/Sao_Paulo"/>
                                         </h:outputText>
-
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +216,7 @@
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active" ><a aria-controls="empresas" role="tab" data-toggle="tab" href="#empresas" >Empresas</a></li>
                                 <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#acesso">Acesso</a></li>
-                                <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#">Liberação</a></li>
+                                <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#permissao">Liberação</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="empresas" class="tab-pane fade in active">
@@ -249,7 +274,71 @@
                                             </p:commandButton> 
                                         </p:column>
                                     </h:dataTable>
-
+                                </div>
+                                <div id="permissao" class="tab-pane fade">
+                                    <br/>
+                                        <div class="form-group">
+                                            <label for="empresa">Empresa: </label>
+                                            <h:selectOneMenu class="form-control" id="empresa"  style="max-width: 300px" 
+                                                             value="#{usuarioCadastroBean.empresa}" 
+                                                             converter="omnifaces.SelectItemsConverter" >
+                                                <f:selectItems value="#{usuarioCadastroBean.usuario.usuarioEmpresa}"
+                                                               var="empresa" itemValue="#{empresa.empresa}" itemLabel="#{empresa.empresa.nome}"/>
+                                                <f:ajax execute="@form" render="tabelaPermissao"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        <p:commandLink  rendered="#{!empty usuarioCadastroBean.usuario.id}" value="Adicionar" class="btn btn-default" update=":formModalPermissao">
+                                            <f:passThroughAttribute name="data-toggle" value="modal" />
+                                            <f:passThroughAttribute name="data-target" value="#modalPermissao" />              
+                                        </p:commandLink>
+                                    <hr/>
+                                    <h:dataTable id="tabelaPermissao" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioTipoDocumento}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioTipoDocumento}" var="itemTipo">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Empresa"/>
+                                            </f:facet>
+                                            <h:outputText value="#{itemTipo.tipoDocumento.empresa.nome}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tipo do Documento"/>
+                                            </f:facet>
+                                            <h:outputText value="#{itemTipo.tipoDocumento.descricao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Visualizar"/>
+                                            </f:facet>
+                                            <h:selectBooleanCheckbox value="#{itemTipo.visualizar}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Inserir"/>
+                                            </f:facet>
+                                            <h:selectBooleanCheckbox value="#{itemTipo.inserir}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Alterar"/>
+                                            </f:facet>
+                                            <h:selectBooleanCheckbox value="#{itemTipo.alterar}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Excluir"/>
+                                            </f:facet>
+                                            <h:selectBooleanCheckbox value="#{itemTipo.excluir}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Remover"/>
+                                            </f:facet>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{usuarioCadastroBean.removerTipo()}" update=":edicaoUsuario" onclick="if (!confirm('Confirma a exclusao do Tipo #{itemTipo.tipoDocumento.descricao}?'))
+                                                        return false;"  >
+                                                <f:setPropertyActionListener target="#{usuarioCadastroBean.usuarioTipo}" value="#{itemTipo}"/>
+                                            </p:commandButton> 
+                                        </p:column>
+                                    </h:dataTable>
                                 </div>
                             </div>
                         </div>
