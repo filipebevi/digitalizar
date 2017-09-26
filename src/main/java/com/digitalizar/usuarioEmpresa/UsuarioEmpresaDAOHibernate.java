@@ -50,15 +50,21 @@ public class UsuarioEmpresaDAOHibernate implements UsuarioEmpresaDAO {
 
     @Override
     public Empresa buscarFavorita(Usuario usuario) {
-        
-        Criteria criteria =this.session.createCriteria(UsuarioEmpresa.class);
+
+        Criteria criteria = this.session.createCriteria(UsuarioEmpresa.class);
         criteria.add(Restrictions.eq("usuario", usuario));
         criteria.add(Restrictions.eq("padrao", true));
-        UsuarioEmpresa usuarioEmpresa =  (UsuarioEmpresa) criteria.uniqueResult();
-        Empresa padrao=usuarioEmpresa.getEmpresa();
-        return  padrao;
-        
-      
+        Empresa padrao=null;
+        try {
+            UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) criteria.uniqueResult();
+            padrao = usuarioEmpresa.getEmpresa();
+
+        } catch (Exception e) {
+            System.out.println("Deverá ser informada a empresa padrão ou nenhuma empresa ainda foi atribuida ao usuário: "+e.getMessage());
+        }
+
+        return padrao;
+
     }
 
     @Override
@@ -66,14 +72,14 @@ public class UsuarioEmpresaDAOHibernate implements UsuarioEmpresaDAO {
         Criteria criteria = this.session.createCriteria(UsuarioEmpresa.class);
         criteria.add(Restrictions.eq("usuario", usuario));
         List<UsuarioEmpresa> usuarioEmpresas = criteria.list();
-        List<Empresa> empresas =new ArrayList<Empresa>();
+        List<Empresa> empresas = new ArrayList<Empresa>();
         for (int i = 0; i < usuarioEmpresas.size(); i++) {
             UsuarioEmpresa usuarioEmpresa = usuarioEmpresas.get(i);
-            Empresa empresa=usuarioEmpresa.getEmpresa();
+            Empresa empresa = usuarioEmpresa.getEmpresa();
             empresas.add(empresa);
-            empresa=null;
-            usuarioEmpresa=null;
-            
+            empresa = null;
+            usuarioEmpresa = null;
+
         }
         return empresas;
     }

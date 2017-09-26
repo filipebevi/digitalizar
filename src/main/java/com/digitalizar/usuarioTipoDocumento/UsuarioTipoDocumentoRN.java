@@ -32,7 +32,7 @@ public class UsuarioTipoDocumentoRN {
         this.usuarioTipoDocumentoDAO.excluir(usuarioTipoDocumento);
     }
     
-    public List<TipoDocumento> listar(Usuario usuario){
+    public List<UsuarioTipoDocumento> listar(Usuario usuario){
         return this.usuarioTipoDocumentoDAO.listar(usuario);
     }
     

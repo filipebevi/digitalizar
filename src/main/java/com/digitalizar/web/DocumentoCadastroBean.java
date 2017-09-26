@@ -12,6 +12,7 @@ import com.digitalizar.entidade.EntidadeRN;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.web.util.ContextoUtil;
+import com.digitalizar.web.util.MensagemUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +39,7 @@ public class DocumentoCadastroBean implements Serializable {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         DocumentoRN documentoRN = new DocumentoRN();
         documentoRN.salvar(this.documento, contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), this.file);
+        new MensagemUtil().sendMensagem("Documento Nº: "+this.documento.getId()+" gravado com sucesso","");
         this.documento=new Documento();
         this.file= null;
         return "principal";

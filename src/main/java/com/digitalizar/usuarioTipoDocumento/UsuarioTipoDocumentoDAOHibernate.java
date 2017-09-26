@@ -78,20 +78,13 @@ public class UsuarioTipoDocumentoDAOHibernate implements UsuarioTipoDocumentoDAO
     
     
     @Override
-    public List<TipoDocumento> listar(Usuario usuario) {
+    public List<UsuarioTipoDocumento> listar(Usuario usuario) {
         Criteria criteria = this.session.createCriteria(UsuarioTipoDocumento.class);
         criteria.add(Restrictions.eq("usuario", usuario));
         List<UsuarioTipoDocumento> usuarioTipoDocumentos = criteria.list();
-        List<TipoDocumento> tipoDocumentos =new ArrayList<TipoDocumento>();
-        for (int i = 0; i < usuarioTipoDocumentos.size(); i++) {
-            UsuarioTipoDocumento usuarioTipoDocumento = usuarioTipoDocumentos.get(i);
-            TipoDocumento tipoDocumento=usuarioTipoDocumento.getTipoDocumento();
-            tipoDocumentos.add(tipoDocumento);
-            tipoDocumento=null;
-            usuarioTipoDocumento=null;
-            
-        }
-        return tipoDocumentos;
+        
+       
+        return usuarioTipoDocumentos;
     }
     
 }

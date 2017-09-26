@@ -6,8 +6,10 @@
 package com.digitalizar.documento;
 
 import com.digitalizar.empresa.Empresa;
+import com.digitalizar.entidade.Entidade;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +26,8 @@ public interface DocumentoDAO {
 
     void excluir(Documento documento);
 
-    List<Documento> listar(Empresa empresa, Usuario usuario);
+    List<Documento> listar(Empresa empresa, Usuario usuario,String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
+            Date dataInicio, Date dataFim);
 
     void salvar(Documento documento);
     

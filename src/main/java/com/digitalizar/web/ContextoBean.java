@@ -5,6 +5,7 @@
  */
 package com.digitalizar.web;
 
+import com.digitalizar.documento.Documento;
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.empresa.EmpresaRN;
 import com.digitalizar.usuario.Usuario;
@@ -29,6 +30,7 @@ public class ContextoBean implements Serializable{
     private Empresa empresaAtiva=null;
     private Usuario usuarioLogado=null;
     private Usuario usuarioTemporario=null;
+    private Documento documento=null;
 
     public Empresa getEmpresaAtiva() {
         
@@ -84,6 +86,14 @@ public class ContextoBean implements Serializable{
 
     public void setUsuarioTemporario(Usuario usuarioTemporario) {
         this.usuarioTemporario = usuarioTemporario;
+    }
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
     
     

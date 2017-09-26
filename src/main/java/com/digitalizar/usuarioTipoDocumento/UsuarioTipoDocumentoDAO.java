@@ -23,7 +23,7 @@ public interface UsuarioTipoDocumentoDAO {
 
     void excluir(UsuarioTipoDocumento usuarioTipoDocumento);
 
-    List<TipoDocumento> listar(Usuario usuario);
+    List<UsuarioTipoDocumento> listar(Usuario usuario);
 
     void salvar(UsuarioTipoDocumento usuarioTipoDocumento);
     

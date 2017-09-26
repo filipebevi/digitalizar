@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="conteudo">
+            <div class="container">
+                <h3>Enviar Documento</h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h:form id="form1" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="descricaoDocumento">Descrição:</label>
+                                        <h:inputText value="#{documentoCadastroBean.documento.descricao}"  required="true" requiredMessage="É necessário informar uma descrição" class="form-control" id="descricaoDocumento" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
+                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
+                                                         value="#{documentoCadastroBean.documento.tipo_documento}" 
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
+                                            <f:selectItems value="#{documentoCadastroBean.listarTipoDocumento}"
+                                                           var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="entidadeDocumento">Entidade:</label>
+                                        <h:selectOneMenu class="form-control" id="entidadeDocumento" 
+                                                         value="#{documentoCadastroBean.documento.entidade}"  
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
+                                            <f:selectItems value="#{documentoCadastroBean.listarEntidade}"
+                                                           var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="dtFinalDocumento">Data:</label>
+                                        <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_final}" required="true"  requiredMessage="É necessário informar uma data" show-time="false"  id="dtFinalDocumento" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="documentoDocumento">Documento:</label>
+                                        <h:inputFile value="#{documentoCadastroBean.file}"  class="form-control" id="documentoDocumento" required="true" requiredMessage="Informe o documento a ser salvo" />
+                                    </div> 
+                                </div>
+                            </div>
+                            <h:commandButton value="Salvar" class="btn btn-primary" action="#{documentoCadastroBean.salvar()}"/>
+                            <a class="btn btn-default" href="documento.jsf" role="button">Cancelar</a>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+
+
+
+
+</html>

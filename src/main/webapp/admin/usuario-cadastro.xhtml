@@ -226,7 +226,7 @@
                                         <f:passThroughAttribute name="data-target" value="#modalEmpresa" />
                                     </p:commandLink>
                                     <hr/>
-                                    <h:dataTable id="tabelaEmpresa" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioEmpresa}" var="itemEmpresas" >
+                                    <h:dataTable id="tabelaEmpresa" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioEmpresa}"  var="itemEmpresas" >
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Empresa"/>
@@ -257,7 +257,7 @@
                                         <f:passThroughAttribute name="data-target" value="#modalAcesso" />
                                     </p:commandLink>
                                     <hr/>
-                                    <h:dataTable id="tabelaAcesso" class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}" rendered="#{!empty usuarioCadastroBean.usuario.permissao }" var="itemPermissao">
+                                    <h:dataTable id="tabelaAcesso" class="table table-striped" value="#{usuarioCadastroBean.usuario.permissao}"  var="itemPermissao">
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Permissao"/>
@@ -292,7 +292,7 @@
                                             <f:passThroughAttribute name="data-target" value="#modalPermissao" />              
                                         </p:commandLink>
                                     <hr/>
-                                    <h:dataTable id="tabelaPermissao" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioTipoDocumento}" rendered="#{!empty usuarioCadastroBean.usuario.usuarioTipoDocumento}" var="itemTipo">
+                                    <h:dataTable id="tabelaPermissao" class="table table-striped" value="#{usuarioCadastroBean.usuario.usuarioTipoDocumento}"  var="itemTipo">
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Empresa"/>

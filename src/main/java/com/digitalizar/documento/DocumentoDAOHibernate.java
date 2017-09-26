@@ -12,6 +12,7 @@ import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -66,7 +67,8 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     }
 
     @Override
-    public List<Documento> listar(Empresa empresa, Usuario usuario) {
+    public List<Documento> listar(Empresa empresa, Usuario usuario, String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
+            Date dataInicio, Date dataFim) {
         List<Documento> resultado=null;
         Criteria criteria = this.session.createCriteria(Documento.class);
         List<TipoDocumento> tipoDocumentos = new ArrayList<>();
@@ -75,17 +77,31 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
                 tipoDocumentos.add(userTipoDoc.getTipoDocumento());
             }
         }
-        
-       
             criteria.add(Restrictions.in("tipo_documento", tipoDocumentos));
-            criteria.addOrder(Order.asc("tipo_documento"));
+            if(tipoDocumento!=null){
+                criteria.add(Restrictions.eq("tipo_documento", tipoDocumento));
+            }
             
+            if(entidade!=null){
+               criteria.add(Restrictions.eq("entidade", entidade)); 
+            }
+            if(dataInicio!=null && dataFim!=null){
+               criteria.add(Restrictions.between("periodo_final", dataInicio, dataFim)); 
+            }
+            
+            if(descricao!=null){
+               criteria.add(Restrictions.ilike("descricao","%"+descricao+"%" ));
+            }
+            
+            criteria.addOrder(Order.asc("tipo_documento"));
             if(!tipoDocumentos.isEmpty()){
                 resultado=criteria.list();
             }
         
         return resultado;
     }
+    
+   
 
     @Override
     public Integer ultimoCodigoBD() {

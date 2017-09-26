@@ -132,11 +132,16 @@ public class UsuarioCadastroBean implements Serializable {
     public List<TipoDocumento> getListaTipo() {
 
         TipoDocumentoRN tipoRN = new TipoDocumentoRN();
-        if (this.empresa.getId() == null) {
+        
             UsuarioEmpresaRN usuarioEmpresaRN = new UsuarioEmpresaRN();
             this.empresa = usuarioEmpresaRN.buscarFavorita(this.usuario);
+        if(empresa!=null){
+            this.listaTipo = tipoRN.listar(this.empresa);
         }
-        this.listaTipo = tipoRN.listar(this.empresa);
+        
+            
+        
+        
 
         return this.listaTipo;
     }

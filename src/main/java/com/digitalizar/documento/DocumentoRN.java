@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.file.Files;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Part;
 import javax.transaction.Transaction;
@@ -76,14 +77,9 @@ public class DocumentoRN {
         try (InputStream input = file.getInputStream()) {
             Files.copy(input, new File(path, nomeArquivo).toPath());
             this.documentoDAO.salvar(documento);
-
-        } catch (UndeclaredThrowableException e) {
-            System.out.println("o erro é:" + e.getMessage() + " O getLocalize é: " + e.getLocalizedMessage());
-            e.printStackTrace();
-
         
         } catch (Exception e) {
-            System.out.println("o Exception é:" + e.getMessage() + " O getLocalize é: " + e.getLocalizedMessage());
+            System.out.println("O arquivo não foi salvo, erro durante a inserção ao banco ou na gravação do arquivo:" + e.getMessage());
             e.printStackTrace();
 
         }
@@ -94,12 +90,15 @@ public class DocumentoRN {
         this.documentoDAO.excluir(documento);
     }
 
-    public List<Documento> listar(Empresa empresa, Usuario usuario) {
+    public List<Documento> listar(Empresa empresa, Usuario usuario, String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
+            Date dataInicio, Date dataFim) {
         UsuarioRN usuarioRN = new UsuarioRN();
         usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
-        return this.documentoDAO.listar(empresa, usuario);
+        return this.documentoDAO.listar(empresa, usuario, descricao ,tipoDocumento,entidade, dataInicio, dataFim);
         
     }
+    
+   
 
     public Integer ultimoCodigoBR() {
         return this.documentoDAO.ultimoCodigoBD();

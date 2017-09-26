@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="conteudo">
+            <div class="container">
+                <h3>Consultar Documentos</h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h:form id="formPesquisa">
+                            <div class="row" style="background: #ccc; padding-top: 10px">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="pesquisaDescricao">Descrição:</label>
+                                        <h:inputText value="#{documentoBean.descricao}"   class="form-control" id="pesquisaDescricao" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
+                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" 
+                                                         value="#{documentoBean.tipoDocumento}" 
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
+                                            <f:selectItems value="#{documentoBean.listaTipo}"
+                                                           var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="entidadeDocumento">Entidade:</label>
+                                            <h:selectOneMenu class="form-control" id="entidadeDocumento" 
+                                                             value="#{documentoBean.entidade}"  
+                                                             converter="omnifaces.SelectItemsConverter">
+                                                <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
+                                                <f:selectItems value="#{documentoBean.listaEntidade}"
+                                                               var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="dtInicialDocumento">Período Inicial:</label>
+                                            <b:dateTimePicker value="#{documentoBean.dataInicial}"  format="DD/MM/YYYY" show-time="false"  id="dtInicialDocumento" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="dtFinalDocumento">Período Final:</label>
+                                            <b:dateTimePicker value="#{documentoBean.dataFinal}" format="DD/MM/YYYY"  show-time="false"  id="dtFinalDocumento" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br/>
+                            <h:commandButton class="btn  btn-primary" value="Pesquisar" >
+                                <f:ajax execute="@form" render=":tabelaDocumentos"/>
+                            </h:commandButton>
+                        </h:form>
+                        <br/>
+                        <h:form id="tabelaDocumentos">
+                            <h:dataTable class="table table-striped" value="#{documentoBean.lista}" var="item" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Competência"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.periodo_final}">
+                                        <f:convertDateTime pattern="MM-yyyy" locale="pt" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Tipo de Documento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                </p:column>                                
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descricao"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Entidade"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.entidade.nome}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Visualizar/Baixar"/>
+                                    </f:facet>
+                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" action="#{documentoBean.visualizar()}"  >
+                                        <f:setPropertyActionListener target="#{contextoBean.documento}" value="#{item}" />
+                                    </p:commandButton>  
+                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-document" action="#{documentoBean.baixar()}">
+                                        <f:setPropertyActionListener target="#{documentoBean.documento}" value="#{item}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
