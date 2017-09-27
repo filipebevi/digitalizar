@@ -63,13 +63,7 @@ public class DocumentoBean {
         return "documento-visualizar";
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+   
 
     public TipoDocumento getTipoDocumento() {
         return tipoDocumento;
@@ -110,4 +104,13 @@ public class DocumentoBean {
     public void setDocumento(Documento documento) {
         this.documento = documento;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
 }

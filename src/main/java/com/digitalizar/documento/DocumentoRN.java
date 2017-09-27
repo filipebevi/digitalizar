@@ -89,6 +89,12 @@ public class DocumentoRN {
     public void excluir(Documento documento) {
         this.documentoDAO.excluir(documento);
     }
+    
+    public void aprovar(Documento documento, Usuario usuario){
+        documento.setData_aprovacao(Calendar.getInstance());
+        documento.setUsuario_aprovacao(usuario);
+        
+    }
 
     public List<Documento> listar(Empresa empresa, Usuario usuario, String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
             Date dataInicio, Date dataFim) {
