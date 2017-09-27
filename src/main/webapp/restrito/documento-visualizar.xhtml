@@ -9,6 +9,37 @@
       xmlns:b="http://bootsfaces.net/ui">
     <ui:composition template="/templates/interna.xhtml">
         <ui:define name="conteudo">
+            <!-- Modal para adicionar uma empresa-->
+            <div class="modal fade" id="modalVinculo" role="dialog">
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <h:form id="modalFormVinculo">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Vincular Documento</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            
+                                            
+                                            
+
+                                        </div>       
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        
+                    </div>
+                    </h:form>
+                </div>
+            </div>
+            </div>
+            <!-- Fim do Modal para adicionar uma empresa-->
             <div class="container">
                 <h3>Visualizar Documento</h3>
                 <hr/>
@@ -67,17 +98,148 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="documentoDocumento">Documento:</label>
-                                      
+                                        <label for="documentoDocumento">Baixar o documento</label>
+
                                     </div> 
                                 </div>
                             </div>
                             <h:commandButton value="Salvar" class="btn btn-primary" action="#{documentoVisualizarBean.editar()}"/>
                             <a class="btn btn-default" href="documento.jsf" role="button">Cancelar</a>
+                            <br/>
+                            <br/>
+
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active" ><a aria-controls="empresas" role="tab" data-toggle="tab" href="#controle" >Controle</a></li>
+                                <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#documentosVinculados">Documentos Vinculados</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="controle" class="tab-pane fade in active">
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="dataInclusao">Data da Inclusão:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.data_inclusao.time}"   class="form-control" id="dataInclusao" 
+                                                             disabled="true" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="nomeInclusao">Usuário Inclusão:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuario_inclusao.nome}"   class="form-control" id="usuarioInclusao" 
+                                                             disabled="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="dataAlteracao">Data da Alteração:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.ult_alteracao.time}"   class="form-control" id="dataAlteracao" 
+                                                             disabled="true" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="nomeAlteracao">Usuário Alteração:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuarioAlteracao.nome}"   class="form-control" id="usuarioAlteracao" 
+                                                             disabled="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="dataAprovacao">Data da Aprovação:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.data_aprovacao.time}"   class="form-control" id="dataAprovacao" 
+                                                             disabled="true" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+
+                                            <div class="form-group">
+                                                <label for="nomeAprovacao">Usuario Aprovação:</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuario_aprovacao.nome}"   class="form-control" id="usuarioAprovacao" 
+                                                             disabled="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label style="color: white">apenas alinar</label>
+                                                <h:commandButton value="Validar Documento" class=" form-control btn btn-primary"  action="#{documentoVisualizarBean.editar()}"/>
+
+                                            </div>
+
+                                        </div>   
+                                    </div>
+                                </div>
+                                <div id="documentosVinculados" class="tab-pane fade">
+                                    <br/>
+                                    <p:commandLink   value="Vincular Documento" class="btn btn-default" >
+                                        <f:passThroughAttribute name="data-toggle" value="modal" />
+                                        <f:passThroughAttribute name="data-target" value="#modalVinculo" />
+                                    </p:commandLink>
+                                    <br/>
+                                    <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.litarDocumento}" var="item">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.id}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tipo"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descrição"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.descricao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Entidade"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.entidade.nome}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.periodo_final}">
+                                                <f:convertDateTime pattern="DD/MM/YYYY"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Visualizar/Remover"/>
+                                            </f:facet>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" >
+                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
+                                            </p:commandButton>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" >
+                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
+                                            </p:commandButton> 
+                                        </p:column>
+
+                                    </h:dataTable>
+
+
+                                </div>
+                            </div>
                         </h:form>
                     </div>
                 </div>

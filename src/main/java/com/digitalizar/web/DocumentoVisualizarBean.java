@@ -29,6 +29,7 @@ import javax.servlet.http.Part;
 public class DocumentoVisualizarBean implements Serializable {
 
     private Documento documento = new Documento();
+    private Documento docVinculado = new Documento();
     private Part file;
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
@@ -97,4 +98,54 @@ public class DocumentoVisualizarBean implements Serializable {
     public void setFile(Part file) {
         this.file = file;
     }
+
+    public Documento getDocVinculado() {
+        return docVinculado;
+    }
+
+    public void setDocVinculado(Documento docVinculado) {
+        this.docVinculado = docVinculado;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public Entidade getEntidade() {
+        return entidade;
+    }
+
+    public void setEntidade(Entidade entidade) {
+        this.entidade = entidade;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+    
+    
 }
