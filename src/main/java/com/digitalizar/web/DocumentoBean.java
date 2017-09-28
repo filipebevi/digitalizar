@@ -60,6 +60,7 @@ public class DocumentoBean {
      
     
     public String visualizar(){
+        
         return "documento-visualizar";
     }
 

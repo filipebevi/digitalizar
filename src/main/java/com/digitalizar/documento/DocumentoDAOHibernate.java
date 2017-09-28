@@ -41,6 +41,12 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
         this.session.saveOrUpdate(documento);
 
     }
+    
+    @Override
+    public void editar(Documento documento) {
+        this.session.update(documento);
+
+    }
 
     @Override
     public void atualizar(Documento documento) {

@@ -13,12 +13,18 @@ import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.web.util.ContextoUtil;
 import com.digitalizar.web.util.MensagemUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -30,11 +36,11 @@ public class DocumentoVisualizarBean implements Serializable {
 
     private Documento documento = new Documento();
     private Documento docVinculado = new Documento();
-    private Part file;
+    private StreamedContent arquivo;
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
-    private List<Documento> litarDocumento;
-    
+    private List<Documento> listarDocumento;
+
     private String descricao;
     private TipoDocumento tipoDocumento;
     private Entidade entidade;
@@ -43,10 +49,14 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public DocumentoVisualizarBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        this.documento=contexto.getDocumento();
+        this.documento = contexto.getDocumento();
     }
-    
+
     public String editar() {
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        DocumentoRN documentoRN=new DocumentoRN();
+        documentoRN.editar(this.documento, contexto.getUsuarioLogado());
+        this.documento= new Documento();
 
         return "documento";
     }
@@ -55,11 +65,34 @@ public class DocumentoVisualizarBean implements Serializable {
 
         return "documento";
     }
-    
-    public void aprovar(){
-        ContextoBean contexto=ContextoUtil.getContextoBean();
-        DocumentoRN documentoRN=new DocumentoRN();
+
+    public void aprovar() {
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        DocumentoRN documentoRN = new DocumentoRN();
         documentoRN.aprovar(this.documento, contexto.getUsuarioLogado());
+    }
+
+    public void vincular() {
+        this.documento.getDocumentos().add(this.docVinculado);
+    }
+
+    public void desvincular() {
+        this.documento.getDocumentos().remove(this.docVinculado);
+    }
+
+    public void download() {
+        try {
+            InputStream stream = new FileInputStream(new File(this.documento.getPath(), this.documento.getNome()));
+            arquivo = new DefaultStreamedContent(stream, "image/jpg", this.documento.getNome());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");
+            e.printStackTrace();
+        }catch (Exception e) {
+            System.out.println("Algum erro ao fazer o download");
+            e.printStackTrace();
+        }
+
     }
 
     public List<TipoDocumento> getListarTipoDocumento() {
@@ -76,11 +109,11 @@ public class DocumentoVisualizarBean implements Serializable {
         return this.listarEntidade;
     }
 
-    public List<Documento> getLitarDocumento() {
+    public List<Documento> getListarDocumento() {
         DocumentoRN documentoRN = new DocumentoRN();
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
-        return litarDocumento;
+        this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
+        return this.listarDocumento;
     }
 
     public Documento getDocumento() {
@@ -91,12 +124,12 @@ public class DocumentoVisualizarBean implements Serializable {
         this.documento = documento;
     }
 
-    public Part getFile() {
-        return file;
+    public StreamedContent getArquivo() {
+        return arquivo;
     }
 
-    public void setFile(Part file) {
-        this.file = file;
+    public void setArquivo(StreamedContent arquivo) {
+        this.arquivo = arquivo;
     }
 
     public Documento getDocVinculado() {
@@ -146,6 +179,5 @@ public class DocumentoVisualizarBean implements Serializable {
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
-    
-    
+
 }

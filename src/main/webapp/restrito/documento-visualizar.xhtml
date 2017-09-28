@@ -11,7 +11,7 @@
         <ui:define name="conteudo">
             <!-- Modal para adicionar uma empresa-->
             <div class="modal fade" id="modalVinculo" role="dialog">
-                <div class="modal-dialog" >
+                <div class="modal-dialog modal-lg" >
                     <div class="modal-content">
                         <h:form id="modalFormVinculo">
                             <div class="modal-header">
@@ -21,31 +21,72 @@
                             <div class="modal-body">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-sm-5">
-                                            
-                                            
-                                            
-
+                                        <div class="col-sm-9">
+                                            <h:inputText id="localizar" value="#{documentoVisualizarBean.descricao}"/>
+                                            <h:commandButton class="btn btn-default" value="Localizar" action="#{documentoVisualizarBean.listarDocumento}">
+                                                <f:ajax execute="@form" render=":tabelaDocumentos"/>
+                                            </h:commandButton>
+                                            <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.listarDocumento}" var="item">
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="ID"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.id}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Tipo do Documento"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Descrição"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.descricao}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Entidade"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.entidade.nome}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Data"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.periodo_final.time}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Incluir"/>
+                                                    </f:facet>
+                                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-plus" action="#{documentoVisualizarBean.vincular()}" 
+                                                                     update=":formPrincipal:tabelaVinculados"  >
+                                                        <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}" />
+                                                    </p:commandButton>
+                                                </h:column>
+                                            </h:dataTable>
                                         </div>       
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </h:form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        
-                    </div>
-                    </h:form>
                 </div>
             </div>
-            </div>
-            <!-- Fim do Modal para adicionar uma empresa-->
+
             <div class="container">
                 <h3>Visualizar Documento</h3>
                 <hr/>
                 <div class="row">
                     <div class="col-sm-8">
-                        <h:form id="form1" enctype="multipart/form-data">
+                        <h:form id="formPrincipal" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm-2">
                                     <div class="form-group">
@@ -58,19 +99,22 @@
                                 <div class="col-sm-10">
                                     <div class="form-group">
                                         <label for="descricaoDocumento">Descrição:</label>
+                                        <h:inputHidden value="#{documentoVisualizarBean.documento.descricao}"/>
                                         <h:inputText value="#{documentoVisualizarBean.documento.descricao}"   class="form-control" id="descricaoDocumento" 
-                                                     required="true" requiredMessage="É necessário informar uma descrição"/>
+                                                     required="true" requiredMessage="É necessário informar uma descrição" disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}"/>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
-                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
+                                        
+                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" 
+                                                         requiredMessage="É necessário escolher um tipo de documento"
                                                          value="#{documentoVisualizarBean.documento.tipo_documento}" 
-                                                         converter="omnifaces.SelectItemsConverter">
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
                                             <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoVisualizarBean.listarTipoDocumento}"
                                                            var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
@@ -82,28 +126,31 @@
                                         <label for="entidadeDocumento">Entidade:</label>
                                         <h:selectOneMenu class="form-control" id="entidadeDocumento" 
                                                          value="#{documentoVisualizarBean.documento.entidade}"  
-                                                         converter="omnifaces.SelectItemsConverter">
+                                                         converter="omnifaces.SelectItemsConverter"
+                                                         disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
                                             <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoVisualizarBean.listarEntidade}"
                                                            var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
                                         </h:selectOneMenu>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="dtFinalDocumento">Data:</label>
-                                        <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodo_final}" required="true"  requiredMessage="É necessário informar uma data" 
-                                                          show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY" />
+                                        <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodo_final}" required="true"  
+                                                          requiredMessage="É necessário informar uma data" 
+                                                          show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY" 
+                                                          disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}"/>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="documentoDocumento">Baixar o documento</label>
-
+                                        
+                                        <p:commandButton class="btn btn-default" value="Baixar Arquivo" ajax="false" onclick="#{documentoVisualizarBean.download()}" icon="ui-icon-arrowthick-1-s">
+                                            <p:fileDownload value="#{documentoVisualizarBean.arquivo}" />
+                                        </p:commandButton> 
                                     </div> 
                                 </div>
                             </div>
@@ -111,7 +158,6 @@
                             <a class="btn btn-default" href="documento.jsf" role="button">Cancelar</a>
                             <br/>
                             <br/>
-
                             <ul class="nav nav-tabs">
                                 <li role="presentation" class="active" ><a aria-controls="empresas" role="tab" data-toggle="tab" href="#controle" >Controle</a></li>
                                 <li role="presentation"><a aria-controls="empresas" role="tab" data-toggle="tab" href="#documentosVinculados">Documentos Vinculados</a></li>
@@ -166,7 +212,6 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
-
                                             <div class="form-group">
                                                 <label for="nomeAprovacao">Usuario Aprovação:</label>
                                                 <h:inputText value="#{documentoVisualizarBean.documento.usuario_aprovacao.nome}"   class="form-control" id="usuarioAprovacao" 
@@ -176,21 +221,21 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label style="color: white">apenas alinar</label>
-                                                <h:commandButton value="Validar Documento" class=" form-control btn btn-primary"  action="#{documentoVisualizarBean.editar()}"/>
-
+                                                <h:commandButton value="Aprovar Documento" class=" form-control btn btn-primary"  action="#{documentoVisualizarBean.aprovar()}">
+                                                    <f:ajax execute="@form" render="@form"/>
+                                                </h:commandButton>
                                             </div>
-
                                         </div>   
                                     </div>
                                 </div>
                                 <div id="documentosVinculados" class="tab-pane fade">
                                     <br/>
-                                    <p:commandLink   value="Vincular Documento" class="btn btn-default" >
+                                    <p:commandLink   value="Vincular Documento" class="btn btn-default" update="modalFormVinculo">
                                         <f:passThroughAttribute name="data-toggle" value="modal" />
                                         <f:passThroughAttribute name="data-target" value="#modalVinculo" />
                                     </p:commandLink>
                                     <br/>
-                                    <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.litarDocumento}" var="item">
+                                    <h:dataTable id="tabelaVinculados" class="table table-striped" value="#{documentoVisualizarBean.documento.documentos}" var="item">
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="ID"/>
@@ -220,7 +265,7 @@
                                                 <h:outputText value="Data"/>
                                             </f:facet>
                                             <h:outputText value="#{item.periodo_final}">
-                                                <f:convertDateTime pattern="DD/MM/YYYY"/>
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>
                                         <p:column>
@@ -230,21 +275,18 @@
                                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" >
                                                 <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
                                             </p:commandButton>
-                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" >
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{documentoVisualizarBean.desvincular()}" >
                                                 <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
-                                            </p:commandButton> 
+                                                <f:ajax execute="@form" render="formPrincipal:tabelaVinculados"/>
+                                            </p:commandButton>
                                         </p:column>
-
                                     </h:dataTable>
-
-
                                 </div>
                             </div>
                         </h:form>
                     </div>
                 </div>
             </div>
-
         </ui:define>
     </ui:composition>
 

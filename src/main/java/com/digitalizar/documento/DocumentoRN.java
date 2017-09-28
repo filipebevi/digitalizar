@@ -13,14 +13,11 @@ import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.util.DAOFactory;
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Part;
-import javax.transaction.Transaction;
-import javax.transaction.TransactionManager;
 import javax.transaction.Transactional;
 
 /**
@@ -84,6 +81,12 @@ public class DocumentoRN {
 
         }
 
+    }
+    
+    public void editar(Documento documento, Usuario usuario){
+        documento.setUlt_alteracao(Calendar.getInstance());
+        documento.setUsuarioAlteracao(usuario);
+        this.documentoDAO.editar(documento);
     }
 
     public void excluir(Documento documento) {
