@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 
 /**
@@ -24,7 +25,7 @@ import javax.faces.bean.RequestScoped;
  */
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class DocumentoBean {
     
     Documento documento;
@@ -41,7 +42,8 @@ public class DocumentoBean {
     public List<Documento> getLista(){
         ContextoBean contexto = ContextoUtil.getContextoBean();
         DocumentoRN documentoRN=new DocumentoRN();
-        return documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(),this.descricao,this.tipoDocumento, this.entidade, this.dataInicial, this.dataFinal);
+        this.lista=documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(),this.descricao,this.tipoDocumento, this.entidade, this.dataInicial, this.dataFinal);
+        return this.lista;
     }
 
     public List<TipoDocumento> getListaTipo() {

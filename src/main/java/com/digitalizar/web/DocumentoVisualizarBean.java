@@ -49,7 +49,10 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public DocumentoVisualizarBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        this.documento = contexto.getDocumento();
+        if (contexto.getDocumento()!= null) {
+            this.documento = contexto.getDocumento();
+        }
+        
     }
 
     public String editar() {

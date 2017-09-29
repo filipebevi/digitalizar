@@ -46,10 +46,8 @@ public class UsuarioBean implements Serializable {
     }
 
     public List<Usuario> getListaUsuario() {
-
         UsuarioRN usuarioRN = new UsuarioRN();
         this.listaUsuario = usuarioRN.listar(this.texto);
-
         return this.listaUsuario;
     }
 

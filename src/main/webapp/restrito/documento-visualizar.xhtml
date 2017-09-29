@@ -109,13 +109,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
-                                        
-                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" 
-                                                         requiredMessage="É necessário escolher um tipo de documento"
+                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
                                                          value="#{documentoVisualizarBean.documento.tipo_documento}" 
-                                                         converter="omnifaces.SelectItemsConverter"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
-                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            
                                             <f:selectItems value="#{documentoVisualizarBean.listarTipoDocumento}"
                                                            var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
                                         </h:selectOneMenu>
@@ -128,7 +125,6 @@
                                                          value="#{documentoVisualizarBean.documento.entidade}"  
                                                          converter="omnifaces.SelectItemsConverter"
                                                          disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
-                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoVisualizarBean.listarEntidade}"
                                                            var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
                                         </h:selectOneMenu>
