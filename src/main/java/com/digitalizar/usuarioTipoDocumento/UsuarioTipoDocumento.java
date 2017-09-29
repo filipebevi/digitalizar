@@ -106,9 +106,13 @@ public class UsuarioTipoDocumento implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.usuario);
-        hash = 97 * hash + Objects.hashCode(this.tipoDocumento);
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.usuario);
+        hash = 47 * hash + Objects.hashCode(this.tipoDocumento);
+        hash = 47 * hash + Objects.hashCode(this.visualizar);
+        hash = 47 * hash + Objects.hashCode(this.excluir);
+        hash = 47 * hash + Objects.hashCode(this.inserir);
+        hash = 47 * hash + Objects.hashCode(this.alterar);
         return hash;
     }
 
@@ -133,8 +137,22 @@ public class UsuarioTipoDocumento implements Serializable{
         if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
             return false;
         }
+        if (!Objects.equals(this.visualizar, other.visualizar)) {
+            return false;
+        }
+        if (!Objects.equals(this.excluir, other.excluir)) {
+            return false;
+        }
+        if (!Objects.equals(this.inserir, other.inserir)) {
+            return false;
+        }
+        if (!Objects.equals(this.alterar, other.alterar)) {
+            return false;
+        }
         return true;
     }
+
+    
     
     
     @Embeddable

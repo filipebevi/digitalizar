@@ -69,9 +69,9 @@ public class TipoDocumento implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.descricao);
-        hash = 23 * hash + Objects.hashCode(this.empresa);
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.descricao);
+        hash = 71 * hash + Objects.hashCode(this.empresa);
         return hash;
     }
 
@@ -87,8 +87,19 @@ public class TipoDocumento implements Serializable{
             return false;
         }
         final TipoDocumento other = (TipoDocumento) obj;
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.empresa, other.empresa)) {
+            return false;
+        }
         return true;
     }
+
+    
     
     
     

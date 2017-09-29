@@ -231,7 +231,7 @@
                                         <f:passThroughAttribute name="data-target" value="#modalVinculo" />
                                     </p:commandLink>
                                     <br/>
-                                    <h:dataTable id="tabelaVinculados" class="table table-striped" value="#{documentoVisualizarBean.documento.documentos}" var="item">
+                                    <h:dataTable id="tabelaVinculados" class="table table-striped" value="#{documentoVisualizarBean.documento.documentos.addAll(documentoVisualizarBean.documento.documentosOf)}" var="item">
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText value="ID"/>
@@ -274,6 +274,55 @@
                                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{documentoVisualizarBean.desvincular()}" >
                                                 <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
                                                 <f:ajax execute="@form" render="formPrincipal:tabelaVinculados"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </h:dataTable>
+                                    <hr/>
+                                    <h3> Documentos Que foram vinculados a este Documento</h3>
+                                    <br/>
+                                    <h:dataTable id="tabelaAssossiados" class="table table-striped" value="#{documentoVisualizarBean.documento.documentosOf}" var="item">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.id}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Tipo"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descrição"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.descricao}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Entidade"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.entidade.nome}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.periodo_final}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Visualizar/Remover"/>
+                                            </f:facet>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" >
+                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
+                                            </p:commandButton>
+                                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{documentoVisualizarBean.desvincular()}" >
+                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
+                                                <f:ajax execute="@form" render="formPrincipal:tabelaAssossiados"/>
                                             </p:commandButton>
                                         </p:column>
                                     </h:dataTable>

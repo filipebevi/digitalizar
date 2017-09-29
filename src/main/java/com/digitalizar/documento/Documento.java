@@ -19,81 +19,86 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
-
-
-
-
-
 /**
  *
  * @author filip
  */
-
 @Entity
-public class Documento implements Serializable{
+public class Documento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_inclusao;
-    
+
     @ManyToOne
     private Usuario usuario_inclusao;
-    
+
     @ManyToOne
     private Usuario usuario_aprovacao;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_aprovacao;
-    
+
     private String path;
-    
+
     @ManyToOne
     private Empresa empresa;
-    
+
     @ManyToOne
     private TipoDocumento tipo_documento;
-    
-    @Column(nullable=false)
-    
+
+    @Column(nullable = false)
+
     private String descricao;
-    
+
     @Temporal(TemporalType.DATE)
     private Date periodo_inicial;
-    
+
     @Temporal(TemporalType.DATE)
     private Date periodo_final;
-    
-    
+
     private Double valor;
-    
+
     @Temporal(TemporalType.DATE)
     private Date vencimento;
-    
+
     @ManyToOne
     private Entidade entidade;
-    
+
     private String numero;
-    
+
     @ManyToOne
     private Usuario usuarioAlteracao;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar ult_alteracao;
+
+    @ManyToMany
+    @JoinTable(name = "documento_documento",
+            joinColumns = @JoinColumn(name = "documentos_id"),
+            inverseJoinColumns = @JoinColumn(name = "Documento_id")
+    )
+    private List<Documento> documentos;
     
     @ManyToMany
-    private List <Documento> documentos;
-    
+    @JoinTable(name = "documento_documento",
+            joinColumns = @JoinColumn(name = "Documento_id"),
+            inverseJoinColumns = @JoinColumn(name = "documentos_id")
+    )
+    private List<Documento> documentosOf;
+
     private Long tamanho;
-    
+
     private String nome;
 
     public Documento() {
@@ -146,8 +151,6 @@ public class Documento implements Serializable{
     public void setPath(String path) {
         this.path = path;
     }
-
-    
 
     public Empresa getEmpresa() {
         return empresa;
@@ -260,13 +263,17 @@ public class Documento implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public List<Documento> getDocumentosOf() {
+        return documentosOf;
+    }
+
+    public void setDocumentosOf(List<Documento> documentosOf) {
+        this.documentosOf = documentosOf;
+    }
     
     
-    
-    
-    
-    
-    
+
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
@@ -274,27 +281,28 @@ public class Documento implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.data_inclusao);
-        hash = 23 * hash + Objects.hashCode(this.usuario_inclusao);
-        hash = 23 * hash + Objects.hashCode(this.usuario_aprovacao);
-        hash = 23 * hash + Objects.hashCode(this.data_aprovacao);
-        hash = 23 * hash + Objects.hashCode(this.path);
-        hash = 23 * hash + Objects.hashCode(this.empresa);
-        hash = 23 * hash + Objects.hashCode(this.tipo_documento);
-        hash = 23 * hash + Objects.hashCode(this.descricao);
-        hash = 23 * hash + Objects.hashCode(this.periodo_inicial);
-        hash = 23 * hash + Objects.hashCode(this.periodo_final);
-        hash = 23 * hash + Objects.hashCode(this.valor);
-        hash = 23 * hash + Objects.hashCode(this.vencimento);
-        hash = 23 * hash + Objects.hashCode(this.entidade);
-        hash = 23 * hash + Objects.hashCode(this.numero);
-        hash = 23 * hash + Objects.hashCode(this.usuarioAlteracao);
-        hash = 23 * hash + Objects.hashCode(this.ult_alteracao);
-        hash = 23 * hash + Objects.hashCode(this.documentos);
-        hash = 23 * hash + Objects.hashCode(this.tamanho);
-        hash = 23 * hash + Objects.hashCode(this.nome);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.data_inclusao);
+        hash = 47 * hash + Objects.hashCode(this.usuario_inclusao);
+        hash = 47 * hash + Objects.hashCode(this.usuario_aprovacao);
+        hash = 47 * hash + Objects.hashCode(this.data_aprovacao);
+        hash = 47 * hash + Objects.hashCode(this.path);
+        hash = 47 * hash + Objects.hashCode(this.empresa);
+        hash = 47 * hash + Objects.hashCode(this.tipo_documento);
+        hash = 47 * hash + Objects.hashCode(this.descricao);
+        hash = 47 * hash + Objects.hashCode(this.periodo_inicial);
+        hash = 47 * hash + Objects.hashCode(this.periodo_final);
+        hash = 47 * hash + Objects.hashCode(this.valor);
+        hash = 47 * hash + Objects.hashCode(this.vencimento);
+        hash = 47 * hash + Objects.hashCode(this.entidade);
+        hash = 47 * hash + Objects.hashCode(this.numero);
+        hash = 47 * hash + Objects.hashCode(this.usuarioAlteracao);
+        hash = 47 * hash + Objects.hashCode(this.ult_alteracao);
+        hash = 47 * hash + Objects.hashCode(this.documentos);
+        hash = 47 * hash + Objects.hashCode(this.documentosOf);
+        hash = 47 * hash + Objects.hashCode(this.tamanho);
+        hash = 47 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -367,6 +375,9 @@ public class Documento implements Serializable{
         if (!Objects.equals(this.documentos, other.documentos)) {
             return false;
         }
+        if (!Objects.equals(this.documentosOf, other.documentosOf)) {
+            return false;
+        }
         if (!Objects.equals(this.tamanho, other.tamanho)) {
             return false;
         }
@@ -375,10 +386,4 @@ public class Documento implements Serializable{
 
     
 
-    
-    
-    
-    
-    
-    
 }

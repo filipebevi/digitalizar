@@ -218,20 +218,22 @@ public class Usuario implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.email);
-        hash = 53 * hash + Objects.hashCode(this.telefone);
-        hash = 53 * hash + Objects.hashCode(this.senha);
-        hash = 53 * hash + Objects.hashCode(this.ativo);
-        hash = 53 * hash + Objects.hashCode(this.funcionario);
-        hash = 53 * hash + Objects.hashCode(this.administrador);
-        hash = 53 * hash + Objects.hashCode(this.data_inclusao);
-        hash = 53 * hash + Objects.hashCode(this.usuarioInclusao);
-        hash = 53 * hash + Objects.hashCode(this.data_ult_alteracao);
-        hash = 53 * hash + Objects.hashCode(this.usuarioAlteracao);
-        hash = 53 * hash + Objects.hashCode(this.usuarioEmpresa);
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.nome);
+        hash = 11 * hash + Objects.hashCode(this.email);
+        hash = 11 * hash + Objects.hashCode(this.telefone);
+        hash = 11 * hash + Objects.hashCode(this.senha);
+        hash = 11 * hash + Objects.hashCode(this.ativo);
+        hash = 11 * hash + Objects.hashCode(this.funcionario);
+        hash = 11 * hash + Objects.hashCode(this.administrador);
+        hash = 11 * hash + Objects.hashCode(this.data_inclusao);
+        hash = 11 * hash + Objects.hashCode(this.usuarioInclusao);
+        hash = 11 * hash + Objects.hashCode(this.data_ult_alteracao);
+        hash = 11 * hash + Objects.hashCode(this.usuarioAlteracao);
+        hash = 11 * hash + Objects.hashCode(this.usuarioEmpresa);
+        hash = 11 * hash + Objects.hashCode(this.usuarioTipoDocumento);
+        hash = 11 * hash + Objects.hashCode(this.permissao);
         return hash;
     }
 
@@ -286,22 +288,15 @@ public class Usuario implements Serializable{
         if (!Objects.equals(this.usuarioEmpresa, other.usuarioEmpresa)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioTipoDocumento, other.usuarioTipoDocumento)) {
+            return false;
+        }
+        if (!Objects.equals(this.permissao, other.permissao)) {
+            return false;
+        }
         return true;
     }
 
-
-    
-    
-    
-
-    
-     
-    
-     
-
-
-    
-    
     
     
     
