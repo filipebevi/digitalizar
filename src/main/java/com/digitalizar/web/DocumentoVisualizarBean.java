@@ -11,19 +11,18 @@ import com.digitalizar.entidade.Entidade;
 import com.digitalizar.entidade.EntidadeRN;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
+import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.web.util.ContextoUtil;
-import com.digitalizar.web.util.MensagemUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.Part;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -41,6 +40,7 @@ public class DocumentoVisualizarBean implements Serializable {
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
     private List<Documento> listarDocumento;
+    private List<Documento> vinculados =null;
 
     private String descricao;
     private TipoDocumento tipoDocumento;
@@ -50,22 +50,26 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public DocumentoVisualizarBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        if (contexto.getDocumento()!= null) {
+        if (contexto.getDocumento() != null) {
             this.documento = contexto.getDocumento();
         }
-        
     }
 
     public String editar() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        DocumentoRN documentoRN=new DocumentoRN();
+        DocumentoRN documentoRN = new DocumentoRN();
         documentoRN.editar(this.documento, contexto.getUsuarioLogado());
-        this.documento= new Documento();
+        this.documento = new Documento();
 
         return "documento";
     }
 
     public String excluir() {
+        
+        DocumentoRN documentoRN = new DocumentoRN();
+        UsuarioRN usuarioRN = new UsuarioRN();
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        documentoRN.excluir(this.documento,usuarioRN.buscarPorEmail(contexto.getUsuarioLogado().getEmail()));
 
         return "documento";
     }
@@ -78,6 +82,7 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public void vincular() {
         this.documento.getDocumentos().add(this.docVinculado);
+        this.vinculados=null;
     }
 
     public void desvincular() {
@@ -92,11 +97,10 @@ public class DocumentoVisualizarBean implements Serializable {
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Algum erro ao fazer o download");
             e.printStackTrace();
         }
-
     }
 
     public List<TipoDocumento> getListarTipoDocumento() {
@@ -118,6 +122,16 @@ public class DocumentoVisualizarBean implements Serializable {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
         return this.listarDocumento;
+    }
+
+    public List<Documento> getVinculados() {
+        if (vinculados == null) {
+            vinculados=new ArrayList<>();
+            vinculados.addAll(documento.getDocumentos());
+            vinculados.addAll(documento.getDocumentosOf());
+        }
+
+        return vinculados;
     }
 
     public Documento getDocumento() {

@@ -65,10 +65,10 @@ public class Empresa implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.nome);
-        hash = 23 * hash + Objects.hashCode(this.logotipo);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.nome);
+        hash = 73 * hash + Objects.hashCode(this.logotipo);
         return hash;
     }
 
@@ -95,4 +95,6 @@ public class Empresa implements Serializable{
         }
         return true;
     }
+
+   
 }

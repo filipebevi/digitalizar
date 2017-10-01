@@ -12,6 +12,7 @@ import com.digitalizar.entidade.EntidadeRN;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.tipodocumento.TipoDocumentoRN;
 import com.digitalizar.web.util.ContextoUtil;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -26,7 +27,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class DocumentoBean {
+public class DocumentoBean implements Serializable{
     
     Documento documento;
     List<Documento> lista;

@@ -10,13 +10,16 @@ import com.digitalizar.entidade.Entidade;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
+import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
 import com.digitalizar.util.DAOFactory;
+import com.digitalizar.web.util.MensagemUtil;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
 
@@ -89,8 +92,18 @@ public class DocumentoRN {
         this.documentoDAO.editar(documento);
     }
 
-    public void excluir(Documento documento) {
-        this.documentoDAO.excluir(documento);
+    public void excluir(Documento documento, Usuario usuario) {
+        boolean verifica=false;
+        for(UsuarioTipoDocumento userTipo:usuario.getUsuarioTipoDocumento()){
+            if(userTipo.getTipoDocumento().getId().equals(documento.getTipo_documento().getId()) && userTipo.getExcluir()==true){
+                this.documentoDAO.excluir(documento);
+                verifica=true;
+            } 
+        }
+        if(!verifica){
+            new MensagemUtil().sendMensagem("Usuário sem permissão para excluir este tipo de documento", " ");
+        }
+        
     }
     
     public void aprovar(Documento documento, Usuario usuario){
