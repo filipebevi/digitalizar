@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.Part;
 import javax.transaction.Transactional;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -120,10 +123,32 @@ public class DocumentoRN {
         
     }
     
+    public List<Documento> naoAprovados(Empresa empresa, Usuario usuario){
+        UsuarioRN usuarioRN = new UsuarioRN();
+        usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
+        return this.documentoDAO.naoAprovados(empresa, usuario);
+    }
+    
    
 
     public Integer ultimoCodigoBR() {
         return this.documentoDAO.ultimoCodigoBD();
+    }
+    
+    public Integer totalDoc(Empresa empresa) {
+        return this.documentoDAO.totalDoc(empresa);
+    } 
+    
+    public Integer porUsuario(Empresa empresa, Usuario usuario){
+        return this.documentoDAO.porUsuario(empresa, usuario);
+    }
+    
+    public Integer mesAnterior(Empresa empresa){
+        return this.documentoDAO.mesAnterior(empresa);
+    }
+    
+    public Integer mesAtual(Empresa empresa){
+        return this.documentoDAO.mesAtual(empresa);
     }
 
 }

@@ -28,11 +28,21 @@ public interface DocumentoDAO {
 
     List<Documento> listar(Empresa empresa, Usuario usuario,String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
             Date dataInicio, Date dataFim);
+    
+    List<Documento> naoAprovados(Empresa empresa, Usuario usuario);
 
     void salvar(Documento documento);
     
     void editar(Documento documento);
     
     Integer ultimoCodigoBD();
+    
+    Integer totalDoc(Empresa empresa);
+    
+    public Integer porUsuario(Empresa empresa, Usuario usuario);
+    
+    public Integer mesAnterior(Empresa empresa);
+    
+    public Integer mesAtual(Empresa empresa);
     
 }

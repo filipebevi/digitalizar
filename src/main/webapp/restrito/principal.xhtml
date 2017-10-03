@@ -1,14 +1,111 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-  
-<ui:composition template="/templates/interna.xhtml">
-      
-    <ui:define name="conteudo">
-        
-    </ui:define>    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition template="/templates/interna.xhtml">
+        <ui:define name="conteudo">
+            <div class="jumbotron" style="padding-top: 0px; padding-bottom: 5px">
+                <div class="container">
+                    <h2>Bem Vindo ao Digitalizar!</h2>
+                    <p>Um sistema desenvolvido pela Must Consultoria em Gestão, para guardar documentos digitalizados.
+                        O sistema é multi empresa e pode ser acessado por qualquer dispositivo com acesso a internet.</p>
+                    <p><a class="btn btn-primary btn-lg" href="http://www.mustconsultoria.com" role="button">Saiba mais</a></p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3" >
+                        <div class="panel" style="background-color: salmon; min-height: 100px; color: white" align="center">
+                            <div class="col-sm-9" style="padding-right: 1px">
+                                <h1 style="font-size: 50px;margin-bottom: 0px"><b>#{principalBean.totalDoc}</b></h1>
+                                <p style="font-size: 12px"><b>Documentos armazenados</b></p>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 1px">
+                                <span class="glyphicon glyphicon-file" style="color: #c12e2a; font-size: 60px; padding-top: 20px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="panel" style="background-color: #67b168; min-height: 100px; color: white" align="center">
+                            <div class="col-sm-9" style="padding-right: 1px">
+                                <h1 style="font-size: 50px;margin-bottom: 0px"><b>#{principalBean.mesAnterior}</b></h1>
+                                <p style="font-size: 12px"><b>Inseridos mês anterior</b></p>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 1px">
+                                <span class="glyphicon glyphicon-file" style="color: darkolivegreen; font-size: 60px; padding-top: 20px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="panel" style="background-color: #337ab7; min-height: 100px; color: white" align="center">
+                            <div class="col-sm-9" style="padding-right: 1px">
+                                <h1 style="font-size: 50px;margin-bottom: 0px"><b>#{principalBean.mesAtual}</b></h1>
+                                <p style="font-size: 12px"><b>Inseridos no mês atual</b></p>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 1px">
+                                <span class="glyphicon glyphicon-file" style="color: #204d74; font-size: 60px; padding-top: 20px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div class="panel" style="background-color: #f0ad4e; min-height: 100px; color: white" align="center">
+                            <div class="col-sm-9" style="padding-right: 1px">
+                                <h1 style="font-size: 50px;margin-bottom: 0px"><b>#{principalBean.porUsuario}</b></h1>
+                                <p style="font-size: 12px"><b>Inseridos por você</b></p>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 1px">
+                                <span class="glyphicon glyphicon-file" style="color: chocolate; font-size: 60px; padding-top: 20px"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Documentos aguardando <b>aprovação</b></div>
+                            <div class="panel-body">
+                                <p>Neste painel aparecerão todos os documentos que ainda não foram validados pela equipe
+                                    responsável. É ideal que esta relação esteja vazia.</p>
+                            </div>
+                            <h:form>
+                                <b:dataTable value="#{principalBean.naoAprovados}" style="font-size: x-small"
+                                             var="doc"
+                                             customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                                    <b:dataTableColumn value="#{doc.id}" order="asc" label="ID" />
+                                    <b:dataTableColumn value="#{doc.tipo_documento.descricao}" label="Tipo de Documento"/>
+                                    <b:dataTableColumn value="#{doc.usuario_inclusao.nome}" label="Usuário Inclusão"/>
+                                    <b:dataTableColumn value="#{doc.data_inclusao.time}" label="Data Inclusão" />
+                                    <b:dataTableColumn label="Visualizar" >
+                                        <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" action="#{principalBean.visualizar()}"   >
+                                            <f:setPropertyActionListener target="#{contextoBean.documento}" value="#{doc}" />
+                                        </p:commandButton>  
+                                    </b:dataTableColumn>
 
-</ui:composition>
+                                </b:dataTable>
+                            </h:form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">Documentos aguardando <b>vínculo</b></div>
+                            <div class="panel-body">
+                                <p>Neste painel aparecerão todos os documentos que foram marcados como vinculados e porem
+                                    ainda não possuem nenhum vínculo. É ideal que esta listagem fique vazia.</p>
+                            </div>
+                            <table class="table">
+                                ...
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
 </html>

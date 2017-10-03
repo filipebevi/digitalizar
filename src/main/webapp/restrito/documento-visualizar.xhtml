@@ -32,7 +32,7 @@
                                                         <h:outputText value="ID"/>
                                                     </f:facet>
                                                     <h:outputText value="#{item.id}">
-                                                    <f
+                                                        <f:convertNumber pattern="#####0" minIntegerDigits="6"/>
                                                     </h:outputText>
                                                 </h:column>
                                                 <h:column>
@@ -94,7 +94,9 @@
                                     <div class="form-group">
                                         <label for="codigoDocumento">Código:</label>
                                         <h:inputText value="#{documentoVisualizarBean.documento.id}"   class="form-control" id="codigoDocumento" 
-                                                     disabled="true" />
+                                                     disabled="true" >
+                                            <f:convertNumber pattern="#####0" minIntegerDigits="6"/>
+                                        </h:inputText>
                                         <h:inputHidden value="#{documentoVisualizarBean.documento.id}"/>
                                     </div>
                                 </div>
@@ -156,7 +158,7 @@
                             </div>
                             <h:commandButton value="Salvar" class="btn btn-primary" action="#{documentoVisualizarBean.editar()}"/>
                             <a class="btn btn-default" href="documento.jsf" role="button">Cancelar</a>
-                            
+
                             <h:commandButton value="Excluir" id="botao" class="btn btn-danger" action="#{documentoVisualizarBean.excluir()}"  style="margin-left: 5px"/>
                             <br/>
                             <br/>

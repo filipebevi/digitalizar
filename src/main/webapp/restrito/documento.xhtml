@@ -78,7 +78,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="Id"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.id}"/>
+                                    <h:outputText value="#{item.id}">
+                                        <f:convertNumber pattern="#####0" minIntegerDigits="6"/>
+                                    </h:outputText>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">

@@ -19,7 +19,10 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="descricaoDocumento">Descrição:</label>
-                                        <h:inputText value="#{documentoCadastroBean.documento.descricao}"  required="true" requiredMessage="É necessário informar uma descrição" class="form-control" id="descricaoDocumento" />
+                                        <h:inputText value="#{documentoCadastroBean.documento.descricao}"  required="true" 
+                                                     requiredMessage="É necessário informar uma descrição" 
+                                                     class="form-control" id="descricaoDocumento"
+                                                     onkeyup="maiuscula(this)"/>
                                     </div>
                                 </div>
                             </div>
