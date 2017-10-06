@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,51 +37,60 @@ public class Documento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar data_inclusao;
+    @Column(nullable = false)
+    private String descricao;
 
-    @ManyToOne
-    private Usuario usuario_inclusao;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "periodo_inicial")
+    private Date periodoInicial;
 
-    @ManyToOne
-    private Usuario usuario_aprovacao;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "periodo_final")
+    private Date periodoFinal;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar data_aprovacao;
+    private Double valor;
 
-    private String path;
+    private String numero;
+
+    @Temporal(TemporalType.DATE)
+    private Date vencimento;
+
+    private String diretorio;
+
+    @Column(name = "nome_arquivo")
+    private String nomeArquivo;
+
+    private Long tamanho;
 
     @ManyToOne
     private Empresa empresa;
 
     @ManyToOne
-    private TipoDocumento tipo_documento;
-
-    @Column(nullable = false)
-
-    private String descricao;
-
-    @Temporal(TemporalType.DATE)
-    private Date periodo_inicial;
-
-    @Temporal(TemporalType.DATE)
-    private Date periodo_final;
-
-    private Double valor;
-
-    @Temporal(TemporalType.DATE)
-    private Date vencimento;
+    private TipoDocumento tipoDocumento;
 
     @ManyToOne
     private Entidade entidade;
 
-    private String numero;
-
     @ManyToOne
-    private Usuario usuarioAlteracao;
+    private Usuario usuarioEdicao;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar ult_alteracao;
+    @Column(name = "data_edicao")
+    private Calendar dataEdicao;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_inclusao")
+    private Calendar dataInclusao;
+
+    @ManyToOne
+    private Usuario usuarioInclusao;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_aprovacao")
+    private Calendar dataAprovacao;
+
+    @ManyToOne
+    private Usuario usuarioAprovacao;
 
     @ManyToMany
     @JoinTable(name = "documento_documento",
@@ -90,17 +98,15 @@ public class Documento implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "Documento_id")
     )
     private List<Documento> documentos;
-    
+
     @ManyToMany
     @JoinTable(name = "documento_documento",
             joinColumns = @JoinColumn(name = "Documento_id"),
             inverseJoinColumns = @JoinColumn(name = "documentos_id")
     )
     private List<Documento> documentosOf;
-
-    private Long tamanho;
-
-    private String nome;
+    
+    
 
     public Documento() {
     }
@@ -113,44 +119,44 @@ public class Documento implements Serializable {
         this.id = id;
     }
 
-    public Calendar getData_inclusao() {
-        return data_inclusao;
+    public Calendar getDataInclusao() {
+        return dataInclusao;
     }
 
-    public void setData_inclusao(Calendar data_inclusao) {
-        this.data_inclusao = data_inclusao;
+    public void setDataInclusao(Calendar dataInclusao) {
+        this.dataInclusao = dataInclusao;
     }
 
-    public Usuario getUsuario_inclusao() {
-        return usuario_inclusao;
+    public Usuario getUsuarioInclusao() {
+        return usuarioInclusao;
     }
 
-    public void setUsuario_inclusao(Usuario usuario_inclusao) {
-        this.usuario_inclusao = usuario_inclusao;
+    public void setUsuarioInclusao(Usuario usuarioInclusao) {
+        this.usuarioInclusao = usuarioInclusao;
     }
 
-    public Usuario getUsuario_aprovacao() {
-        return usuario_aprovacao;
+    public Usuario getUsuarioAprovacao() {
+        return usuarioAprovacao;
     }
 
-    public void setUsuario_aprovacao(Usuario usuario_aprovacao) {
-        this.usuario_aprovacao = usuario_aprovacao;
+    public void setUsuarioAprovacao(Usuario usuarioAprovacao) {
+        this.usuarioAprovacao = usuarioAprovacao;
     }
 
-    public Calendar getData_aprovacao() {
-        return data_aprovacao;
+    public Calendar getDataAprovacao() {
+        return dataAprovacao;
     }
 
-    public void setData_aprovacao(Calendar data_aprovacao) {
-        this.data_aprovacao = data_aprovacao;
+    public void setDataAprovacao(Calendar dataAprovacao) {
+        this.dataAprovacao = dataAprovacao;
     }
 
-    public String getPath() {
-        return path;
+    public String getDiretorio() {
+        return diretorio;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setDiretorio(String diretorio) {
+        this.diretorio = diretorio;
     }
 
     public Empresa getEmpresa() {
@@ -161,12 +167,12 @@ public class Documento implements Serializable {
         this.empresa = empresa;
     }
 
-    public TipoDocumento getTipo_documento() {
-        return tipo_documento;
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setTipo_documento(TipoDocumento tipo_documento) {
-        this.tipo_documento = tipo_documento;
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getDescricao() {
@@ -177,20 +183,20 @@ public class Documento implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getPeriodo_inicial() {
-        return periodo_inicial;
+    public Date getPeriodoInicial() {
+        return periodoInicial;
     }
 
-    public void setPeriodo_inicial(Date periodo_inicial) {
-        this.periodo_inicial = periodo_inicial;
+    public void setPeriodoInicial(Date periodoInicial) {
+        this.periodoInicial = periodoInicial;
     }
 
-    public Date getPeriodo_final() {
-        return periodo_final;
+    public Date getPeriodoFinal() {
+        return periodoFinal;
     }
 
-    public void setPeriodo_final(Date periodo_final) {
-        this.periodo_final = periodo_final;
+    public void setPeriodoFinal(Date periodoFinal) {
+        this.periodoFinal = periodoFinal;
     }
 
     public Double getValor() {
@@ -225,12 +231,12 @@ public class Documento implements Serializable {
         this.numero = numero;
     }
 
-    public Calendar getUlt_alteracao() {
-        return ult_alteracao;
+    public Calendar getDataEdicao() {
+        return dataEdicao;
     }
 
-    public void setUlt_alteracao(Calendar ult_alteracao) {
-        this.ult_alteracao = ult_alteracao;
+    public void setDataEdicao(Calendar dataEdicao) {
+        this.dataEdicao = dataEdicao;
     }
 
     public List<Documento> getDocumentos() {
@@ -241,12 +247,12 @@ public class Documento implements Serializable {
         this.documentos = documentos;
     }
 
-    public Usuario getUsuarioAlteracao() {
-        return usuarioAlteracao;
+    public Usuario getUsuarioEdicao() {
+        return usuarioEdicao;
     }
 
-    public void setUsuarioAlteracao(Usuario usuarioAlteracao) {
-        this.usuarioAlteracao = usuarioAlteracao;
+    public void setUsuarioEdicao(Usuario usuarioEdicao) {
+        this.usuarioEdicao = usuarioEdicao;
     }
 
     public Long getTamanho() {
@@ -257,12 +263,12 @@ public class Documento implements Serializable {
         this.tamanho = tamanho;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeArquivo() {
+        return nomeArquivo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 
     public List<Documento> getDocumentosOf() {
@@ -272,8 +278,6 @@ public class Documento implements Serializable {
     public void setDocumentosOf(List<Documento> documentosOf) {
         this.documentosOf = documentosOf;
     }
-    
-    
 
     @Override
     public String toString() {
@@ -284,26 +288,26 @@ public class Documento implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 47 * hash + Objects.hashCode(this.id);
-        hash = 47 * hash + Objects.hashCode(this.data_inclusao);
-        hash = 47 * hash + Objects.hashCode(this.usuario_inclusao);
-        hash = 47 * hash + Objects.hashCode(this.usuario_aprovacao);
-        hash = 47 * hash + Objects.hashCode(this.data_aprovacao);
-        hash = 47 * hash + Objects.hashCode(this.path);
+        hash = 47 * hash + Objects.hashCode(this.dataInclusao);
+        hash = 47 * hash + Objects.hashCode(this.usuarioInclusao);
+        hash = 47 * hash + Objects.hashCode(this.usuarioAprovacao);
+        hash = 47 * hash + Objects.hashCode(this.dataAprovacao);
+        hash = 47 * hash + Objects.hashCode(this.diretorio);
         hash = 47 * hash + Objects.hashCode(this.empresa);
-        hash = 47 * hash + Objects.hashCode(this.tipo_documento);
+        hash = 47 * hash + Objects.hashCode(this.tipoDocumento);
         hash = 47 * hash + Objects.hashCode(this.descricao);
-        hash = 47 * hash + Objects.hashCode(this.periodo_inicial);
-        hash = 47 * hash + Objects.hashCode(this.periodo_final);
+        hash = 47 * hash + Objects.hashCode(this.periodoInicial);
+        hash = 47 * hash + Objects.hashCode(this.periodoFinal);
         hash = 47 * hash + Objects.hashCode(this.valor);
         hash = 47 * hash + Objects.hashCode(this.vencimento);
         hash = 47 * hash + Objects.hashCode(this.entidade);
         hash = 47 * hash + Objects.hashCode(this.numero);
-        hash = 47 * hash + Objects.hashCode(this.usuarioAlteracao);
-        hash = 47 * hash + Objects.hashCode(this.ult_alteracao);
+        hash = 47 * hash + Objects.hashCode(this.usuarioEdicao);
+        hash = 47 * hash + Objects.hashCode(this.dataEdicao);
         hash = 47 * hash + Objects.hashCode(this.documentos);
         hash = 47 * hash + Objects.hashCode(this.documentosOf);
         hash = 47 * hash + Objects.hashCode(this.tamanho);
-        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + Objects.hashCode(this.nomeArquivo);
         return hash;
     }
 
@@ -319,7 +323,7 @@ public class Documento implements Serializable {
             return false;
         }
         final Documento other = (Documento) obj;
-        if (!Objects.equals(this.path, other.path)) {
+        if (!Objects.equals(this.diretorio, other.diretorio)) {
             return false;
         }
         if (!Objects.equals(this.descricao, other.descricao)) {
@@ -328,34 +332,34 @@ public class Documento implements Serializable {
         if (!Objects.equals(this.numero, other.numero)) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (!Objects.equals(this.nomeArquivo, other.nomeArquivo)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.data_inclusao, other.data_inclusao)) {
+        if (!Objects.equals(this.dataInclusao, other.dataInclusao)) {
             return false;
         }
-        if (!Objects.equals(this.usuario_inclusao, other.usuario_inclusao)) {
+        if (!Objects.equals(this.usuarioInclusao, other.usuarioInclusao)) {
             return false;
         }
-        if (!Objects.equals(this.usuario_aprovacao, other.usuario_aprovacao)) {
+        if (!Objects.equals(this.usuarioAprovacao, other.usuarioAprovacao)) {
             return false;
         }
-        if (!Objects.equals(this.data_aprovacao, other.data_aprovacao)) {
+        if (!Objects.equals(this.dataAprovacao, other.dataAprovacao)) {
             return false;
         }
         if (!Objects.equals(this.empresa, other.empresa)) {
             return false;
         }
-        if (!Objects.equals(this.tipo_documento, other.tipo_documento)) {
+        if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
             return false;
         }
-        if (!Objects.equals(this.periodo_inicial, other.periodo_inicial)) {
+        if (!Objects.equals(this.periodoInicial, other.periodoInicial)) {
             return false;
         }
-        if (!Objects.equals(this.periodo_final, other.periodo_final)) {
+        if (!Objects.equals(this.periodoFinal, other.periodoFinal)) {
             return false;
         }
         if (!Objects.equals(this.valor, other.valor)) {
@@ -367,10 +371,10 @@ public class Documento implements Serializable {
         if (!Objects.equals(this.entidade, other.entidade)) {
             return false;
         }
-        if (!Objects.equals(this.usuarioAlteracao, other.usuarioAlteracao)) {
+        if (!Objects.equals(this.usuarioEdicao, other.usuarioEdicao)) {
             return false;
         }
-        if (!Objects.equals(this.ult_alteracao, other.ult_alteracao)) {
+        if (!Objects.equals(this.dataEdicao, other.dataEdicao)) {
             return false;
         }
         if (!Objects.equals(this.documentos, other.documentos)) {
@@ -384,7 +388,5 @@ public class Documento implements Serializable {
         }
         return true;
     }
-
-    
 
 }

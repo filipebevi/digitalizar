@@ -78,9 +78,9 @@
                                              var="doc"
                                              customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
                                     <b:dataTableColumn value="#{doc.id}" order="asc" label="ID" />
-                                    <b:dataTableColumn value="#{doc.tipo_documento.descricao}" label="Tipo de Documento"/>
-                                    <b:dataTableColumn value="#{doc.usuario_inclusao.nome}" label="Usuário Inclusão"/>
-                                    <b:dataTableColumn value="#{doc.data_inclusao.time}" label="Data Inclusão" />
+                                    <b:dataTableColumn value="#{doc.tipoDocumento.descricao}" label="Tipo de Documento"/>
+                                    <b:dataTableColumn value="#{doc.usuarioInclusao.nome}" label="Usuário Inclusão"/>
+                                    <b:dataTableColumn value="#{doc.dataInclusao.time}" label="Data Inclusão" />
                                     <b:dataTableColumn label="Visualizar" >
                                         <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" action="#{principalBean.visualizar()}"   >
                                             <f:setPropertyActionListener target="#{contextoBean.documento}" value="#{doc}" />

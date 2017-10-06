@@ -10,21 +10,15 @@ import com.digitalizar.entidade.Entidade;
 import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
-import com.sun.javafx.css.CalculatedValue;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -87,9 +81,9 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
                 tipoDocumentos.add(userTipoDoc.getTipoDocumento());
             }
         }
-        criteria.add(Restrictions.in("tipo_documento", tipoDocumentos));
+        criteria.add(Restrictions.in("tipoDocumento", tipoDocumentos));
         if (tipoDocumento != null) {
-            criteria.add(Restrictions.eq("tipo_documento", tipoDocumento));
+            criteria.add(Restrictions.eq("tipoDocumento", tipoDocumento));
         }
 
         if (entidade != null) {
@@ -103,7 +97,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
             criteria.add(Restrictions.ilike("descricao", "%" + descricao + "%"));
         }
 
-        criteria.addOrder(Order.asc("tipo_documento"));
+        criteria.addOrder(Order.asc("tipoDocumento"));
         if (!tipoDocumentos.isEmpty()) {
             resultado = criteria.list();
         }
@@ -120,7 +114,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
                 tipoDocumentos.add(userTipoDoc.getTipoDocumento());
             }
         }
-        criteria.add(Restrictions.in("tipo_documento", tipoDocumentos));
+        criteria.add(Restrictions.in("tipoDocumento", tipoDocumentos));
 
         return criteria;
 
@@ -129,7 +123,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     @Override
     public List<Documento> naoAprovados(Empresa empresa, Usuario usuario) {
         Criteria criteria = listagem(empresa, usuario);
-        criteria.add(Restrictions.isNull("data_aprovacao"));
+        criteria.add(Restrictions.isNull("dataAprovacao"));
         return criteria.list();
     }
 
@@ -162,7 +156,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     public Integer porUsuario(Empresa empresa, Usuario usuario) {
         Criteria criteria = this.session.createCriteria(Documento.class);
         criteria.add(Restrictions.eq("empresa", empresa));
-        criteria.add(Restrictions.eq("usuario_inclusao", usuario));
+        criteria.add(Restrictions.eq("usuarioInclusao", usuario));
         criteria.setProjection(Projections.rowCount());
         return Integer.parseInt(criteria.uniqueResult().toString());
 

@@ -91,8 +91,8 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public void download() {
         try {
-            InputStream stream = new FileInputStream(new File(this.documento.getPath(), this.documento.getNome()));
-            arquivo = new DefaultStreamedContent(stream, "image/jpg", this.documento.getNome());
+            InputStream stream = new FileInputStream(new File(this.documento.getDiretorio(), this.documento.getNomeArquivo()));
+            arquivo = new DefaultStreamedContent(stream, "image/jpg", this.documento.getNomeArquivo());
 
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");

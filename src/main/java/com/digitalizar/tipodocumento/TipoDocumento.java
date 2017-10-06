@@ -33,6 +33,18 @@ public class TipoDocumento implements Serializable{
     
     @ManyToOne
     private Empresa empresa;
+    
+    @Column(name = "campo_valor")
+    private Boolean campoValor;
+    
+    @Column(name = "campo_vencimento")
+    private Boolean campoVencimento;
+    
+    @Column(name = "campo_data_inicio")
+    private Boolean campoDataInicio;
+    
+    @Column(name = "campo_numero")
+    private Boolean campoNumero;
 
     public TipoDocumento() {
     }
@@ -60,6 +72,40 @@ public class TipoDocumento implements Serializable{
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
+
+    public Boolean getCampoValor() {
+        return campoValor;
+    }
+
+    public void setCampoValor(Boolean campoValor) {
+        this.campoValor = campoValor;
+    }
+
+    public Boolean getCampoVencimento() {
+        return campoVencimento;
+    }
+
+    public void setCampoVencimento(Boolean campoVencimento) {
+        this.campoVencimento = campoVencimento;
+    }
+
+    public Boolean getCampoDataInicio() {
+        return campoDataInicio;
+    }
+
+    public void setCampoDataInicio(Boolean campoDataInicio) {
+        this.campoDataInicio = campoDataInicio;
+    }
+
+    public Boolean getCampoNumero() {
+        return campoNumero;
+    }
+
+    public void setCampoNumero(Boolean campoNumero) {
+        this.campoNumero = campoNumero;
+    }
+    
+    
     
     @Override
     public String toString() {
@@ -69,9 +115,13 @@ public class TipoDocumento implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.descricao);
-        hash = 71 * hash + Objects.hashCode(this.empresa);
+        hash = 43 * hash + Objects.hashCode(this.id);
+        hash = 43 * hash + Objects.hashCode(this.descricao);
+        hash = 43 * hash + Objects.hashCode(this.empresa);
+        hash = 43 * hash + Objects.hashCode(this.campoValor);
+        hash = 43 * hash + Objects.hashCode(this.campoVencimento);
+        hash = 43 * hash + Objects.hashCode(this.campoDataInicio);
+        hash = 43 * hash + Objects.hashCode(this.campoNumero);
         return hash;
     }
 
@@ -96,8 +146,22 @@ public class TipoDocumento implements Serializable{
         if (!Objects.equals(this.empresa, other.empresa)) {
             return false;
         }
+        if (!Objects.equals(this.campoValor, other.campoValor)) {
+            return false;
+        }
+        if (!Objects.equals(this.campoVencimento, other.campoVencimento)) {
+            return false;
+        }
+        if (!Objects.equals(this.campoDataInicio, other.campoDataInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.campoNumero, other.campoNumero)) {
+            return false;
+        }
         return true;
     }
+
+    
 
     
     

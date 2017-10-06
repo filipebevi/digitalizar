@@ -50,29 +50,29 @@ public class DocumentoRN {
     
     public void salvar(Documento documento, Empresa empresa, Usuario usuario, Part file) {
         if (documento.getId() == null) {
-            documento.setData_inclusao(Calendar.getInstance());
-            documento.setUsuario_inclusao(usuario);
+            documento.setDataInclusao(Calendar.getInstance());
+            documento.setUsuarioInclusao(usuario);
         }
         documento.setTamanho(file.getSize());
         documento.setEmpresa(empresa);
-        documento.setUlt_alteracao(Calendar.getInstance());
-        documento.setUsuarioAlteracao(usuario);
-        int ano = documento.getPeriodo_final().getYear() + 1900;
-        int mes = documento.getPeriodo_final().getMonth() + 1;
+        documento.setDataEdicao(Calendar.getInstance());
+        documento.setUsuarioEdicao(usuario);
+        int ano = documento.getPeriodoFinal().getYear() + 1900;
+        int mes = documento.getPeriodoFinal().getMonth() + 1;
 
         Integer ultimoCodigo = ultimoCodigoBR();
         String path = "C:" + File.separator
                 + "UPLOAD" + File.separator
                 + empresa.getNome() + File.separator
-                + documento.getTipo_documento().getDescricao() + File.separator
+                + documento.getTipoDocumento().getDescricao() + File.separator
                 + ano + File.separator
                 + mes;
         String nomeArquivo = empresa.getNome() + " - "
-                + documento.getTipo_documento().getDescricao() + " - "
+                + documento.getTipoDocumento().getDescricao() + " - "
                 + ultimoCodigo + " - "
                 + file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
-        documento.setPath(path);
-        documento.setNome(nomeArquivo);
+        documento.setDiretorio(path);
+        documento.setNomeArquivo(nomeArquivo);
         File diretorio = new File(path);
         if (!diretorio.exists()) {
             boolean success = diretorio.mkdirs();
@@ -90,15 +90,15 @@ public class DocumentoRN {
     }
     
     public void editar(Documento documento, Usuario usuario){
-        documento.setUlt_alteracao(Calendar.getInstance());
-        documento.setUsuarioAlteracao(usuario);
+        documento.setDataEdicao(Calendar.getInstance());
+        documento.setUsuarioEdicao(usuario);
         this.documentoDAO.editar(documento);
     }
 
     public void excluir(Documento documento, Usuario usuario) {
         boolean verifica=false;
         for(UsuarioTipoDocumento userTipo:usuario.getUsuarioTipoDocumento()){
-            if(userTipo.getTipoDocumento().getId().equals(documento.getTipo_documento().getId()) && userTipo.getExcluir()==true){
+            if(userTipo.getTipoDocumento().getId().equals(documento.getTipoDocumento().getId()) && userTipo.getExcluir()==true){
                 this.documentoDAO.excluir(documento);
                 verifica=true;
             } 
@@ -110,8 +110,8 @@ public class DocumentoRN {
     }
     
     public void aprovar(Documento documento, Usuario usuario){
-        documento.setData_aprovacao(Calendar.getInstance());
-        documento.setUsuario_aprovacao(usuario);
+        documento.setDataAprovacao(Calendar.getInstance());
+        documento.setUsuarioAprovacao(usuario);
         
     }
 

@@ -39,7 +39,7 @@
                                                     <f:facet name="header">
                                                         <h:outputText value="Tipo do Documento"/>
                                                     </f:facet>
-                                                    <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                                    <h:outputText value="#{item.tipoDocumento.descricao}"/>
                                                 </h:column>
                                                 <h:column>
                                                     <f:facet name="header">
@@ -57,7 +57,7 @@
                                                     <f:facet name="header">
                                                         <h:outputText value="Data"/>
                                                     </f:facet>
-                                                    <h:outputText value="#{item.periodo_final.time}">
+                                                    <h:outputText value="#{item.periodoFinal.time}">
                                                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                     </h:outputText>
                                                 </h:column>
@@ -105,7 +105,7 @@
                                         <label for="descricaoDocumento">Descrição:</label>
 
                                         <h:inputText value="#{documentoVisualizarBean.documento.descricao}"   class="form-control" id="descricaoDocumento" 
-                                                     required="true" requiredMessage="É necessário informar uma descrição" disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}"/>
+                                                     required="true" requiredMessage="É necessário informar uma descrição" disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +114,9 @@
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
                                         <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
-                                                         value="#{documentoVisualizarBean.documento.tipo_documento}" 
+                                                         value="#{documentoVisualizarBean.documento.tipoDocumento}" 
                                                          converter="omnifaces.SelectItemsConverter"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
+                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}">
 
                                             <f:selectItems value="#{documentoVisualizarBean.listarTipoDocumento}"
                                                            var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
@@ -129,7 +129,7 @@
                                         <h:selectOneMenu class="form-control" id="entidadeDocumento" 
                                                          value="#{documentoVisualizarBean.documento.entidade}"  
                                                          converter="omnifaces.SelectItemsConverter"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}">
+                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}">
                                             <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoVisualizarBean.listarEntidade}"
                                                            var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
@@ -139,10 +139,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="dtFinalDocumento">Data:</label>
-                                        <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodo_final}" required="true"  
+                                        <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodoFinal}" required="true"  
                                                           requiredMessage="É necessário informar uma data" 
                                                           show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY" 
-                                                          disabled="#{!empty documentoVisualizarBean.documento.data_aprovacao}"/>
+                                                          disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="dataInclusao">Data da Inclusão:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.data_inclusao.time}"   class="form-control" id="dataInclusao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.dataInclusao.time}"   class="form-control" id="dataInclusao" 
                                                              disabled="true" >
                                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
                                                 </h:inputText>
@@ -182,7 +182,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="nomeInclusao">Usuário Inclusão:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.usuario_inclusao.nome}"   class="form-control" id="usuarioInclusao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuarioInclusao.nome}"   class="form-control" id="usuarioInclusao" 
                                                              disabled="true" />
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="dataAlteracao">Data da Alteração:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.ult_alteracao.time}"   class="form-control" id="dataAlteracao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.dataEdicao.time}"   class="form-control" id="dataAlteracao" 
                                                              disabled="true" >
                                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
                                                 </h:inputText>
@@ -200,7 +200,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="nomeAlteracao">Usuário Alteração:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.usuarioAlteracao.nome}"   class="form-control" id="usuarioAlteracao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuarioEdicao.nome}"   class="form-control" id="usuarioAlteracao" 
                                                              disabled="true" />
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="dataAprovacao">Data da Aprovação:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.data_aprovacao.time}"   class="form-control" id="dataAprovacao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.dataAprovacao.time}"   class="form-control" id="dataAprovacao" 
                                                              disabled="true" >
                                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-03:00"/>
                                                 </h:inputText>
@@ -218,7 +218,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="nomeAprovacao">Usuario Aprovação:</label>
-                                                <h:inputText value="#{documentoVisualizarBean.documento.usuario_aprovacao.nome}"   class="form-control" id="usuarioAprovacao" 
+                                                <h:inputText value="#{documentoVisualizarBean.documento.usuarioAprovacao.nome}"   class="form-control" id="usuarioAprovacao" 
                                                              disabled="true" />
                                             </div>
                                         </div>
@@ -250,7 +250,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Tipo"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.tipo_documento.descricao}"/>
+                                            <h:outputText value="#{item.tipoDocumento.descricao}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
@@ -268,7 +268,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Data"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.periodo_final}">
+                                            <h:outputText value="#{item.periodoFinal}">
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                             </h:outputText>
                                         </p:column>

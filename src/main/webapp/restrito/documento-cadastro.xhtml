@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
                                         <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
-                                                         value="#{documentoCadastroBean.documento.tipo_documento}" 
+                                                         value="#{documentoCadastroBean.documento.tipoDocumento}" 
                                                          converter="omnifaces.SelectItemsConverter">
                                             <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoCadastroBean.listarTipoDocumento}"
@@ -56,7 +56,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="dtFinalDocumento">Data:</label>
-                                        <b:dateTimePicker value="#{documentoCadastroBean.documento.periodo_final}" required="true"  requiredMessage="É necessário informar uma data" 
+                                        <b:dateTimePicker value="#{documentoCadastroBean.documento.periodoFinal}" required="true"  requiredMessage="É necessário informar uma data" 
                                                           show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY"  />
                                     </div>
                                 </div>
