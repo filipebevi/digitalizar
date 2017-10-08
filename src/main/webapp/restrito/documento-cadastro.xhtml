@@ -31,12 +31,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
-                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
+                                        <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento"  required="true" requiredMessage="É necessário escolher um tipo de documento"
                                                          value="#{documentoCadastroBean.documento.tipoDocumento}" 
                                                          converter="omnifaces.SelectItemsConverter">
                                             <f:selectItem itemValue="#{null}" itemLabel="Escolha um Tipo" noSelectionOption="true" />
                                             <f:selectItems value="#{documentoCadastroBean.listarTipoDocumento}"
                                                            var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
+                                            <f:ajax execute="@this" render="outrosCampos"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </div>
@@ -61,7 +62,41 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row">
+                                <h:panelGroup id="outrosCampos">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoValor}">
+                                                <label for="valorDocumento">Valor</label>
+                                            <h:inputText value="#{documentoCadastroBean.documento.valor}"  required="true" 
+                                                         requiredMessage="É necessário informar um valor" 
+                                                         class="form-control" id="valorDocumento" />
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoVencimento}">
+                                                <label>Vencimento</label>
+                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.vencimento}" required="true"  requiredMessage="É necessário informar um vencimento" 
+                                                                  show-time="false"  id="vencimento" format="DD/MM/YYYY"  />
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoNumero}">
+                                                 <label for="numeroDocumento">Número do documento</label>
+                                            <h:inputText value="#{documentoCadastroBean.documento.numero}"  required="true" 
+                                                         requiredMessage="É necessário informar o numero do documento" 
+                                                         class="form-control" id="numeroDocumento"/>
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+
+                            </div>
+
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
