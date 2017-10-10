@@ -25,7 +25,7 @@ import javax.servlet.http.Part;
  * @author Flipe
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class DocumentoCadastroBean implements Serializable {
 
     private Documento documento = new Documento();
@@ -39,7 +39,7 @@ public class DocumentoCadastroBean implements Serializable {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         DocumentoRN documentoRN = new DocumentoRN();
         documentoRN.salvar(this.documento, contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), this.file);
-        new MensagemUtil().sendMensagem("Documento Nº: "+this.documento.getId()+" gravado com sucesso","");
+        new MensagemUtil().sendMensagem("info","Documento Nº: "+this.documento.getId()+" gravado com sucesso","");
         this.documento=new Documento();
         this.file= null;
         return "principal";

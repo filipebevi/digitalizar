@@ -13,7 +13,7 @@
                 <h3>Enviar Documento</h3>
                 <hr/>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <h:form id="form1" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -41,7 +41,7 @@
                                         </h:selectOneMenu>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" >
                                     <div class="form-group">
                                         <label for="entidadeDocumento">Entidade:</label>
                                         <h:selectOneMenu class="form-control" id="entidadeDocumento" 
@@ -64,35 +64,44 @@
                             </div>
                             <div class="row">
                                 <h:panelGroup id="outrosCampos">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoValor}">
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoValor}">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+
                                                 <label for="valorDocumento">Valor</label>
-                                            <h:inputText value="#{documentoCadastroBean.documento.valor}"  required="true" 
-                                                         requiredMessage="É necessário informar um valor" 
-                                                         class="form-control" id="valorDocumento" />
-                                            </h:panelGroup>
+                                                <p:inputText value="#{documentoCadastroBean.documento.valor}"  required="true" 
+                                                             requiredMessage="É necessário informar um valor" 
+                                                             id="valorDocumento" 
+                                                             class="form-control">
+                                                    <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                                </p:inputText>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoVencimento}">
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoVencimento}">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+
                                                 <label>Vencimento</label>
                                                 <b:dateTimePicker value="#{documentoCadastroBean.documento.vencimento}" required="true"  requiredMessage="É necessário informar um vencimento" 
                                                                   show-time="false"  id="vencimento" format="DD/MM/YYYY"  />
-                                            </h:panelGroup>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoNumero}">
-                                                 <label for="numeroDocumento">Número do documento</label>
-                                            <h:inputText value="#{documentoCadastroBean.documento.numero}"  required="true" 
-                                                         requiredMessage="É necessário informar o numero do documento" 
-                                                         class="form-control" id="numeroDocumento"/>
-                                            </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoNumero}" >
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+
+                                                <label for="numeroDocumento">Número do documento</label>
+                                                <h:inputText value="#{documentoCadastroBean.documento.numero}"  required="true" 
+                                                             requiredMessage="É necessário informar o numero do documento" 
+                                                             class="form-control" id="numeroDocumento"/>
+
+                                            </div>
                                         </div>
-                                    </div>
+                                    </h:panelGroup>
                                 </h:panelGroup>
 
                             </div>

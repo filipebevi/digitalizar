@@ -31,7 +31,7 @@ public class EntidadeBean {
         this.entidade.setUltima_alteracao(Calendar.getInstance());
         EntidadeRN entidadeRN = new EntidadeRN();
         entidadeRN.salvar(this.entidade);
-        new MensagemUtil().sendMensagem("Tipo de Documento Cadastrado com sucesso!", "");
+        new MensagemUtil().sendMensagem("info","Tipo de Documento Cadastrado com sucesso!", "");
         this.entidade = new Entidade();
         this.listaEntidade = null;
     }

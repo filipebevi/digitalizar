@@ -43,6 +43,12 @@ public class TipoDocumento implements Serializable{
     @Column(name = "campo_data_inicio")
     private Boolean campoDataInicio;
     
+    @Column(name = "campo_data_fim")
+    private Boolean campoDataFim;
+    
+    @Column(name = "campo_competencia")
+    private Boolean campoCompetencia;
+    
     @Column(name = "campo_numero")
     private Boolean campoNumero;
 
@@ -104,6 +110,24 @@ public class TipoDocumento implements Serializable{
     public void setCampoNumero(Boolean campoNumero) {
         this.campoNumero = campoNumero;
     }
+
+    public Boolean getCampoDataFim() {
+        return campoDataFim;
+    }
+
+    public void setCampoDataFim(Boolean campoDataFim) {
+        this.campoDataFim = campoDataFim;
+    }
+
+    public Boolean getCampoCompetencia() {
+        return campoCompetencia;
+    }
+
+    public void setCampoCompetencia(Boolean campoCompetencia) {
+        this.campoCompetencia = campoCompetencia;
+    }
+    
+    
     
     
     
@@ -114,14 +138,16 @@ public class TipoDocumento implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.id);
-        hash = 43 * hash + Objects.hashCode(this.descricao);
-        hash = 43 * hash + Objects.hashCode(this.empresa);
-        hash = 43 * hash + Objects.hashCode(this.campoValor);
-        hash = 43 * hash + Objects.hashCode(this.campoVencimento);
-        hash = 43 * hash + Objects.hashCode(this.campoDataInicio);
-        hash = 43 * hash + Objects.hashCode(this.campoNumero);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.descricao);
+        hash = 89 * hash + Objects.hashCode(this.empresa);
+        hash = 89 * hash + Objects.hashCode(this.campoValor);
+        hash = 89 * hash + Objects.hashCode(this.campoVencimento);
+        hash = 89 * hash + Objects.hashCode(this.campoDataInicio);
+        hash = 89 * hash + Objects.hashCode(this.campoDataFim);
+        hash = 89 * hash + Objects.hashCode(this.campoCompetencia);
+        hash = 89 * hash + Objects.hashCode(this.campoNumero);
         return hash;
     }
 
@@ -155,11 +181,19 @@ public class TipoDocumento implements Serializable{
         if (!Objects.equals(this.campoDataInicio, other.campoDataInicio)) {
             return false;
         }
+        if (!Objects.equals(this.campoDataFim, other.campoDataFim)) {
+            return false;
+        }
+        if (!Objects.equals(this.campoCompetencia, other.campoCompetencia)) {
+            return false;
+        }
         if (!Objects.equals(this.campoNumero, other.campoNumero)) {
             return false;
         }
         return true;
     }
+
+   
 
     
 

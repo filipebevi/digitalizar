@@ -28,6 +28,9 @@
                                              requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
                                 <p:message for="nome" />      
                             </div>
+                            <div class="panel">
+                                <div class="panel-title"
+                            </div>
                             <div class="form-check">
                                 <label for="valor" class="form-check-label">
                                     <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoValor}" class="form-check-input" id="valor"/>
@@ -49,7 +52,19 @@
                             <div class="form-check">
                                 <label for="dataInicio" class="form-check-label">
                                     <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataInicio}" class="form-check-input" id="dataInicio"/>
-                                    Data Início
+                                    Período Início
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label for="dataFinal" class="form-check-label">
+                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataFim}" class="form-check-input" id="dataFinal"/>
+                                    Período Final
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label for="competencia" class="form-check-label">
+                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataInicio}" class="form-check-input" id="competencia"/>
+                                    Data Competência
                                 </label>
                             </div>
                             <div class="form-group">

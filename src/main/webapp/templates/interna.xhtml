@@ -19,11 +19,11 @@ and open the template in the editor.
             <link href="../publico/resource/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
             <link href="../publico/resource/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
-            <style type="text/css">
+            <!--<style type="text/css">
                 .ui-growl {
                     top: 30%;
                 }
-            </style>
+            </style> POSICIONAMENTO DO GROWL-->
 
             <script type="text/javascript">
                 // INICIO FUNÇÃO DE MASCARA MAIUSCULA
@@ -35,7 +35,7 @@ and open the template in the editor.
             </script>
         </h:head>
         <h:body>
-            <p:growl id="mensagem"  autoUpdate="true" />
+             <p:messages id="mensagem" showDetail="true" autoUpdate="true" closable="true" />
             <div id="top_bar">
                 <ui:insert name="top_bar" >
                     <ui:include src="/restrito/top_bar.xhtml"/>

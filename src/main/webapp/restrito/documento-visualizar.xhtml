@@ -147,6 +147,43 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <h:panelGroup id="outrosCampos">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoValor}">
+                                                <label for="valorDocumento">Valor</label>
+                                            <h:inputText value="#{documentoVisualizarBean.documento.valor}"  required="true" 
+                                                         requiredMessage="É necessário informar um valor" 
+                                                         class="form-control" id="valorDocumento"
+                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoVencimento}">
+                                                <label>Vencimento</label>
+                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.vencimento}" required="true"  requiredMessage="É necessário informar um vencimento" 
+                                                                  show-time="false"  id="vencimento" format="DD/MM/YYYY" 
+                                                                  disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoNumero}">
+                                                 <label for="numeroDocumento">Número do documento</label>
+                                            <h:inputText value="#{documentoVisualizarBean.documento.numero}"  required="true" 
+                                                         requiredMessage="É necessário informar o numero do documento" 
+                                                         class="form-control" id="numeroDocumento"
+                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </h:panelGroup>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
 

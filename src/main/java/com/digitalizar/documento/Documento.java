@@ -47,6 +47,10 @@ public class Documento implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "periodo_final")
     private Date periodoFinal;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "competencia")
+    private Date competencia;
 
     private Double valor;
 
@@ -279,6 +283,16 @@ public class Documento implements Serializable {
         this.documentosOf = documentosOf;
     }
 
+    public Date getCompetencia() {
+        return competencia;
+    }
+
+    public void setCompetencia(Date competencia) {
+        this.competencia = competencia;
+    }
+    
+    
+
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
@@ -287,27 +301,28 @@ public class Documento implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id);
-        hash = 47 * hash + Objects.hashCode(this.dataInclusao);
-        hash = 47 * hash + Objects.hashCode(this.usuarioInclusao);
-        hash = 47 * hash + Objects.hashCode(this.usuarioAprovacao);
-        hash = 47 * hash + Objects.hashCode(this.dataAprovacao);
-        hash = 47 * hash + Objects.hashCode(this.diretorio);
-        hash = 47 * hash + Objects.hashCode(this.empresa);
-        hash = 47 * hash + Objects.hashCode(this.tipoDocumento);
-        hash = 47 * hash + Objects.hashCode(this.descricao);
-        hash = 47 * hash + Objects.hashCode(this.periodoInicial);
-        hash = 47 * hash + Objects.hashCode(this.periodoFinal);
-        hash = 47 * hash + Objects.hashCode(this.valor);
-        hash = 47 * hash + Objects.hashCode(this.vencimento);
-        hash = 47 * hash + Objects.hashCode(this.entidade);
-        hash = 47 * hash + Objects.hashCode(this.numero);
-        hash = 47 * hash + Objects.hashCode(this.usuarioEdicao);
-        hash = 47 * hash + Objects.hashCode(this.dataEdicao);
-        hash = 47 * hash + Objects.hashCode(this.documentos);
-        hash = 47 * hash + Objects.hashCode(this.documentosOf);
-        hash = 47 * hash + Objects.hashCode(this.tamanho);
-        hash = 47 * hash + Objects.hashCode(this.nomeArquivo);
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.descricao);
+        hash = 79 * hash + Objects.hashCode(this.periodoInicial);
+        hash = 79 * hash + Objects.hashCode(this.periodoFinal);
+        hash = 79 * hash + Objects.hashCode(this.competencia);
+        hash = 79 * hash + Objects.hashCode(this.valor);
+        hash = 79 * hash + Objects.hashCode(this.numero);
+        hash = 79 * hash + Objects.hashCode(this.vencimento);
+        hash = 79 * hash + Objects.hashCode(this.diretorio);
+        hash = 79 * hash + Objects.hashCode(this.nomeArquivo);
+        hash = 79 * hash + Objects.hashCode(this.tamanho);
+        hash = 79 * hash + Objects.hashCode(this.empresa);
+        hash = 79 * hash + Objects.hashCode(this.tipoDocumento);
+        hash = 79 * hash + Objects.hashCode(this.entidade);
+        hash = 79 * hash + Objects.hashCode(this.usuarioEdicao);
+        hash = 79 * hash + Objects.hashCode(this.dataEdicao);
+        hash = 79 * hash + Objects.hashCode(this.dataInclusao);
+        hash = 79 * hash + Objects.hashCode(this.usuarioInclusao);
+        hash = 79 * hash + Objects.hashCode(this.dataAprovacao);
+        hash = 79 * hash + Objects.hashCode(this.usuarioAprovacao);
+        hash = 79 * hash + Objects.hashCode(this.documentos);
+        hash = 79 * hash + Objects.hashCode(this.documentosOf);
         return hash;
     }
 
@@ -323,13 +338,13 @@ public class Documento implements Serializable {
             return false;
         }
         final Documento other = (Documento) obj;
-        if (!Objects.equals(this.diretorio, other.diretorio)) {
-            return false;
-        }
         if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
         if (!Objects.equals(this.numero, other.numero)) {
+            return false;
+        }
+        if (!Objects.equals(this.diretorio, other.diretorio)) {
             return false;
         }
         if (!Objects.equals(this.nomeArquivo, other.nomeArquivo)) {
@@ -338,34 +353,28 @@ public class Documento implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.dataInclusao, other.dataInclusao)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioInclusao, other.usuarioInclusao)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioAprovacao, other.usuarioAprovacao)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataAprovacao, other.dataAprovacao)) {
-            return false;
-        }
-        if (!Objects.equals(this.empresa, other.empresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
-            return false;
-        }
         if (!Objects.equals(this.periodoInicial, other.periodoInicial)) {
             return false;
         }
         if (!Objects.equals(this.periodoFinal, other.periodoFinal)) {
             return false;
         }
+        if (!Objects.equals(this.competencia, other.competencia)) {
+            return false;
+        }
         if (!Objects.equals(this.valor, other.valor)) {
             return false;
         }
         if (!Objects.equals(this.vencimento, other.vencimento)) {
+            return false;
+        }
+        if (!Objects.equals(this.tamanho, other.tamanho)) {
+            return false;
+        }
+        if (!Objects.equals(this.empresa, other.empresa)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoDocumento, other.tipoDocumento)) {
             return false;
         }
         if (!Objects.equals(this.entidade, other.entidade)) {
@@ -377,16 +386,27 @@ public class Documento implements Serializable {
         if (!Objects.equals(this.dataEdicao, other.dataEdicao)) {
             return false;
         }
+        if (!Objects.equals(this.dataInclusao, other.dataInclusao)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioInclusao, other.usuarioInclusao)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataAprovacao, other.dataAprovacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioAprovacao, other.usuarioAprovacao)) {
+            return false;
+        }
         if (!Objects.equals(this.documentos, other.documentos)) {
             return false;
         }
         if (!Objects.equals(this.documentosOf, other.documentosOf)) {
             return false;
         }
-        if (!Objects.equals(this.tamanho, other.tamanho)) {
-            return false;
-        }
         return true;
     }
+
+    
 
 }

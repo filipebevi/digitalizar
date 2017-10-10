@@ -104,7 +104,7 @@ public class DocumentoRN {
             } 
         }
         if(!verifica){
-            new MensagemUtil().sendMensagem("Usuário sem permissão para excluir este tipo de documento", " ");
+            new MensagemUtil().sendMensagem("alerta","Usuário sem permissão para excluir este tipo de documento", " ");
         }
         
     }

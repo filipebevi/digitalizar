@@ -32,7 +32,7 @@ public class TipoDocumentoBean {
         this.tipoDocumento.setEmpresa(contextoBean.getEmpresaAtiva());
         TipoDocumentoRN tipoDocumentoRN=new TipoDocumentoRN();
         tipoDocumentoRN.salvar(this.tipoDocumento);
-        new MensagemUtil().sendMensagem("Tipo de Documento Cadastrado com sucesso!", "");
+        new MensagemUtil().sendMensagem("info","Tipo de Documento Cadastrado com sucesso!", "");
         this.tipoDocumento = new TipoDocumento();
         this.listarTipo=null;
     }

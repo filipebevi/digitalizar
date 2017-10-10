@@ -28,7 +28,7 @@ public class EmpresaBean{
     public void salvar() {
         EmpresaRN empresaRN = new EmpresaRN();
         empresaRN.salvar(this.empresa);
-        new MensagemUtil().sendMensagem("Empresa Cadastrada", "A empresa: "+empresa.getNome()+" foi cadastrada com sucesso!");
+        new MensagemUtil().sendMensagem("info","Empresa Cadastrada", "A empresa: "+empresa.getNome()+" foi cadastrada com sucesso!");
         this.empresa = new Empresa();
         this.listaEmpresa=null;
     }
