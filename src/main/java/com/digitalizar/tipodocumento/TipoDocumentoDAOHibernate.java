@@ -79,6 +79,12 @@ public class TipoDocumentoDAOHibernate implements TipoDocumentoDAO {
         return criteria.list();
     }
     
+    @Override
+    public List<Extensao> listarExtensoes(){
+        Criteria criteria = this.session.createCriteria(Extensao.class);
+        return criteria.list();
+    }
+    
     
     
 }

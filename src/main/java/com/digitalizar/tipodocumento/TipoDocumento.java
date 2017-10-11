@@ -7,14 +7,20 @@ package com.digitalizar.tipodocumento;
 
 import com.digitalizar.empresa.Empresa;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  *
@@ -54,6 +60,12 @@ public class TipoDocumento implements Serializable {
 
     @Column(name = "vinculado")
     private Boolean vinculado;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Extensao> extensoes;
+
+    @Column(name = "tamanho_maximo")
+    private Double tamanhoMaximo;
 
     public TipoDocumento() {
     }
@@ -98,8 +110,6 @@ public class TipoDocumento implements Serializable {
         this.campoVencimento = campoVencimento;
     }
 
-   
-
     public Boolean getCampoNumero() {
         return campoNumero;
     }
@@ -107,8 +117,6 @@ public class TipoDocumento implements Serializable {
     public void setCampoNumero(Boolean campoNumero) {
         this.campoNumero = campoNumero;
     }
-
-   
 
     public Boolean getCampoCompetencia() {
         return campoCompetencia;
@@ -141,8 +149,22 @@ public class TipoDocumento implements Serializable {
     public void setCampoPeriodo(Boolean campoPeriodo) {
         this.campoPeriodo = campoPeriodo;
     }
-    
-    
+
+    public List<Extensao> getExtensoes() {
+        return extensoes;
+    }
+
+    public void setExtensoes(List<Extensao> extensoes) {
+        this.extensoes = extensoes;
+    }
+
+    public Double getTamanhoMaximo() {
+        return tamanhoMaximo;
+    }
+
+    public void setTamanhoMaximo(Double tamanhoMaximo) {
+        this.tamanhoMaximo = tamanhoMaximo;
+    }
 
     @Override
     public String toString() {
@@ -151,7 +173,7 @@ public class TipoDocumento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.id);
         hash = 67 * hash + Objects.hashCode(this.descricao);
         hash = 67 * hash + Objects.hashCode(this.empresa);
@@ -162,6 +184,8 @@ public class TipoDocumento implements Serializable {
         hash = 67 * hash + Objects.hashCode(this.campoNumero);
         hash = 67 * hash + Objects.hashCode(this.campoEntidade);
         hash = 67 * hash + Objects.hashCode(this.vinculado);
+        hash = 67 * hash + Objects.hashCode(this.extensoes);
+        hash = 67 * hash + Objects.hashCode(this.tamanhoMaximo);
         return hash;
     }
 
@@ -207,9 +231,13 @@ public class TipoDocumento implements Serializable {
         if (!Objects.equals(this.vinculado, other.vinculado)) {
             return false;
         }
+        if (!Objects.equals(this.extensoes, other.extensoes)) {
+            return false;
+        }
+        if (!Objects.equals(this.tamanhoMaximo, other.tamanhoMaximo)) {
+            return false;
+        }
         return true;
     }
-    
-    
 
 }
