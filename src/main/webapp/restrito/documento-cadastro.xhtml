@@ -16,7 +16,7 @@
                     <div class="col-sm-12">
                         <h:form id="form1" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="descricaoDocumento">Descrição:</label>
                                         <h:inputText value="#{documentoCadastroBean.documento.descricao}"  required="true" 
@@ -25,9 +25,6 @@
                                                      onkeyup="maiuscula(this)"/>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
@@ -41,33 +38,14 @@
                                         </h:selectOneMenu>
                                     </div>
                                 </div>
-                                <div class="col-sm-4" >
-                                    <div class="form-group">
-                                        <label for="entidadeDocumento">Entidade:</label>
-                                        <h:selectOneMenu class="form-control" id="entidadeDocumento" 
-                                                         value="#{documentoCadastroBean.documento.entidade}"  
-                                                         converter="omnifaces.SelectItemsConverter">
-                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
-                                            <f:selectItems value="#{documentoCadastroBean.listarEntidade}"
-                                                           var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
-                                        </h:selectOneMenu>
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="dtFinalDocumento">Data:</label>
-                                        <b:dateTimePicker value="#{documentoCadastroBean.documento.periodoFinal}" required="true"  requiredMessage="É necessário informar uma data" 
-                                                          show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY"  />
-                                    </div>
-                                </div>
                             </div>
-                            <div class="row">
-                                <h:panelGroup id="outrosCampos">
-                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoValor}">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
 
+                            <h:panelGroup id="outrosCampos">
+                                <div class="row">
+
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoValor}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
                                                 <label for="valorDocumento">Valor</label>
                                                 <p:inputText value="#{documentoCadastroBean.documento.valor}"  required="true" 
                                                              requiredMessage="É necessário informar um valor" 
@@ -79,33 +57,73 @@
                                             </div>
                                         </div>
                                     </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoCompetencia}">
+                                        <div class="col-sm-3" >
+                                            <div class="form-group">
+                                                <label for="competencia">Data de Emissão:</label>
+                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.competencia}" required="true"  requiredMessage="É necessário informar a data de emissão" 
+                                                                  show-time="false"  id="competencia" format="DD/MM/YYYY"  />
+                                            </div>
+                                        </div>
+
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoPeriodo}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="periodoInicial">Período Inicial:</label>
+                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodoInicial}" required="true"  requiredMessage="É necessário informar a data inicial do período" 
+                                                                  show-time="false"  id="periodoInicial" format="DD/MM/YYYY"  />
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoPeriodo}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="periodoFinal">Período Final:</label>
+                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.periodoFinal}" required="true"  requiredMessage="É necessário informar a data final do período" 
+                                                                  show-time="false"  id="periodoFinal" format="DD/MM/YYYY"  />
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                </div>
+                                <div class="row">
+                                    <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoEntidade}">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="entidadeDocumento">Entidade:</label>
+                                                <h:selectOneMenu class="form-control" id="entidadeDocumento" 
+                                                                 value="#{documentoCadastroBean.documento.entidade}"  
+                                                                 converter="omnifaces.SelectItemsConverter">
+                                                    <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
+                                                    <f:selectItems value="#{documentoCadastroBean.listarEntidade}"
+                                                                   var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+
+                                        </div>
+                                    </h:panelGroup>
                                     <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoVencimento}">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-
                                                 <label>Vencimento</label>
                                                 <b:dateTimePicker value="#{documentoCadastroBean.documento.vencimento}" required="true"  requiredMessage="É necessário informar um vencimento" 
                                                                   show-time="false"  id="vencimento" format="DD/MM/YYYY"  />
-
                                             </div>
                                         </div>
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoNumero}" >
                                         <div class="col-sm-4">
                                             <div class="form-group">
-
                                                 <label for="numeroDocumento">Número do documento</label>
                                                 <h:inputText value="#{documentoCadastroBean.documento.numero}"  required="true" 
                                                              requiredMessage="É necessário informar o numero do documento" 
                                                              class="form-control" id="numeroDocumento"/>
-
                                             </div>
                                         </div>
                                     </h:panelGroup>
-                                </h:panelGroup>
-
-                            </div>
-
+                                </div>
+                            </h:panelGroup>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">

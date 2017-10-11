@@ -28,45 +28,44 @@
                                              requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
                                 <p:message for="nome" />      
                             </div>
-                            <div class="panel">
-                                <div class="panel-title"
-                            </div>
+                            
                             <div class="form-check">
-                                <label for="valor" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoValor}" class="form-check-input" id="valor"/>
-                                    Valor
-                                </label>
+                                <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.vinculado}" class="form-check-input" id="vinculado"/>
+                                Necessita de documento vinculado
                             </div>
-                            <div class="form-check">
-                                <label for="numero" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoNumero}" class="form-check-input" id="numero"/>
-                                    Número
-                                </label>
+                            <br/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <b>Campos opcionais</b>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoValor}" class="form-check-input" id="valor"/>
+                                        Valor
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoNumero}" class="form-check-input" id="numero"/>
+                                        Número
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoVencimento}" class="form-check-input" id="vencimento"/>
+                                        Vencimento
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoPeriodo}" class="form-check-input" id="periodo"/>
+                                        Período
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoCompetencia}" class="form-check-input" id="competencia"/>
+                                        Data Competência
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoEntidade}" class="form-check-input" id="entidade"/>
+                                        Entidade
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label for="vencimento" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoVencimento}" class="form-check-input" id="vencimento"/>
-                                    Vencimento
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label for="dataInicio" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataInicio}" class="form-check-input" id="dataInicio"/>
-                                    Período Início
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label for="dataFinal" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataFim}" class="form-check-input" id="dataFinal"/>
-                                    Período Final
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label for="competencia" class="form-check-label">
-                                    <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoDataInicio}" class="form-check-input" id="competencia"/>
-                                    Data Competência
-                                </label>
-                            </div>
+
                             <div class="form-group">
                                 <p:commandButton action="#{tipoDocumentoBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn btn-primary" />
                             </div>
