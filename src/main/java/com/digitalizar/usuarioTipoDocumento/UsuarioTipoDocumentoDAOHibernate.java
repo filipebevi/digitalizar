@@ -5,12 +5,9 @@
  */
 package com.digitalizar.usuarioTipoDocumento;
 
-import com.digitalizar.empresa.Empresa;
-import com.digitalizar.tipodocumento.TipoDocumento;
+
+
 import com.digitalizar.usuario.Usuario;
-import com.digitalizar.usuarioEmpresa.UsuarioEmpresa;
-import com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;

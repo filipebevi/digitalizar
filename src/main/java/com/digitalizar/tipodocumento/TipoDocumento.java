@@ -9,25 +9,21 @@ import com.digitalizar.empresa.Empresa;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
 
 /**
  *
  * @author filip
  */
 @Entity
-
 public class TipoDocumento implements Serializable {
 
     @Id
@@ -61,14 +57,12 @@ public class TipoDocumento implements Serializable {
     @Column(name = "vinculado")
     private Boolean vinculado;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Extensao> extensoes;
 
     @Column(name = "tamanho_maximo")
     private Double tamanhoMaximo;
-
-    public TipoDocumento() {
-    }
+    
+    @ManyToMany
+    private List<Extensao> extensoes;
 
     public Integer getId() {
         return id;
@@ -110,12 +104,12 @@ public class TipoDocumento implements Serializable {
         this.campoVencimento = campoVencimento;
     }
 
-    public Boolean getCampoNumero() {
-        return campoNumero;
+    public Boolean getCampoPeriodo() {
+        return campoPeriodo;
     }
 
-    public void setCampoNumero(Boolean campoNumero) {
-        this.campoNumero = campoNumero;
+    public void setCampoPeriodo(Boolean campoPeriodo) {
+        this.campoPeriodo = campoPeriodo;
     }
 
     public Boolean getCampoCompetencia() {
@@ -126,12 +120,12 @@ public class TipoDocumento implements Serializable {
         this.campoCompetencia = campoCompetencia;
     }
 
-    public Boolean getVinculado() {
-        return vinculado;
+    public Boolean getCampoNumero() {
+        return campoNumero;
     }
 
-    public void setVinculado(Boolean vinculado) {
-        this.vinculado = vinculado;
+    public void setCampoNumero(Boolean campoNumero) {
+        this.campoNumero = campoNumero;
     }
 
     public Boolean getCampoEntidade() {
@@ -142,20 +136,12 @@ public class TipoDocumento implements Serializable {
         this.campoEntidade = campoEntidade;
     }
 
-    public Boolean getCampoPeriodo() {
-        return campoPeriodo;
+    public Boolean getVinculado() {
+        return vinculado;
     }
 
-    public void setCampoPeriodo(Boolean campoPeriodo) {
-        this.campoPeriodo = campoPeriodo;
-    }
-
-    public List<Extensao> getExtensoes() {
-        return extensoes;
-    }
-
-    public void setExtensoes(List<Extensao> extensoes) {
-        this.extensoes = extensoes;
+    public void setVinculado(Boolean vinculado) {
+        this.vinculado = vinculado;
     }
 
     public Double getTamanhoMaximo() {
@@ -166,6 +152,16 @@ public class TipoDocumento implements Serializable {
         this.tamanhoMaximo = tamanhoMaximo;
     }
 
+    public List<Extensao> getExtensoes() {
+        return extensoes;
+    }
+
+    public void setExtensoes(List<Extensao> extensoes) {
+        this.extensoes = extensoes;
+    }
+
+   
+
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
@@ -173,19 +169,19 @@ public class TipoDocumento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.descricao);
-        hash = 67 * hash + Objects.hashCode(this.empresa);
-        hash = 67 * hash + Objects.hashCode(this.campoValor);
-        hash = 67 * hash + Objects.hashCode(this.campoVencimento);
-        hash = 67 * hash + Objects.hashCode(this.campoPeriodo);
-        hash = 67 * hash + Objects.hashCode(this.campoCompetencia);
-        hash = 67 * hash + Objects.hashCode(this.campoNumero);
-        hash = 67 * hash + Objects.hashCode(this.campoEntidade);
-        hash = 67 * hash + Objects.hashCode(this.vinculado);
-        hash = 67 * hash + Objects.hashCode(this.extensoes);
-        hash = 67 * hash + Objects.hashCode(this.tamanhoMaximo);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.descricao);
+        hash = 47 * hash + Objects.hashCode(this.empresa);
+        hash = 47 * hash + Objects.hashCode(this.campoValor);
+        hash = 47 * hash + Objects.hashCode(this.campoVencimento);
+        hash = 47 * hash + Objects.hashCode(this.campoPeriodo);
+        hash = 47 * hash + Objects.hashCode(this.campoCompetencia);
+        hash = 47 * hash + Objects.hashCode(this.campoNumero);
+        hash = 47 * hash + Objects.hashCode(this.campoEntidade);
+        hash = 47 * hash + Objects.hashCode(this.vinculado);
+        hash = 47 * hash + Objects.hashCode(this.tamanhoMaximo);
+        hash = 47 * hash + Objects.hashCode(this.extensoes);
         return hash;
     }
 
@@ -231,13 +227,17 @@ public class TipoDocumento implements Serializable {
         if (!Objects.equals(this.vinculado, other.vinculado)) {
             return false;
         }
-        if (!Objects.equals(this.extensoes, other.extensoes)) {
+        if (!Objects.equals(this.tamanhoMaximo, other.tamanhoMaximo)) {
             return false;
         }
-        if (!Objects.equals(this.tamanhoMaximo, other.tamanhoMaximo)) {
+        if (!Objects.equals(this.extensoes, other.extensoes)) {
             return false;
         }
         return true;
     }
+    
+    
+    
+
 
 }

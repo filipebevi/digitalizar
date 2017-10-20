@@ -106,15 +106,21 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
     }
 
     public Criteria listagem(Empresa empresa, Usuario usuario) {
-        List<Documento> resultado = null;
+        
         Criteria criteria = this.session.createCriteria(Documento.class);
-        List<TipoDocumento> tipoDocumentos = new ArrayList<>();
+        
+        if(!criteria.list().isEmpty()){
+            List<TipoDocumento> tipoDocumentos = new ArrayList<>();
         for (UsuarioTipoDocumento userTipoDoc : usuario.getUsuarioTipoDocumento()) {
             if (userTipoDoc.getVisualizar() && userTipoDoc.getTipoDocumento().getEmpresa().getId().equals(empresa.getId())) {
                 tipoDocumentos.add(userTipoDoc.getTipoDocumento());
             }
         }
         criteria.add(Restrictions.in("tipoDocumento", tipoDocumentos));
+        }else{
+            criteria=null;
+        }
+        
 
         return criteria;
 
@@ -122,9 +128,16 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
 
     @Override
     public List<Documento> naoAprovados(Empresa empresa, Usuario usuario) {
+        
+        List<Documento> resultado=new ArrayList<>();
         Criteria criteria = listagem(empresa, usuario);
-        criteria.add(Restrictions.isNull("dataAprovacao"));
-        return criteria.list();
+        if(criteria!=null){
+            criteria.add(Restrictions.isNull("dataAprovacao"));
+            
+            resultado.addAll(criteria.list());
+        }
+        
+        return resultado;
     }
 
     @Override

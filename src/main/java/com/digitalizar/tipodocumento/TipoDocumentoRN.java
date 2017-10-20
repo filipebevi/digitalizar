@@ -35,8 +35,16 @@ public class TipoDocumentoRN {
         return this.tipoDocumentoDAO.listar(empresa);
     }
     
-    public List<Extensao> listarExtensoes(){
-        return this.tipoDocumentoDAO.listarExtensoes();
+    public TipoDocumento carregar(Integer id){
+        TipoDocumento resultado=null;
+        if(id!=null){
+            resultado=this.tipoDocumentoDAO.carregar(id);
+        }
+        return resultado;
     }
     
+    public List<Extensao> listarExtensao(){
+        return this.tipoDocumentoDAO.listarExtensao();
+    }
+   
 }

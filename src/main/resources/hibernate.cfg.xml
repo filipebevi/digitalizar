@@ -53,5 +53,6 @@ Contributor(s):
     <mapping class="com.digitalizar.usuarioEmpresa.UsuarioEmpresa"/>
     <mapping class="com.digitalizar.usuarioTipoDocumento.UsuarioTipoDocumento"/>
     <mapping class="com.digitalizar.tipodocumento.Extensao"/>
+   
   </session-factory>
 </hibernate-configuration>

@@ -5,87 +5,21 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:o="http://omnifaces.org/ui">
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/templates/interna.xhtml">
 
         <ui:define name="conteudo">           
+
             <div class="container">
-
-                <h3>Cadastro de Tipo de Documento</h3>
+                
+                <h3>Listagem de Tipo de Documento</h3>
                 <hr/>
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h:form id="edicao">
-                            <div class="form-group">
-                                <label for="codigo">Codigo</label>
-                                <h:inputText value="#{tipoDocumentoBean.tipoDocumento.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
-                                <h:inputHidden value="#{tipoDocumentoBean.tipoDocumento.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
-                            </div>
-                            <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <h:inputText value="#{tipoDocumentoBean.tipoDocumento.descricao}" class="form-control" id="nome" required="true" 
-                                             requiredMessage="Nome da Empresa � um campo obrigat�rio" onkeyup="maiuscula(this)"/>
-                                <p:message for="nome" />      
-                            </div>
-
-                            <div class="form-check">
-                                <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.vinculado}" class="form-check-input" id="vinculado"/>
-                                Necessita de documento vinculado
-                            </div>
-                            <br/>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <b>Campos opcionais</b>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoValor}" class="form-check-input" id="valor"/>
-                                        Valor
-                                    </div>
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoNumero}" class="form-check-input" id="numero"/>
-                                        Número
-                                    </div>
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoVencimento}" class="form-check-input" id="vencimento"/>
-                                        Vencimento
-                                    </div>
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoPeriodo}" class="form-check-input" id="periodo"/>
-                                        Período
-                                    </div>
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoCompetencia}" class="form-check-input" id="competencia"/>
-                                        Data Competência
-                                    </div>
-                                    <div class="form-check">
-                                        <h:selectBooleanCheckbox value="#{tipoDocumentoBean.tipoDocumento.campoEntidade}" class="form-check-input" id="entidade"/>
-                                        Entidade
-                                    </div>
-                                </div>
-                            </div>
-                            <h4>Lista de Extensões permitidas</h4>
-                            <br/>
-                            <p:pickList id="pickList" 
-                                        value="#{tipoDocumentoBean.listModel}" 
-                                        var="extensoes" itemLabel="#{extensoes}" itemValue="#{extensoes}" >
-                                <o:converter converterId="converterExtensaoPickList" />
-                            </p:pickList>
-
-                            <div class="form-group">
-                                <p:commandButton action="#{tipoDocumentoBean.salvar()}"  update=":edicao :listagem :mensagem" value="Salvar" class="btn btn-primary" />
-                            </div>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <hr/>
-                <h4>Listagem de Tipo de Documento</h4>
+               
 
                 <h:form id="listagem">
+                    <h:commandButton class="btn btn-default" value="Novo" action="#{tipoDocumentoBean.novo()}"/>
+                     <br/>
                     <h:dataTable class="table table-striped" value="#{tipoDocumentoBean.listarTipo}" var="item" >
                         <p:column>
                             <f:facet name="header">
@@ -104,11 +38,10 @@
                             <f:facet name="header">
                                 <h:outputText value="Editar/Excluir"/>
                             </f:facet>
-                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" update=":edicao">
-                                <f:setPropertyActionListener target="#{tipoDocumentoBean.tipoDocumento}" value="#{item}"/>
-
-
+                            <p:commandButton class="btn-default btn-xs" icon="ui-icon-pencil" action="#{tipoDocumentoBean.editar()}">
+                                <f:setPropertyActionListener target="#{contextoBean.tipo}" value="#{item}"/>
                             </p:commandButton>  
+                            
                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{tipoDocumentoBean.excluir()}" update=":listagem" onclick="if (!confirm('Confirma a exclusao do Tipo de Documento #{item.descricao}?'))
                                         return false;"  >
                                 <f:setPropertyActionListener target="#{tipoDocumentoBean.tipoDocumento}" value="#{item}"/>

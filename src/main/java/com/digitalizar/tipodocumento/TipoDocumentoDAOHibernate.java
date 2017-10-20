@@ -69,9 +69,6 @@ public class TipoDocumentoDAOHibernate implements TipoDocumentoDAO {
         return (TipoDocumento) consulta.uniqueResult();
     }
     
-  
-    
-    
     @Override
     public List<TipoDocumento> listar(Empresa empresa) {
         Criteria criteria = this.session.createCriteria(TipoDocumento.class);
@@ -80,11 +77,10 @@ public class TipoDocumentoDAOHibernate implements TipoDocumentoDAO {
     }
     
     @Override
-    public List<Extensao> listarExtensoes(){
+    public List<Extensao> listarExtensao(){
         Criteria criteria = this.session.createCriteria(Extensao.class);
         return criteria.list();
     }
-    
     
     
 }

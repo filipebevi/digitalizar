@@ -6,7 +6,6 @@
 package com.digitalizar.usuarioTipoDocumento;
 
 
-import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.util.DAOFactory;
 import java.util.List;

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templates/interna.xhtml">
+
+        <ui:define name="conteudo">           
+            <div class="container">
+                <h3>Cadastro de Tipo de Documento</h3>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h:form id="edicao">
+                            <div class="form-group">
+                                <label for="codigo">Codigo</label>
+                                <h:inputText value="#{tipoCadastroBean.tipoDocumento.id}" disabled="true" class="form-control" readonly="true" id="codigo" />
+                                <h:inputHidden value="#{tipoCadastroBean.tipoDocumento.id}"/> <!--Utilizado para que o hibernate consiga fazer o update no registro, pois se deixar o campo disbable, o mesmo envia o id null-->  
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <h:inputText value="#{tipoCadastroBean.tipoDocumento.descricao}" class="form-control" id="nome" required="true" 
+                                             requiredMessage="Informe o nome do Tipo de Documento" onkeyup="maiuscula(this)"/>
+                                <p:message for="nome" />      
+                            </div>
+
+                            <div class="form-check">
+                                <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.vinculado}" class="form-check-input" id="vinculado"/>
+                                Necessita de documento vinculado
+                            </div>
+                            <br/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <b>Campos opcionais</b>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoValor}" class="form-check-input" id="valor"/>
+                                        Valor
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoNumero}" class="form-check-input" id="numero"/>
+                                        Número
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoVencimento}" class="form-check-input" id="vencimento"/>
+                                        Vencimento
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoPeriodo}" class="form-check-input" id="periodo"/>
+                                        Período
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoCompetencia}" class="form-check-input" id="competencia"/>
+                                        Data Competência
+                                    </div>
+                                    <div class="form-check">
+                                        <h:selectBooleanCheckbox value="#{tipoCadastroBean.tipoDocumento.campoEntidade}" class="form-check-input" id="entidade"/>
+                                        Entidade
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <h3>Extensoes Permitidas</h3>
+                            <br/>
+                            <div class="form-group form-inline">
+                                <h:selectOneMenu class="form-control" value="#{tipoCadastroBean.extensao}" 
+                                                 converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItems value="#{tipoCadastroBean.extensoes}" var="item2" itemValue="#{item2}"
+                                                   itemLabel="#{item2.descricao}"/>
+                                </h:selectOneMenu>
+                                <p:commandButton class="btn btn-default" style="margin-left: 10px" value="Adicionar" action="#{tipoCadastroBean.adicionarExtensao()}" update="edicao:tabelaExtensao"/>
+                            </div>
+                            <h:dataTable id="tabelaExtensao" class="table table-striped" value="#{tipoCadastroBean.tipoDocumento.extensoes}" var="item">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Extensao"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Remover"/>
+                                    </f:facet>
+                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" 
+                                                     action="#{tipoCadastroBean.removerExtensao()}" 
+                                                     update=":edicao" >
+                                        <f:setPropertyActionListener target="#{tipoCadastroBean.extensao}" value="#{item}"/>
+                                    </p:commandButton>
+
+                                </p:column>
+                            </h:dataTable>
+
+                            
+                                <p:commandButton action="#{tipoCadastroBean.salvar()}"  update=":edicao :mensagem" value="Salvar" class="btn btn-primary" />
+                                <p:commandButton action="tipodedocumento"  value="Cancelar"  class="btn btn-default" />
+                            
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

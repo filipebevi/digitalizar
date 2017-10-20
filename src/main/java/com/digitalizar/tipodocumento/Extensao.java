@@ -7,7 +7,6 @@ package com.digitalizar.tipodocumento;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,9 +26,6 @@ public class Extensao implements Serializable{
     private String descricao;
     
     private String tipo;
-    
-    @Column(name = "tamanho_maximo")
-    private Double tamanhoMaximo;
 
     public Integer getId() {
         return id;
@@ -54,24 +50,18 @@ public class Extensao implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    public Double getTamanhoMaximo() {
-        return tamanhoMaximo;
-    }
-
-    public void setTamanhoMaximo(Double tamanhoMaximo) {
-        this.tamanhoMaximo = tamanhoMaximo;
-    }
     
-  
+    @Override
+    public String toString() {
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+    }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.descricao);
-        hash = 97 * hash + Objects.hashCode(this.tipo);
-        hash = 97 * hash + Objects.hashCode(this.tamanhoMaximo);
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.descricao);
+        hash = 67 * hash + Objects.hashCode(this.tipo);
         return hash;
     }
 
@@ -96,11 +86,11 @@ public class Extensao implements Serializable{
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.tamanhoMaximo, other.tamanhoMaximo)) {
-            return false;
-        }
         return true;
     }
+    
+    
+    
     
     
 }

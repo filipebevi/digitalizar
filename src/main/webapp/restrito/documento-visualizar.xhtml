@@ -152,10 +152,10 @@
                                         <div class="form-group">
                                             <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoValor}">
                                                 <label for="valorDocumento">Valor</label>
-                                            <h:inputText value="#{documentoVisualizarBean.documento.valor}"  required="true" 
-                                                         requiredMessage="É necessário informar um valor" 
-                                                         class="form-control" id="valorDocumento"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.valor}"  required="true" 
+                                                             requiredMessage="É necessário informar um valor" 
+                                                             class="form-control" id="valorDocumento"
+                                                             disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
                                             </h:panelGroup>
                                         </div>
                                     </div>
@@ -172,11 +172,11 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoNumero}">
-                                                 <label for="numeroDocumento">Número do documento</label>
-                                            <h:inputText value="#{documentoVisualizarBean.documento.numero}"  required="true" 
-                                                         requiredMessage="É necessário informar o numero do documento" 
-                                                         class="form-control" id="numeroDocumento"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                                <label for="numeroDocumento">Número do documento</label>
+                                                <h:inputText value="#{documentoVisualizarBean.documento.numero}"  required="true" 
+                                                             requiredMessage="É necessário informar o numero do documento" 
+                                                             class="form-control" id="numeroDocumento"
+                                                             disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
                                             </h:panelGroup>
                                         </div>
                                     </div>
@@ -187,10 +187,12 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
 
-                                        <p:commandButton class="btn btn-default" value="Baixar Arquivo" ajax="false" onclick="#{documentoVisualizarBean.download()}" icon="ui-icon-arrowthick-1-s">
+                                        <p:commandButton class="btn btn-default" value="Baixar Arquivo" ajax="false" onclick="#{documentoVisualizarBean.download()}" icon="ui-icon-arrowthick-1-s" update="formPrincipal">
                                             <p:fileDownload value="#{documentoVisualizarBean.arquivo}" />
                                         </p:commandButton> 
-                                    </div> 
+
+                                    </div>
+                                    <p:media value="#{contextoBean.arquivo}" player="pdf" width="600" height="700"/>
                                 </div>
                             </div>
                             <h:commandButton value="Salvar" class="btn btn-primary" action="#{documentoVisualizarBean.editar()}"/>
@@ -326,6 +328,7 @@
                                 </div>
                             </div>
                         </h:form>
+
                     </div>
                 </div>
             </div>

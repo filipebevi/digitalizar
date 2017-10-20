@@ -8,9 +8,14 @@ package com.digitalizar.web;
 import com.digitalizar.documento.Documento;
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.empresa.EmpresaRN;
+import com.digitalizar.tipodocumento.TipoDocumento;
 import com.digitalizar.usuario.Usuario;
 import com.digitalizar.usuario.UsuarioRN;
 import com.digitalizar.usuarioEmpresa.UsuarioEmpresaRN;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +23,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -25,24 +32,26 @@ import javax.faces.event.ValueChangeEvent;
  */
 @ManagedBean
 @SessionScoped
-public class ContextoBean implements Serializable{
-    
-    private Empresa empresaAtiva=null;
-    private Usuario usuarioLogado=null;
-    private Usuario usuarioTemporario=null;
-    private Documento documento=null;
+public class ContextoBean implements Serializable {
+
+    private Empresa empresaAtiva = null;
+    private Usuario usuarioLogado = null;
+    private Usuario usuarioTemporario = null;
+    private Documento documento = null;
+    private TipoDocumento tipo = null;
+    private StreamedContent arquivo;
 
     public Empresa getEmpresaAtiva() {
-        
-        if(this.empresaAtiva==null){
-            Usuario usuario=this.getUsuarioLogado();
+
+        if (this.empresaAtiva == null) {
+            Usuario usuario = this.getUsuarioLogado();
             UsuarioEmpresaRN usuarioEmpresaRN = new UsuarioEmpresaRN();
-            this.empresaAtiva=usuarioEmpresaRN.buscarFavorita(usuario);
-            if(this.empresaAtiva==null){
-                List<Empresa> empresas=usuarioEmpresaRN.listar(usuario);
-                if(empresas!=null){
-                    for(Empresa empresa : empresas){
-                        this.empresaAtiva=empresa;
+            this.empresaAtiva = usuarioEmpresaRN.buscarFavorita(usuario);
+            if (this.empresaAtiva == null) {
+                List<Empresa> empresas = usuarioEmpresaRN.listar(usuario);
+                if (empresas != null) {
+                    for (Empresa empresa : empresas) {
+                        this.empresaAtiva = empresa;
                         break;
                     }
                 }
@@ -53,26 +62,26 @@ public class ContextoBean implements Serializable{
 
     public void setEmpresaAtiva(ValueChangeEvent event) {
         Integer empresa = (Integer) event.getNewValue();
-        EmpresaRN empresaRN=new EmpresaRN();
-        this.empresaAtiva=empresaRN.carregar(empresa);
-        
+        EmpresaRN empresaRN = new EmpresaRN();
+        this.empresaAtiva = empresaRN.carregar(empresa);
+
     }
 
     public Usuario getUsuarioLogado() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext external = context.getExternalContext();
-        String email=external.getRemoteUser();
-        
-        if(this.usuarioLogado==null || !email.equals(this.usuarioLogado.getEmail())){
-            if(email !=null){
-                
-                UsuarioRN usuarioRN=new UsuarioRN();
-                this.usuarioLogado=usuarioRN.buscarPorEmail(email);
-                this.empresaAtiva=null;
-                
+        String email = external.getRemoteUser();
+
+        if (this.usuarioLogado == null || !email.equals(this.usuarioLogado.getEmail())) {
+            if (email != null) {
+
+                UsuarioRN usuarioRN = new UsuarioRN();
+                this.usuarioLogado = usuarioRN.buscarPorEmail(email);
+                this.empresaAtiva = null;
+
             }
         }
-        
+
         return usuarioLogado;
     }
 
@@ -95,9 +104,19 @@ public class ContextoBean implements Serializable{
     public void setDocumento(Documento documento) {
         this.documento = documento;
     }
-    
-    
-    
-    
-    
+
+    public TipoDocumento getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoDocumento tipo) {
+        this.tipo = tipo;
+    }
+
+    public StreamedContent getArquivo() throws FileNotFoundException {
+        InputStream stream = new FileInputStream(new File(this.documento.getDiretorio(), this.documento.getNomeArquivo()));
+        return new DefaultStreamedContent(stream, "application/pdf", documento.getNomeArquivo());
+
+    }
+
 }

@@ -25,7 +25,8 @@ public interface TipoDocumentoDAO {
     List<TipoDocumento> listar(Empresa empresa);
 
     void salvar(TipoDocumento tipoDocumento);
+    
+    List<Extensao> listarExtensao();
 
-    List<Extensao> listarExtensoes();
 
 }

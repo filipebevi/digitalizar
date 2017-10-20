@@ -8,12 +8,9 @@ package com.digitalizar.web;
 import com.digitalizar.empresa.Empresa;
 import com.digitalizar.empresa.EmpresaRN;
 import com.digitalizar.web.util.MensagemUtil;
-import java.io.Serializable;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 /**
  *
  * @author filip

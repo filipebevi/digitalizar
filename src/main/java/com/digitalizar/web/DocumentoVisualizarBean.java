@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -40,7 +41,8 @@ public class DocumentoVisualizarBean implements Serializable {
     private List<TipoDocumento> listarTipoDocumento;
     private List<Entidade> listarEntidade;
     private List<Documento> listarDocumento;
-    private List<Documento> vinculados =null;
+    private List<Documento> vinculados = null;
+
 
     private String descricao;
     private TipoDocumento tipoDocumento;
@@ -53,6 +55,7 @@ public class DocumentoVisualizarBean implements Serializable {
         if (contexto.getDocumento() != null) {
             this.documento = contexto.getDocumento();
         }
+        
     }
 
     public String editar() {
@@ -65,11 +68,11 @@ public class DocumentoVisualizarBean implements Serializable {
     }
 
     public String excluir() {
-        
+
         DocumentoRN documentoRN = new DocumentoRN();
         UsuarioRN usuarioRN = new UsuarioRN();
         ContextoBean contexto = ContextoUtil.getContextoBean();
-        documentoRN.excluir(this.documento,usuarioRN.buscarPorEmail(contexto.getUsuarioLogado().getEmail()));
+        documentoRN.excluir(this.documento, usuarioRN.buscarPorEmail(contexto.getUsuarioLogado().getEmail()));
 
         return "documento";
     }
@@ -82,7 +85,7 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public void vincular() {
         this.documento.getDocumentos().add(this.docVinculado);
-        this.vinculados=null;
+        this.vinculados = null;
     }
 
     public void desvincular() {
@@ -92,7 +95,7 @@ public class DocumentoVisualizarBean implements Serializable {
     public void download() {
         try {
             InputStream stream = new FileInputStream(new File(this.documento.getDiretorio(), this.documento.getNomeArquivo()));
-            arquivo = new DefaultStreamedContent(stream, "image/jpg", this.documento.getNomeArquivo());
+            arquivo = new DefaultStreamedContent(stream, "application/pdf", this.documento.getNomeArquivo());
 
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");
@@ -126,7 +129,7 @@ public class DocumentoVisualizarBean implements Serializable {
 
     public List<Documento> getVinculados() {
         if (vinculados == null) {
-            vinculados=new ArrayList<>();
+            vinculados = new ArrayList<>();
             vinculados.addAll(documento.getDocumentos());
             vinculados.addAll(documento.getDocumentosOf());
         }
@@ -143,12 +146,11 @@ public class DocumentoVisualizarBean implements Serializable {
     }
 
     public StreamedContent getArquivo() {
+
         return arquivo;
     }
 
-    public void setArquivo(StreamedContent arquivo) {
-        this.arquivo = arquivo;
-    }
+    
 
     public Documento getDocVinculado() {
         return docVinculado;
@@ -197,5 +199,9 @@ public class DocumentoVisualizarBean implements Serializable {
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
+
+    
+
+    
 
 }
