@@ -126,6 +126,14 @@ public class DocumentoVisualizarBean implements Serializable {
         this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
         return this.listarDocumento;
     }
+    
+    public List<Documento> getListarVinculados() {
+        DocumentoRN documentoRN = new DocumentoRN();
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
+        this.listarDocumento.remove(this.documento);
+        return this.listarDocumento;
+    }
 
     public List<Documento> getVinculados() {
         if (vinculados == null) {

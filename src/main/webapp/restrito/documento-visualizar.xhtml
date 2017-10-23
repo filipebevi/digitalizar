@@ -23,10 +23,10 @@
                                     <div class="row">
                                         <div class="col-sm-9">
                                             <h:inputText id="localizar" value="#{documentoVisualizarBean.descricao}"/>
-                                            <h:commandButton class="btn btn-default" value="Localizar" action="#{documentoVisualizarBean.listarDocumento}">
+                                            <h:commandButton class="btn btn-default" value="Localizar" action="#{documentoVisualizarBean.listarVinculados}">
                                                 <f:ajax execute="@form" render=":tabelaDocumentos"/>
                                             </h:commandButton>
-                                            <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.listarDocumento}" var="item">
+                                            <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.listarVinculados}" var="item">
                                                 <h:column>
                                                     <f:facet name="header">
                                                         <h:outputText value="ID"/>
