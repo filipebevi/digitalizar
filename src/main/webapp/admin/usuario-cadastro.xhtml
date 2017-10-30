@@ -61,9 +61,11 @@
                                                 <label for="empresa">Acesso</label>
                                                 <h:selectOneMenu class="navbar-form form-control navbar-right" id="empresa" converter="omnifaces.SelectItemsConverter"
                                                                  value="#{usuarioCadastroBean.permissao}">
-                                                    <f:selectItem itemLabel="ROLE_ADMINISTRADOR" itemValue="ROLE_ADMINISTRADOR" />
-                                                    <f:selectItem itemLabel="ROLE_USUARIO" itemValue="ROLE_USUARIO" />
-                                                    <f:selectItem itemLabel="ROLE_CLIENTE" itemValue="ROLE_CLIENTE" />
+                                                    <f:selectItem itemLabel="ADMINISTRADOR" itemValue="ROLE_ADMINISTRADOR" />
+                                                    <f:selectItem itemLabel="DOCUMENTO" itemValue="ROLE_DOCUMENTO" />
+                                                    <f:selectItem itemLabel="TIPO DE DOCUMENTO" itemValue="ROLE_TIPO_DOCUMENTO" />
+                                                    <f:selectItem itemLabel="ENTIDADE" itemValue="ROLE_ENTIDADE" />
+                                                    <f:selectItem itemLabel="TELA PRINCIPAL" itemValue="ROLE_PRINCIPAL" />
                                                 </h:selectOneMenu>
                                             </div>       
                                         </div>

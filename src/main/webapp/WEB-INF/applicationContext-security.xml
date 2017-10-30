@@ -7,14 +7,19 @@
 	<http>
 
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
-		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
-		<form-login login-page="/publico/login.jsf"
+		<intercept-url pattern="/documento/**" access="ROLE_DOCUMENTO" />
+                <intercept-url pattern="/entidade/**" access="ROLE_ENTIDADE" />
+                <intercept-url pattern="/tipo-documento/**" access="ROLE_TIPO_DOCUMENTO" />
+                <intercept-url pattern="/restrito/**" access="ROLE_PRINCIPAL" />
+                <access-denied-handler error-page="/publico/403.jsf"/>
                 
+		<form-login login-page="/publico/login.jsf"
 			always-use-default-target="true" 
                         default-target-url="/restrito/principal.jsf"
                         authentication-failure-url="/publico/login.jsf?login_error=1"/>
 		<logout/>
-		<remember-me />
+		<remember-me/>
+                
 	</http>
 
 	<authentication-manager>
