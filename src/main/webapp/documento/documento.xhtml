@@ -110,14 +110,11 @@
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Visualizar/Baixar"/>
+                                        <h:outputText value="Visualizar"/>
                                     </f:facet>
                                     <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" action="#{documentoBean.visualizar()}"  >
                                         <f:setPropertyActionListener target="#{contextoBean.documento}" value="#{item}" />
                                     </p:commandButton>  
-                                    <p:commandButton class="btn-default btn-xs" icon="ui-icon-document" >
-                                        <f:setPropertyActionListener target="#{documentoBean.documento}" value="#{item}"/>
-                                    </p:commandButton>
                                 </p:column>
                             </h:dataTable>
                         </h:form>

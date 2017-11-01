@@ -41,7 +41,7 @@ public class DocumentoCadastroBean implements Serializable {
         new MensagemUtil().sendMensagem("info","Documento Nº: "+this.documento.getId()+" gravado com sucesso","");
         this.documento=new Documento();
         this.file= null;
-        return "principal";
+        return "documento";
     }
 
     public List<TipoDocumento> getListarTipoDocumento() {

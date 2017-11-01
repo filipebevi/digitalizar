@@ -16,11 +16,14 @@ import com.digitalizar.web.util.ContextoUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -72,6 +75,12 @@ public class DocumentoVisualizarBean implements Serializable {
         DocumentoRN documentoRN = new DocumentoRN();
         UsuarioRN usuarioRN = new UsuarioRN();
         ContextoBean contexto = ContextoUtil.getContextoBean();
+        try {
+            arquivo.getStream().close();
+            System.gc();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         documentoRN.excluir(this.documento, usuarioRN.buscarPorEmail(contexto.getUsuarioLogado().getEmail()));
 
         return "documento";
@@ -96,6 +105,8 @@ public class DocumentoVisualizarBean implements Serializable {
         try {
             InputStream stream = new FileInputStream(new File(this.documento.getDiretorio(), this.documento.getNomeArquivo()));
             arquivo = new DefaultStreamedContent(stream, "application/pdf", this.documento.getNomeArquivo());
+            
+            
 
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");

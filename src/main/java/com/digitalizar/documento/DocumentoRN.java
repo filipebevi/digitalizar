@@ -57,19 +57,19 @@ public class DocumentoRN {
         documento.setEmpresa(empresa);
         documento.setDataEdicao(Calendar.getInstance());
         documento.setUsuarioEdicao(usuario);
-        int ano = documento.getPeriodoFinal().getYear() + 1900;
-        int mes = documento.getPeriodoFinal().getMonth() + 1;
+        int ano = Calendar.getInstance().getTime().getYear() + 1900;
+        int mes = Calendar.getInstance().getTime().getMonth() + 1;
+        int dia = Calendar.getInstance().getTime().getDate();
 
         Integer ultimoCodigo = ultimoCodigoBR();
         String path = "C:" + File.separator
                 + "UPLOAD" + File.separator
                 + empresa.getNome() + File.separator
-                + documento.getTipoDocumento().getDescricao() + File.separator
                 + ano + File.separator
                 + mes;
         String nomeArquivo = empresa.getNome() + " - "
-                + documento.getTipoDocumento().getDescricao() + " - "
                 + ultimoCodigo + " - "
+                + ano + mes + dia
                 + file.getSubmittedFileName().substring(file.getSubmittedFileName().indexOf("."));
         documento.setDiretorio(path);
         documento.setNomeArquivo(nomeArquivo);
@@ -100,6 +100,9 @@ public class DocumentoRN {
         for(UsuarioTipoDocumento userTipo:usuario.getUsuarioTipoDocumento()){
             if(userTipo.getTipoDocumento().getId().equals(documento.getTipoDocumento().getId()) && userTipo.getExcluir()==true){
                 this.documentoDAO.excluir(documento);
+                File file = new File(documento.getDiretorio()+File.separator+documento.getNomeArquivo());
+                file.deleteOnExit();
+                
                 verifica=true;
             } 
         }

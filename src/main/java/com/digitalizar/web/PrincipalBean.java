@@ -32,7 +32,7 @@ public class PrincipalBean implements Serializable{
     
     
     public String visualizar(){
-        return "documento-visualizar";
+        return "/documento/documento-visualizar";
     }
 
     public List<Documento> getNaoAprovados() {
