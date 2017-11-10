@@ -64,12 +64,61 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+                            <div class="row" style="background: #ccc; padding-top: 10px">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="valorde">Valor De:</label>
+                                            <h:inputText value="#{documentoBean.valorDe}" class="form-control" id="valorde">
+                                                <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="valorate">Valor Até:</label>
+                                            <h:inputText value="#{documentoBean.valorAte}" class="form-control" id="valorate" >
+                                                <f:convertNumber pattern="#,##0.00"></f:convertNumber>
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="vencimentode">Vencimento De:</label>
+                                            <b:dateTimePicker value="#{documentoBean.vencimentoDe}"  format="DD/MM/YYYY" show-time="false"  id="vencimentode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="vencimentoate">Vencimento Até:</label>
+                                            <b:dateTimePicker value="#{documentoBean.vencimentoAte}"  format="DD/MM/YYYY" show-time="false"  id="vencimentoate" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="numero">Numero:</label>
+                                            <h:inputText value="#{documentoBean.numero}" class="form-control" id="numero" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <br/>
                             <h:commandButton class="btn  btn-primary" value="Pesquisar" >
                                 <f:ajax execute="@form" render=":tabelaDocumentos"/>
                             </h:commandButton>
+
                         </h:form>
                         <br/>
                         <h:form id="tabelaDocumentos">

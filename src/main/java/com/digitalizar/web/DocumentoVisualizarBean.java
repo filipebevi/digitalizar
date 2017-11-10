@@ -46,19 +46,14 @@ public class DocumentoVisualizarBean implements Serializable {
     private List<Documento> listarDocumento;
     private List<Documento> vinculados = null;
 
-
-    private String descricao;
-    private TipoDocumento tipoDocumento;
-    private Entidade entidade;
-    private Date dataInicio;
-    private Date dataFim;
+    private Integer codigo;
 
     public DocumentoVisualizarBean() {
         ContextoBean contexto = ContextoUtil.getContextoBean();
         if (contexto.getDocumento() != null) {
             this.documento = contexto.getDocumento();
         }
-        
+
     }
 
     public String editar() {
@@ -105,8 +100,6 @@ public class DocumentoVisualizarBean implements Serializable {
         try {
             InputStream stream = new FileInputStream(new File(this.documento.getDiretorio(), this.documento.getNomeArquivo()));
             arquivo = new DefaultStreamedContent(stream, "application/pdf", this.documento.getNomeArquivo());
-            
-            
 
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado, não foi possivel efetuar o download");
@@ -131,21 +124,6 @@ public class DocumentoVisualizarBean implements Serializable {
         return this.listarEntidade;
     }
 
-    public List<Documento> getListarDocumento() {
-        DocumentoRN documentoRN = new DocumentoRN();
-        ContextoBean contexto = ContextoUtil.getContextoBean();
-        this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
-        return this.listarDocumento;
-    }
-    
-    public List<Documento> getListarVinculados() {
-        DocumentoRN documentoRN = new DocumentoRN();
-        ContextoBean contexto = ContextoUtil.getContextoBean();
-        this.listarDocumento = documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), descricao, tipoDocumento, entidade, dataInicio, dataFim);
-        this.listarDocumento.remove(this.documento);
-        return this.listarDocumento;
-    }
-
     public List<Documento> getVinculados() {
         if (vinculados == null) {
             vinculados = new ArrayList<>();
@@ -154,6 +132,18 @@ public class DocumentoVisualizarBean implements Serializable {
         }
 
         return vinculados;
+    }
+
+    public List<Documento> getListarDocumento() {
+        DocumentoRN docRN = new DocumentoRN();
+        ContextoBean contexto = ContextoUtil.getContextoBean();
+        listarDocumento=docRN.listarCodigo(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(), codigo);
+        return listarDocumento;
+    }
+    
+    public String visualizar(){
+        
+        return "documento-visualizar";
     }
 
     public Documento getDocumento() {
@@ -169,8 +159,6 @@ public class DocumentoVisualizarBean implements Serializable {
         return arquivo;
     }
 
-    
-
     public Documento getDocVinculado() {
         return docVinculado;
     }
@@ -179,48 +167,12 @@ public class DocumentoVisualizarBean implements Serializable {
         this.docVinculado = docVinculado;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
-
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public Entidade getEntidade() {
-        return entidade;
-    }
-
-    public void setEntidade(Entidade entidade) {
-        this.entidade = entidade;
-    }
-
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    
-
-    
 
 }

@@ -7,10 +7,10 @@
 	<http>
 
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
-		<intercept-url pattern="/documento/**" access="ROLE_DOCUMENTO" />
-                <intercept-url pattern="/entidade/**" access="ROLE_ENTIDADE" />
-                <intercept-url pattern="/tipo-documento/**" access="ROLE_TIPO_DOCUMENTO" />
-                <intercept-url pattern="/restrito/**" access="ROLE_PRINCIPAL" />
+		<intercept-url pattern="/documento/**" access="ROLE_DOCUMENTO,ROLE_ADMINISTRADOR" />
+                <intercept-url pattern="/entidade/**" access="ROLE_ENTIDADE,ROLE_ADMINISTRADOR" />
+                <intercept-url pattern="/tipo-documento/**" access="ROLE_TIPO_DOCUMENTO,ROLE_ADMINISTRADOR" />
+                <intercept-url pattern="/restrito/**" access="ROLE_PRINCIPAL,ROLE_ADMINISTRADOR" />
                 <access-denied-handler error-page="/publico/403.jsf"/>
                 
 		<form-login login-page="/publico/login.jsf"

@@ -82,6 +82,8 @@
             <artifactId>spring-webmvc</artifactId>
             <version>3.0.0.RELEASE</version>
         </dependency>
+        
+        
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -98,7 +100,13 @@
             <version>1.1.2</version>
         </dependency>
         
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-faces</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
         
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

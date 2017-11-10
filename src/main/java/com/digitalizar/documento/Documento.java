@@ -110,6 +110,13 @@ public class Documento implements Serializable {
     )
     private List<Documento> documentosOf;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_exclusao")
+    private Calendar dataExclusao;
+    
+    @ManyToOne
+    private Usuario usuarioExclusao;
+    
     
 
     public Documento() {
@@ -290,6 +297,22 @@ public class Documento implements Serializable {
     public void setCompetencia(Date competencia) {
         this.competencia = competencia;
     }
+
+    public Calendar getDataExclusao() {
+        return dataExclusao;
+    }
+
+    public void setDataExclusao(Calendar dataExclusao) {
+        this.dataExclusao = dataExclusao;
+    }
+
+    public Usuario getUsuarioExclusao() {
+        return usuarioExclusao;
+    }
+
+    public void setUsuarioExclusao(Usuario usuarioExclusao) {
+        this.usuarioExclusao = usuarioExclusao;
+    }
     
     
 
@@ -300,29 +323,31 @@ public class Documento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.descricao);
-        hash = 79 * hash + Objects.hashCode(this.periodoInicial);
-        hash = 79 * hash + Objects.hashCode(this.periodoFinal);
-        hash = 79 * hash + Objects.hashCode(this.competencia);
-        hash = 79 * hash + Objects.hashCode(this.valor);
-        hash = 79 * hash + Objects.hashCode(this.numero);
-        hash = 79 * hash + Objects.hashCode(this.vencimento);
-        hash = 79 * hash + Objects.hashCode(this.diretorio);
-        hash = 79 * hash + Objects.hashCode(this.nomeArquivo);
-        hash = 79 * hash + Objects.hashCode(this.tamanho);
-        hash = 79 * hash + Objects.hashCode(this.empresa);
-        hash = 79 * hash + Objects.hashCode(this.tipoDocumento);
-        hash = 79 * hash + Objects.hashCode(this.entidade);
-        hash = 79 * hash + Objects.hashCode(this.usuarioEdicao);
-        hash = 79 * hash + Objects.hashCode(this.dataEdicao);
-        hash = 79 * hash + Objects.hashCode(this.dataInclusao);
-        hash = 79 * hash + Objects.hashCode(this.usuarioInclusao);
-        hash = 79 * hash + Objects.hashCode(this.dataAprovacao);
-        hash = 79 * hash + Objects.hashCode(this.usuarioAprovacao);
-        hash = 79 * hash + Objects.hashCode(this.documentos);
-        hash = 79 * hash + Objects.hashCode(this.documentosOf);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.descricao);
+        hash = 73 * hash + Objects.hashCode(this.periodoInicial);
+        hash = 73 * hash + Objects.hashCode(this.periodoFinal);
+        hash = 73 * hash + Objects.hashCode(this.competencia);
+        hash = 73 * hash + Objects.hashCode(this.valor);
+        hash = 73 * hash + Objects.hashCode(this.numero);
+        hash = 73 * hash + Objects.hashCode(this.vencimento);
+        hash = 73 * hash + Objects.hashCode(this.diretorio);
+        hash = 73 * hash + Objects.hashCode(this.nomeArquivo);
+        hash = 73 * hash + Objects.hashCode(this.tamanho);
+        hash = 73 * hash + Objects.hashCode(this.empresa);
+        hash = 73 * hash + Objects.hashCode(this.tipoDocumento);
+        hash = 73 * hash + Objects.hashCode(this.entidade);
+        hash = 73 * hash + Objects.hashCode(this.usuarioEdicao);
+        hash = 73 * hash + Objects.hashCode(this.dataEdicao);
+        hash = 73 * hash + Objects.hashCode(this.dataInclusao);
+        hash = 73 * hash + Objects.hashCode(this.usuarioInclusao);
+        hash = 73 * hash + Objects.hashCode(this.dataAprovacao);
+        hash = 73 * hash + Objects.hashCode(this.usuarioAprovacao);
+        hash = 73 * hash + Objects.hashCode(this.documentos);
+        hash = 73 * hash + Objects.hashCode(this.documentosOf);
+        hash = 73 * hash + Objects.hashCode(this.dataExclusao);
+        hash = 73 * hash + Objects.hashCode(this.usuarioExclusao);
         return hash;
     }
 
@@ -404,8 +429,18 @@ public class Documento implements Serializable {
         if (!Objects.equals(this.documentosOf, other.documentosOf)) {
             return false;
         }
+        if (!Objects.equals(this.dataExclusao, other.dataExclusao)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioExclusao, other.usuarioExclusao)) {
+            return false;
+        }
         return true;
     }
+
+    
+
+    
 
     
 

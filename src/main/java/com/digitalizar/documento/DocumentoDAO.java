@@ -27,9 +27,11 @@ public interface DocumentoDAO {
     void excluir(Documento documento);
 
     List<Documento> listar(Empresa empresa, Usuario usuario,String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
-            Date dataInicio, Date dataFim);
+            Date dataInicio, Date dataFim, Double valorDe, Double valorAte, Date vencimentoDe, Date vencimentoAte, String numero);
     
     List<Documento> naoAprovados(Empresa empresa, Usuario usuario);
+    
+    public List<Documento> listarCodigo(Empresa empresa, Usuario usuario, Integer codigo);
 
     void salvar(Documento documento);
     

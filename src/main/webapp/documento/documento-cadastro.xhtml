@@ -61,8 +61,9 @@
                                     <h:panelGroup rendered="#{documentoCadastroBean.documento.tipoDocumento.campoCompetencia}">
                                         <div class="col-sm-3" >
                                             <div class="form-group">
-                                                <label for="competencia">Data de Emissão:</label>
-                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.competencia}" required="true"  requiredMessage="É necessário informar a data de emissão" 
+                                                <label for="competencia">Data de Competência:</label>
+                                                <b:dateTimePicker value="#{documentoCadastroBean.documento.competencia}" required="true"  
+                                                                  requiredMessage="É necessário informar a data de competência" 
                                                                   show-time="false"  id="competencia" format="DD/MM/YYYY"  />
                                             </div>
                                         </div>
@@ -128,7 +129,11 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="documentoDocumento">Documento:</label>
-                                        <h:inputFile value="#{documentoCadastroBean.file}"  class="form-control" id="documentoDocumento" required="true" requiredMessage="Informe o documento a ser salvo" />
+                                        <h:inputFile value="#{documentoCadastroBean.file}"  
+                                                     class="form-control" 
+                                                     id="documentoDocumento" 
+                                                     required="true" 
+                                                     requiredMessage="Informe o documento a ser salvo" />
                                     </div> 
                                 </div>
                             </div>

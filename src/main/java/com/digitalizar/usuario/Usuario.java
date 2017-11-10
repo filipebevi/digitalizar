@@ -35,6 +35,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.NaturalId;
 
 /**
  *
@@ -49,6 +50,7 @@ public class Usuario implements Serializable{
     private Integer id;
     @Column(nullable=false, unique = true) 
     private String nome;
+    @NaturalId
     @Column(nullable=false, unique = true) 
     private String email;
     private String telefone;

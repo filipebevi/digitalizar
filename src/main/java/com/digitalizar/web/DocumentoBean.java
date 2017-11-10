@@ -28,21 +28,31 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class DocumentoBean implements Serializable{
     
-    Documento documento;
-    List<Documento> lista;
-    List<TipoDocumento> listaTipo;
-    List<Entidade> listaEntidade;
+    private Documento documento;
+    private List<Documento> lista;
+    private List<TipoDocumento> listaTipo;
+    private List<Entidade> listaEntidade;
     
-    String descricao;
-    TipoDocumento tipoDocumento;
-    Entidade entidade;
-    Date dataInicial;
-    Date dataFinal;
+    private String descricao;
+    private TipoDocumento tipoDocumento;
+    private Entidade entidade;
+    private Date dataInicial;
+    private Date dataFinal;
+    
+    private Double valorDe;
+    private Double valorAte;
+    private Date vencimentoDe;
+    private Date vencimentoAte;
+    private String numero;
+            
     
     public List<Documento> getLista(){
         ContextoBean contexto = ContextoUtil.getContextoBean();
         DocumentoRN documentoRN=new DocumentoRN();
-        this.lista=documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(),this.descricao,this.tipoDocumento, this.entidade, this.dataInicial, this.dataFinal);
+        this.lista=documentoRN.listar(contexto.getEmpresaAtiva(), contexto.getUsuarioLogado(),
+                this.descricao,this.tipoDocumento, 
+                this.entidade, this.dataInicial, this.dataFinal,
+                this.valorDe, this.valorAte, this.vencimentoDe, this.vencimentoAte, this.numero);
         return this.lista;
     }
 
@@ -115,5 +125,47 @@ public class DocumentoBean implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Double getValorDe() {
+        return valorDe;
+    }
+
+    public void setValorDe(Double valorDe) {
+        this.valorDe = valorDe;
+    }
+
+    public Double getValorAte() {
+        return valorAte;
+    }
+
+    public void setValorAte(Double valorAte) {
+        this.valorAte = valorAte;
+    }
+
+    public Date getVencimentoDe() {
+        return vencimentoDe;
+    }
+
+    public void setVencimentoDe(Date vencimentoDe) {
+        this.vencimentoDe = vencimentoDe;
+    }
+
+    public Date getVencimentoAte() {
+        return vencimentoAte;
+    }
+
+    public void setVencimentoAte(Date vencimentoAte) {
+        this.vencimentoAte = vencimentoAte;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
+    
     
 }

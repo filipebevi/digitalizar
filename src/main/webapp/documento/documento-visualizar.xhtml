@@ -9,7 +9,7 @@
       xmlns:b="http://bootsfaces.net/ui">
     <ui:composition template="/templates/interna.xhtml">
         <ui:define name="conteudo">
-            <!-- Modal para adicionar uma empresa-->
+            <!-- Modal para VINCULAR DOCUMENTO-->
             <div class="modal fade" id="modalVinculo" role="dialog">
                 <div class="modal-dialog modal-lg" >
                     <div class="modal-content">
@@ -22,11 +22,11 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-9">
-                                            <h:inputText id="localizar" value="#{documentoVisualizarBean.descricao}"/>
-                                            <h:commandButton class="btn btn-default" value="Localizar" action="#{documentoVisualizarBean.listarVinculados}">
-                                                <f:ajax execute="@form" render=":tabelaDocumentos"/>
+                                            <h:inputText id="localizar" value="#{documentoVisualizarBean.codigo}"/>
+                                            <h:commandButton class="btn btn-default" value="Localizar" >
+                                                <f:ajax execute="@form" render=":modalFormVinculo"/>
                                             </h:commandButton>
-                                            <h:dataTable class="table table-striped" value="#{documentoVisualizarBean.listarVinculados}" var="item">
+                                            <h:dataTable  class="table table-striped" value="#{documentoVisualizarBean.listarDocumento}" var="item">
                                                 <h:column>
                                                     <f:facet name="header">
                                                         <h:outputText value="ID"/>
@@ -83,11 +83,35 @@
                 </div>
             </div>
             <!--FIM DO MODAL DO VINCULAR DOCUMENTO-->
+             <!-- Modal para VISUALIZAR DOCUMENTO VINCULADO-->
+            <div class="modal fade" id="modalDocVinculo" role="dialog">
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content">
+                        <h:form id="modalFormDocVinculo">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Visualizar documento</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <!--FIM DO MODAL DO VISUALIZAR DOCUMENTO VINCULADO-->
             <div class="container">
                 <h3>Visualizar Documento</h3>
                 <hr/>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <h:form id="formPrincipal" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm-2">
@@ -100,17 +124,17 @@
                                         <h:inputHidden value="#{documentoVisualizarBean.documento.id}"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-7">
                                     <div class="form-group">
                                         <label for="descricaoDocumento">Descrição:</label>
-
-                                        <h:inputText value="#{documentoVisualizarBean.documento.descricao}"   class="form-control" id="descricaoDocumento" 
-                                                     required="true" requiredMessage="É necessário informar uma descrição" disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                        <h:inputText value="#{documentoVisualizarBean.documento.descricao}"   class="form-control" 
+                                                     id="descricaoDocumento" 
+                                                     required="true" 
+                                                     requiredMessage="É necessário informar uma descrição" 
+                                                     disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="tipoDocumentoDocumento">Tipo de Documento:</label>
                                         <h:selectOneMenu class="form-control" id="tipoDocumentoDocumento" required="true" requiredMessage="É necessário escolher um tipo de documento"
@@ -120,69 +144,104 @@
 
                                             <f:selectItems value="#{documentoVisualizarBean.listarTipoDocumento}"
                                                            var="tipoDocumento" itemValue="#{tipoDocumento}" itemLabel="#{tipoDocumento.descricao}"/>
+                                            <f:ajax execute="@this" render="outrosCampos"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="entidadeDocumento">Entidade:</label>
-                                        <h:selectOneMenu class="form-control" id="entidadeDocumento" 
-                                                         value="#{documentoVisualizarBean.documento.entidade}"  
-                                                         converter="omnifaces.SelectItemsConverter"
-                                                         disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}">
-                                            <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
-                                            <f:selectItems value="#{documentoVisualizarBean.listarEntidade}"
-                                                           var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
-                                        </h:selectOneMenu>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="dtFinalDocumento">Data:</label>
-                                        <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodoFinal}" required="true"  
-                                                          requiredMessage="É necessário informar uma data" 
-                                                          show-time="false"  id="dtFinalDocumento" format="DD/MM/YYYY" 
-                                                          disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
-                                    </div>
-                                </div>
+
                             </div>
-                            <div class="row">
-                                <h:panelGroup id="outrosCampos">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoValor}">
+                            <h:panelGroup id="outrosCampos">
+                                <div class="row">
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoValor}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
                                                 <label for="valorDocumento">Valor</label>
                                                 <h:inputText value="#{documentoVisualizarBean.documento.valor}"  required="true" 
                                                              requiredMessage="É necessário informar um valor" 
                                                              class="form-control" id="valorDocumento"
                                                              disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
-                                            </h:panelGroup>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoVencimento}">
-                                                <label>Vencimento</label>
-                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.vencimento}" required="true"  requiredMessage="É necessário informar um vencimento" 
-                                                                  show-time="false"  id="vencimento" format="DD/MM/YYYY" 
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoCompetencia}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="competencia">Data da Competencia:</label>
+                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.competencia}" 
+                                                                  required="true"  
+                                                                  requiredMessage="É necessário informar a data de competência" 
+                                                                  show-time="false"  id="competencia" format="DD/MM/YYYY"  
                                                                   disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
-                                            </h:panelGroup>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoNumero}">
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoPeriodo}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="periodoInicial">Período Inicial:</label>
+                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodoInicial}" 
+                                                                  required="true"  
+                                                                  requiredMessage="É necessário informar a data inicial do período" 
+                                                                  show-time="false"  id="periodoInicial" format="DD/MM/YYYY"  
+                                                                  disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoPeriodo}">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="periodoFinal">Período Final:</label>
+                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.periodoFinal}" 
+                                                                  required="true"  
+                                                                  requiredMessage="É necessário informar a data final do período" 
+                                                                  show-time="false"  id="periodoFinal" format="DD/MM/YYYY"  
+                                                                  disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+
+                                </div>
+                                <div class="row">
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoEntidade}">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="entidadeDocumento">Entidade:</label>
+                                                <h:selectOneMenu class="form-control" id="entidadeDocumento" 
+                                                                 value="#{documentoVisualizarBean.documento.entidade}"  
+                                                                 converter="omnifaces.SelectItemsConverter"
+                                                                 disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}">
+                                                    <f:selectItem itemValue="#{null}" itemLabel="Escolha uma Entidade" noSelectionOption="true" />
+                                                    <f:selectItems value="#{documentoVisualizarBean.listarEntidade}"
+                                                                   var="entidade" itemValue="#{entidade}" itemLabel="#{entidade.nome}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+
+                                        </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoVencimento}">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Vencimento</label>
+                                                <b:dateTimePicker value="#{documentoVisualizarBean.documento.vencimento}" 
+                                                                  required="true"  requiredMessage="É necessário informar um vencimento" 
+                                                                  show-time="false"  id="vencimento" format="DD/MM/YYYY"  
+                                                                  disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{documentoVisualizarBean.documento.tipoDocumento.campoNumero}" >
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
                                                 <label for="numeroDocumento">Número do documento</label>
                                                 <h:inputText value="#{documentoVisualizarBean.documento.numero}"  required="true" 
                                                              requiredMessage="É necessário informar o numero do documento" 
                                                              class="form-control" id="numeroDocumento"
                                                              disabled="#{!empty documentoVisualizarBean.documento.dataAprovacao}"/>
-                                            </h:panelGroup>
+                                            </div>
                                         </div>
-                                    </div>
-                                </h:panelGroup>
-
-                            </div>
+                                    </h:panelGroup>
+                                </div>
+                            </h:panelGroup>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -316,7 +375,7 @@
                                                 <h:outputText value="Visualizar/Remover"/>
                                             </f:facet>
                                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-search" >
-                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>
+                                                <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}" />
                                             </p:commandButton>
                                             <p:commandButton class="btn-default btn-xs" icon="ui-icon-trash" action="#{documentoVisualizarBean.desvincular()}" >
                                                 <f:setPropertyActionListener target="#{documentoVisualizarBean.docVinculado}" value="#{item}"/>

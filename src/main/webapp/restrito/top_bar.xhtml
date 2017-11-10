@@ -5,7 +5,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
     <ui:composition>
         <nav class="navbar navbar-inverse navbar-fixed-top" style="background: #23527c" role="navigation">
             <div class="container-fluid">
@@ -23,20 +24,29 @@
                             <a style="color: white" class="dropdown-toggle" data-toggle="dropdown" href="#"><strong>Menu</strong>
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../documento/documento-cadastro.jsf">Enviar Arquivos</a></li>           
-                                <li><a href="../documento/documento.jsf">Consultar Arquivos</a></li>
+                                <sec:authorize ifAnyGranted="ROLE_ADMINISTRADOR, ROLE_ENTIDADE">
+                                    <li><a href="../entidade/entidade.jsf">Cadastrar Entidade</a></li>
+                                </sec:authorize>
+                                <sec:authorize ifAnyGranted="ROLE_ADMINISTRADOR, ROLE_DOCUMENTO">
+                                    <li><a href="../documento/documento-cadastro.jsf">Enviar Arquivos</a></li>           
+                                    <li><a href="../documento/documento.jsf">Consultar Arquivos</a></li>
+                                </sec:authorize>
+
                             </ul>                           
                         </li>
-                        <li class="dropdown">
-                            <a style="color: white" class="dropdown-toggle" data-toggle="dropdown" href="#" ><strong>Administrador</strong>
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="../admin/empresa.jsf" >Cadastrar Empresa</a></li>                                
-                                <li><a href="../admin/usuario.jsf">Cadastrar Usuario</a></li>
-                                <li><a href="../entidade/entidade.jsf">Cadastrar Entidade</a></li>
-                                <li><a href="../tipo-documento/tipodedocumento.jsf">Cadastrar Tipo de Documento</a></li>
-                            </ul>                           
-                        </li>
+                        <sec:authorize ifAllGranted="ROLE_ADMINISTRADOR">
+
+                            <li class="dropdown">
+                                <a style="color: white" class="dropdown-toggle" data-toggle="dropdown" href="#" ><strong>Administrador</strong>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../admin/empresa.jsf" >Gerenciar Empresa</a></li>                                
+                                    <li><a href="../admin/usuario.jsf">Gerenciar Usuario</a></li>
+                                    <li><a href="../tipo-documento/tipodedocumento.jsf">Gerenciar Tipo de Documento</a></li>
+                                </ul>                           
+                            </li>
+                        </sec:authorize>
+
                     </div>
                     <h:form class="form-group-sm">
                         <a style="margin-left: 15px; margin-right: 10px" class="btn btn-danger navbar-right navbar-btn btn-sm" onclick="document.location = '#{request.contextPath}/j_spring_security_logout'" title="Sair">
@@ -51,7 +61,7 @@
                             <f:selectItems value="#{usuarioEmpresaBean.lista}"
                                            var="empresa" itemValue="#{empresa.id}" itemLabel="#{empresa.nome}"/>
                         </h:selectOneMenu>
-                       
+
                     </h:form>
                 </div>
             </div>

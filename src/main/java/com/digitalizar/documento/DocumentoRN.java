@@ -47,7 +47,6 @@ public class DocumentoRN {
         return this.documentoDAO.buscarPorCodigo(id);
     }
 
-    
     public void salvar(Documento documento, Empresa empresa, Usuario usuario, Part file) {
         if (documento.getId() == null) {
             documento.setDataInclusao(Calendar.getInstance());
@@ -80,7 +79,7 @@ public class DocumentoRN {
         try (InputStream input = file.getInputStream()) {
             Files.copy(input, new File(path, nomeArquivo).toPath());
             this.documentoDAO.salvar(documento);
-        
+
         } catch (Exception e) {
             System.out.println("O arquivo não foi salvo, erro durante a inserção ao banco ou na gravação do arquivo:" + e.getMessage());
             e.printStackTrace();
@@ -88,69 +87,85 @@ public class DocumentoRN {
         }
 
     }
-    
-    public void editar(Documento documento, Usuario usuario){
-        documento.setDataEdicao(Calendar.getInstance());
-        documento.setUsuarioEdicao(usuario);
-        this.documentoDAO.editar(documento);
+
+    public void editar(Documento documento, Usuario usuario) {
+        boolean verifica = false;
+        for (UsuarioTipoDocumento userTipo : usuario.getUsuarioTipoDocumento()) {
+            if (userTipo.getTipoDocumento().getId().equals(documento.getTipoDocumento().getId()) && userTipo.getAlterar() == true) {
+                documento.setDataEdicao(Calendar.getInstance());
+                documento.setUsuarioEdicao(usuario);
+                this.documentoDAO.editar(documento);
+                verifica = true;
+            }
+        }
+        if (!verifica) {
+            new MensagemUtil().sendMensagem("alerta", "Usuário sem permissão para Alterar este tipo de documento", " ");
+        }
     }
 
     public void excluir(Documento documento, Usuario usuario) {
-        boolean verifica=false;
-        for(UsuarioTipoDocumento userTipo:usuario.getUsuarioTipoDocumento()){
-            if(userTipo.getTipoDocumento().getId().equals(documento.getTipoDocumento().getId()) && userTipo.getExcluir()==true){
+        boolean verifica = false;
+        for (UsuarioTipoDocumento userTipo : usuario.getUsuarioTipoDocumento()) {
+            if (userTipo.getTipoDocumento().getId().equals(documento.getTipoDocumento().getId()) && userTipo.getExcluir() == true) {
+                documento.setDataExclusao(Calendar.getInstance());
+                documento.setUsuarioExclusao(usuario);
                 this.documentoDAO.excluir(documento);
-                File file = new File(documento.getDiretorio()+File.separator+documento.getNomeArquivo());
-                file.deleteOnExit();
-                
-                verifica=true;
-            } 
+
+                verifica = true;
+            }
         }
-        if(!verifica){
-            new MensagemUtil().sendMensagem("alerta","Usuário sem permissão para excluir este tipo de documento", " ");
+        if (!verifica) {
+            new MensagemUtil().sendMensagem("alerta", "Usuário sem permissão para excluir este tipo de documento", " ");
         }
-        
-    }
-    
-    public void aprovar(Documento documento, Usuario usuario){
-        documento.setDataAprovacao(Calendar.getInstance());
-        documento.setUsuarioAprovacao(usuario);
-        
+
     }
 
-    public List<Documento> listar(Empresa empresa, Usuario usuario, String descricao ,TipoDocumento tipoDocumento, Entidade entidade,
-            Date dataInicio, Date dataFim) {
+    public void aprovar(Documento documento, Usuario usuario) {
+        documento.setDataAprovacao(Calendar.getInstance());
+        documento.setUsuarioAprovacao(usuario);
+
+    }
+
+    public List<Documento> listar(Empresa empresa, Usuario usuario, String descricao, 
+            TipoDocumento tipoDocumento, Entidade entidade,
+            Date dataInicio, Date dataFim,
+            Double valorDe, Double valorAte, Date vencimentoDe, Date vencimentoAte, String numero) {
         UsuarioRN usuarioRN = new UsuarioRN();
         usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
-        return this.documentoDAO.listar(empresa, usuario, descricao ,tipoDocumento,entidade, dataInicio, dataFim);
-        
+        return this.documentoDAO.listar(empresa, usuario, descricao, tipoDocumento, entidade, dataInicio, dataFim,
+                valorDe, valorAte, vencimentoDe, vencimentoAte, numero);
+
     }
-    
-    public List<Documento> naoAprovados(Empresa empresa, Usuario usuario){
+
+    public List<Documento> naoAprovados(Empresa empresa, Usuario usuario) {
         UsuarioRN usuarioRN = new UsuarioRN();
         usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
         return this.documentoDAO.naoAprovados(empresa, usuario);
     }
     
-   
+    public List<Documento> listarCodigo(Empresa empresa, Usuario usuario, Integer codigo){
+        UsuarioRN usuarioRN = new UsuarioRN();
+        usuario = usuarioRN.buscarPorEmail(usuario.getEmail());
+        return this.documentoDAO.listarCodigo(empresa, usuario, codigo);
+    }
 
     public Integer ultimoCodigoBR() {
         return this.documentoDAO.ultimoCodigoBD();
     }
-    
+
     public Integer totalDoc(Empresa empresa) {
         return this.documentoDAO.totalDoc(empresa);
-    } 
-    
-    public Integer porUsuario(Empresa empresa, Usuario usuario){
+    }
+
+    public Integer porUsuario(Empresa empresa, Usuario usuario) {
         return this.documentoDAO.porUsuario(empresa, usuario);
     }
-    
-    public Integer mesAnterior(Empresa empresa){
+
+    public Integer mesAnterior(Empresa empresa) {
         return this.documentoDAO.mesAnterior(empresa);
     }
-    
-    public Integer mesAtual(Empresa empresa){
+
+    public Integer mesAtual(Empresa empresa) {
         return this.documentoDAO.mesAtual(empresa);
     }
 
