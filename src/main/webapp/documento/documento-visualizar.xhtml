@@ -83,7 +83,7 @@
                 </div>
             </div>
             <!--FIM DO MODAL DO VINCULAR DOCUMENTO-->
-             <!-- Modal para VISUALIZAR DOCUMENTO VINCULADO-->
+            <!-- Modal para VISUALIZAR DOCUMENTO VINCULADO-->
             <div class="modal fade" id="modalDocVinculo" role="dialog">
                 <div class="modal-dialog modal-lg" >
                     <div class="modal-content">
@@ -95,8 +95,44 @@
                             <div class="modal-body">
                                 <div class="container">
                                     <div class="row">
-                                        
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <label for="modcod">Código:</label>
+                                                        <h:inputText value="#{documentoVisualizarBean.docVinculado.id}"   class="form-control" id="modcod" 
+                                                                     disabled="true" >
+                                                            <f:convertNumber pattern="#####0" minIntegerDigits="6"/>
+                                                        </h:inputText>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="form-group">
+                                                        <label for="modDescricaoDocumento">Descrição:</label>
+                                                        <h:inputText value="#{documentoVisualizarBean.docVinculado.descricao}"   class="form-control" 
+                                                                     id="modDescricaoDocumento"
+                                                                     disabled="true"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="modTipo">Tipo de Documento:</label>
+                                                        <h:inputText value="#{documentoVisualizarBean.docVinculado.tipoDocumento.descricao}"   class="form-control" 
+                                                                     id="modTipo"
+                                                                     disabled="true"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    
+                                                </div>
+                                            </div>
+                                                
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="modal-footer">
